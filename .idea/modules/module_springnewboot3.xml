@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_springnewboot3" default="compile.module.springnewboot3">
+  <dirname property="module.springnewboot3.basedir" file="${ant.file.module_springnewboot3}"/>
+  
+  <property name="module.jdk.home.springnewboot3" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.springnewboot3" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.springnewboot3" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.springnewboot3" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="springnewboot3.output.dir" value="${module.springnewboot3.basedir}/../../out/production/SpringNewBoot3"/>
+  <property name="springnewboot3.testoutput.dir" value="${module.springnewboot3.basedir}/../../out/test/SpringNewBoot3"/>
+  
+  <path id="springnewboot3.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="springnewboot3.module.production.classpath">
+    <path refid="${module.jdk.classpath.springnewboot3}"/>
+  </path>
+  
+  <path id="springnewboot3.runtime.production.module.classpath">
+    <pathelement location="${springnewboot3.output.dir}"/>
+  </path>
+  
+  <path id="springnewboot3.module.classpath">
+    <path refid="${module.jdk.classpath.springnewboot3}"/>
+    <pathelement location="${springnewboot3.output.dir}"/>
+  </path>
+  
+  <path id="springnewboot3.runtime.module.classpath">
+    <pathelement location="${springnewboot3.testoutput.dir}"/>
+    <pathelement location="${springnewboot3.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.springnewboot3">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.springnewboot3">
+    <patternset refid="excluded.from.module.springnewboot3"/>
+  </patternset>
+  
+  
+  <target name="compile.module.springnewboot3" depends="compile.module.springnewboot3.production,compile.module.springnewboot3.tests" description="Compile module SpringNewBoot3"/>
+  
+  <target name="compile.module.springnewboot3.production" depends="register.custom.compilers" description="Compile module SpringNewBoot3; production classes"/>
+  
+  <target name="compile.module.springnewboot3.tests" depends="register.custom.compilers,compile.module.springnewboot3.production" description="compile module SpringNewBoot3; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.springnewboot3" description="cleanup module">
+    <delete dir="${springnewboot3.output.dir}"/>
+    <delete dir="${springnewboot3.testoutput.dir}"/>
+  </target>
+</project>

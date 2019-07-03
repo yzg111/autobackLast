@@ -1,0 +1,1309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="springnewboot3" default="all">
+  
+  
+  <property file="springnewboot3.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.gradle:_antlr:antlr:2.7.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/antlr/antlr/2.7.7/83cd2cd674a217ade95a4bb83a8a14f351f48bd0/antlr-2.7.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_ch.qos.logback:logback-classic:1.1.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/9865cf6994f9ff13fce0bf93f2054ef6c65bb462/logback-classic-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_ch.qos.logback:logback-core:1.1.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/7873092d39ef741575ca91378a6a21c388363ac8/logback-core-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.alibaba:fastjson:1.2.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.alibaba/fastjson/1.2.6/b74bde9cceb2f9ec1077a9c7c3a007c251531ba6/fastjson-1.2.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.beust:jcommander:1.47.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.beust/jcommander/1.47/7aa7cfcce8bba3f9ad912d1078f34ace3cc8c662/jcommander-1.47.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.fasterxml.jackson.core:jackson-annotations:2.8.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.8.4/de3570327cf8d1d4f37920535c51a1f74225a6de/jackson-annotations-2.8.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.fasterxml.jackson.core:jackson-core:2.8.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.8.4/ca365c0817cc345ea831cae7c4e9b42a72b32281/jackson-core-2.8.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.fasterxml.jackson.core:jackson-databind:2.8.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.8.4/1c36c81e79cacdf48116afba8495e3393d267ba1/jackson-databind-2.8.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.fasterxml:classmate:1.3.3.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.3.3/864c8e370a691e343210cc7c532fc198cee460d8/classmate-1.3.3.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.github.ben-manes.caffeine:caffeine:2.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/2.3.4/7b65cd4af7141606b9e7e74abdbbb02ef7ee0cc4/caffeine-2.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.google.guava:guava:19.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4.2/2eaf3d3c9746d526ff7e5b93931d482c3887e6ac/concurrentlinkedhashmap-lru-1.4.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_com.thoughtworks.qdox:qdox:1.12.1.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.thoughtworks.qdox/qdox/1.12.1/f7122f6ab1f64bdf9f5970b0e89bfb355e036897/qdox-1.12.1.jar"/>
+  </path>
+  
+  <path id="library.gradle:_commons-cli:commons-cli:1.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.4/c51c00206bb913cd8612b24abd9fa98ae89719b1/commons-cli-1.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_commons-collections:commons-collections:3.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.0/aa12980fe4eca7331a660bdeed371d024687c68d/commons-collections-3.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_dom4j:dom4j:1.6.1.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/dom4j/dom4j/1.6.1/5d3ccc056b6f056dbf0dddfdf43894b9065a8f94/dom4j-1.6.1.jar"/>
+  </path>
+  
+  <path id="library.gradle:_info.picocli:picocli:3.7.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/3.7.0/cc77580eac545a49ec71f395561c4f1b9822c30a/picocli-3.7.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.netty:netty-all:4.1.21.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.netty/netty-all/4.1.21.Final/d702a5858843dd83725ffcdfd6ed213ae22a8906/netty-all-4.1.21.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.netty:netty:3.7.0.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.netty/netty/3.7.0.Final/7a8c35599c68c0bf383df74469aa3e03d9aca87/netty-3.7.0.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-core:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-schema:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-spi:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-spring-web:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-swagger-common:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-swagger-ui:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.springfox:springfox-swagger2:2.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.swagger:swagger-annotations:1.5.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_io.swagger:swagger-models:1.5.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_javax.transaction:javax.transaction-api:1.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.transaction/javax.transaction-api/1.2/d81aff979d603edd90dcd8db2abc1f4ce6479e3e/javax.transaction-api-1.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_javax.validation:validation-api:1.1.0.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_jline:jline:2.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/jline/jline/2.12/ce9062c6a125e0f9ad766032573c041ae8ecc986/jline-2.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_junit:junit:4.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_log4j:log4j:1.2.16.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.16/7999a63bfccbc7c247a9aea10d83d4272bd492c6/log4j-1.2.16.jar"/>
+  </path>
+  
+  <path id="library.gradle:_mysql:mysql-connector-java:5.1.40.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.40/ef2a2ceab1735eaaae0b5d1cccf574fb7c6e1c52/mysql-connector-java-5.1.40.jar"/>
+  </path>
+  
+  <path id="library.gradle:_net.java.dev.javacc:javacc:5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/net.java.dev.javacc/javacc/5.0/f19b7d4278b837fe92504946e6860b0bcc180956/javacc-5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_net.sf.opencsv:opencsv:2.3.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/net.sf.opencsv/opencsv/2.3/c23708cdb9e80a144db433e23344a788a1fd6599/opencsv-2.3.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.activemq:activemq-broker:5.9.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-broker/5.9.0/182371cc4428bdaebb42fba73a6e3522db174a45/activemq-broker-5.9.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.activemq:activemq-client:5.9.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.9.0/df009ac31252e2f7a00f863992628a5496a7c04d/activemq-client-5.9.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.activemq:activemq-openwire-legacy:5.13.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-openwire-legacy/5.13.4/95995fb6819e162ac4df299505800c65f670d2bf/activemq-openwire-legacy-5.13.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.ant:ant-antlr:1.9.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-antlr/1.9.4/4cf30025981dc2344324a0ef0e40063c3ef08f0a/ant-antlr-1.9.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.ant:ant-junit:1.9.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-junit/1.9.4/b063757dacaa716b643c2f9270e469183636ff11/ant-junit-1.9.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.ant:ant-launcher:1.9.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-launcher/1.9.4/334b62cb4be0432769679e8b94e83f8fd5ed395c/ant-launcher-1.9.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.ant:ant:1.9.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant/1.9.4/6d473e8653d952045f550f4ef225a9591b79094a/ant-1.9.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.calcite:calcite-linq4j:1.18.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.calcite/calcite-linq4j/1.18.0/bc7d7a74b2e5ead39ee3688f107bece3ad13eca6/calcite-linq4j-1.18.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.commons:commons-compress:1.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/84caa68576e345eb5e7ae61a0e5a9229eb100d7b/commons-compress-1.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.commons:commons-lang3:3.8.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.8/222fc4cf714a63f27cbdafdbd863efd0d30c8a1e/commons-lang3-3.8.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.commons:commons-text:1.1.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-text/1.1/c336bf600f44b88af356c8a85eef4af822b06a4d/commons-text-1.1.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.curator:curator-client:3.3.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-client/3.3.0/4eb9fa4d049fe190555ee7930455341797a6edb4/curator-client-3.3.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.curator:curator-framework:3.3.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-framework/3.3.0/a59083b18ed8db2ad01d061a9038ff2aab5fd8bd/curator-framework-3.3.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.curator:curator-recipes:3.3.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-recipes/3.3.0/76e1433dc67f57a3caca298252860617a8293f85/curator-recipes-3.3.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1/5372615b0c04c1913c95c34a0414cef720ca2855/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1/c872b46c601d8dc03633288b81269f9e42762cea/geronimo-jms_1.1_spec-1.1.1.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.lucene:lucene-analyzers-common:5.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analyzers-common/5.5.0/1e0e8243a4410be20c34683034fafa7bb52e55cc/lucene-analyzers-common-5.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.lucene:lucene-backward-codecs:5.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-backward-codecs/5.5.0/68480974b2f54f519763632a7c1c5d51cbff3805/lucene-backward-codecs-5.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.lucene:lucene-codecs:5.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-codecs/5.5.0/b6d6b847a516b5fee88f7cfcf173cf9564233471/lucene-codecs-5.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.lucene:lucene-core:5.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-core/5.5.0/a74fd869bb5ad7fe6b4cd29df9543a34aea81164/lucene-core-5.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.lucene:lucene-queryparser:5.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-queryparser/5.5.0/fddc49725b562fd48dff0cff004336ad2a090a4/lucene-queryparser-5.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.tomcat.embed:tomcat-embed-core:8.5.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/8.5.6/960834b5abc6b2135250487abf6c060a0fa5a22e/tomcat-embed-core-8.5.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.tomcat.embed:tomcat-embed-el:8.5.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-el/8.5.6/a102298d8dc72f4065533d5962953d753b172602/tomcat-embed-el-8.5.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.tomcat.embed:tomcat-embed-websocket:8.5.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-websocket/8.5.6/6f6940a216b380ea8506530c374fcfeef820ba54/tomcat-embed-websocket-8.5.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.tomcat:tomcat-jdbc:8.5.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-jdbc/8.5.6/feb10a9e22f70565c7556f327b0481dba8587bbc/tomcat-jdbc-8.5.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.tomcat:tomcat-juli:8.5.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-juli/8.5.6/83d2d1e3362ecca504f3bf8ed1bc4cc451754d24/tomcat-juli-8.5.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apache.zookeeper:zookeeper:3.5.1-alpha.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.zookeeper/zookeeper/3.5.1-alpha/1b4d9ccd567eb0a5ddf11f209688e0b78ee7e1e2/zookeeper-3.5.1-alpha.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.apiguardian:apiguardian-api:1.0.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.0.0/3ef5276905e36f4d8055fe3cb0bdcc7503ffc85d/apiguardian-api-1.0.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.aspectj:aspectjweaver:1.8.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.9/db28774f477f07220eac18d5ec9c4e01f48589d7/aspectjweaver-1.8.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.bouncycastle:bcpkix-jdk15on:1.53.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.53/a95b3dec919267af451256c2e6bf811b7f2da8e6/bcpkix-jdk15on-1.53.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.bouncycastle:bcprov-jdk15on:1.53.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.53/9d3def2fa5a0d2ed0c1146e9945df10d29eb4ccb/bcprov-jdk15on-1.53.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-ant:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-ant/2.4.7/c56eb616e1485df8df5493a09bf30cdf8c7c36b0/groovy-ant-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-cli-commons:2.5.5.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-cli-commons/2.5.5/4a814d163a7299f7ca875121a753216cf549fd97/groovy-cli-commons-2.5.5.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-cli-picocli:2.5.5.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-cli-picocli/2.5.5/5dd2d42bada880358ac9f616a46e0318e4b1c591/groovy-cli-picocli-2.5.5.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-console:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-console/2.4.7/573e8838b42e40aeaefaec0b93a42ea41d1a11ed/groovy-console-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-datetime:2.5.5.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-datetime/2.5.5/617f9e499a0b25927e08706523a34ef0df1ab9e9/groovy-datetime-2.5.5.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-docgenerator:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-docgenerator/2.4.7/8532a761e7e90afebc06923747f9e2df5545832a/groovy-docgenerator-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-groovydoc:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-groovydoc/2.4.7/6327c63b9f0820849dd73749c14c56a7449a97d9/groovy-groovydoc-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-groovysh:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-groovysh/2.4.7/13622361dc63feed994a4188ff322f05b7317290/groovy-groovysh-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-jmx:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-jmx/2.4.7/c3dcb5c6a35f3df8d0c10558c4afcf7ea6ae09f3/groovy-jmx-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-json:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-json/2.4.7/c62bc909e3bb996cbc9509435a522f6fb8cf1461/groovy-json-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-jsr223:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-jsr223/2.4.7/779e5d684d2ac7b988ec000dd22580b737fb550c/groovy-jsr223-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-macro:2.5.5.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-macro/2.5.5/ee1e459223b450d8f98b5b0efbe974d85a32e4a2/groovy-macro-2.5.5.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-nio:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-nio/2.4.7/8964abaa9194a276881805b4372ea08f148df441/groovy-nio-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-servlet:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-servlet/2.4.7/ba9caac52e4ff1744afd9a86ef760c9aa074306/groovy-servlet-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-sql:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-sql/2.4.7/eb13f8aadd7b7c2c920ef52dfda74155e7803255/groovy-sql-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-swing:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-swing/2.4.7/f5a2cdca4598ba59e9ab94d267bd20925ab368/groovy-swing-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-templates:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-templates/2.4.7/3153f11ab70d65526109d9bcbe4f7b11f60b6fb6/groovy-templates-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-test-junit5:2.5.5.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-test-junit5/2.5.5/2fd36ecfdc0c1e7bc69858dc5c4c8418b9e29682/groovy-test-junit5-2.5.5.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-test:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-test/2.4.7/ea885d613fb89f83abf6d529f8e02be40a4274fc/groovy-test-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-testng:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-testng/2.4.7/9180998132e079e586b519d7e77f92a34b05154d/groovy-testng-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy-xml:2.4.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-xml/2.4.7/864b9dc44fb0e05f329fad473e8b4df172f1b48f/groovy-xml-2.4.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.codehaus.groovy:groovy:2.5.5.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/2.5.5/2388f952b369f6b11cde8e15ec872e9ca3e0ff3e/groovy-2.5.5.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.fusesource.hawtbuf:hawtbuf:1.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.9/4a42b835d1df77db8c9a144a11ebb4600a372f5f/hawtbuf-1.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.hamcrest:hamcrest-core:1.3.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.hibernate.common:hibernate-commons-annotations:5.0.1.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/5.0.1.Final/71e1cff3fcb20d3b3af4f3363c3ddb24d33c6879/hibernate-commons-annotations-5.0.1.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.hibernate:hibernate-core:5.0.11.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.0.11.Final/c2487fb72a2217a7cec9ab478d4c21a36fc09977/hibernate-core-5.0.11.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.hibernate:hibernate-entitymanager:5.0.11.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-entitymanager/5.0.11.Final/549565caed4e0bcb816843693e66ff7b04ce025f/hibernate-entitymanager-5.0.11.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.hibernate:hibernate-validator:5.2.4.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.4.Final/fb18766b576aa6632bcfe9a20a023cbd52bf9769/hibernate-validator-5.2.4.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.javassist:javassist:3.20.0-ga.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.20.0-GA/a9cbcdfb7e9f86fbc74d3afae65f2248bfbf82a0/javassist-3.20.0-GA.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.jboss.logging:jboss-logging:3.3.0.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/3616bb87707910296e2c195dc016287080bba5af/jboss-logging-3.3.0.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.jboss:jandex:2.0.0.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/2.0.0.Final/3e899258936f94649c777193e1be846387ed54b3/jandex-2.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.junit.jupiter:junit-jupiter-api:5.3.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.3.2/3602b523ffae9dabc04c329d73ab39ab04b3cbe2/junit-jupiter-api-5.3.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.junit.jupiter:junit-jupiter-engine:5.3.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.3.2/69350316a14c46d8f6c4c909e469ec9edf58c4f8/junit-jupiter-engine-5.3.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.junit.platform:junit-platform-commons:1.3.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.3.2/378d1d1b162426ad031522f6d51e3bf28d1631a4/junit-platform-commons-1.3.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.junit.platform:junit-platform-engine:1.3.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.3.2/c54bc1d4654bd1ef15fccf512ce664184085969/junit-platform-engine-1.3.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.junit.platform:junit-platform-launcher:1.3.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-launcher/1.3.2/4c503033e9085087cf70d241142068f1e6bd8195/junit-platform-launcher-1.3.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.mapstruct:mapstruct:1.0.0.final.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.Final/794bb2c7d3dd69211deb22857d92fb4c5361be3f/mapstruct-1.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.mongodb:bson:3.2.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/bson/3.2.2/b0278bca693eeb91e14db32aea0987a0eed99336/bson-3.2.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.mongodb:mongodb-driver-core:3.2.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-core/3.2.2/5fe989e7863333970ab0698f18c2ae9d3cb1b2d0/mongodb-driver-core-3.2.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.mongodb:mongodb-driver:3.2.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver/3.2.2/8b5c4610953eec83435d87547d34976848508875/mongodb-driver-3.2.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j.driver:neo4j-java-driver:1.5.0.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j.driver/neo4j-java-driver/1.5.0/25d4467127d99340c9a7f02ab30ea19b15e52c88/neo4j-java-driver-1.5.0.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-codegen:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-codegen/3.3.4/95280d9736114e7edfca189d09aba36c69e48d9d/neo4j-codegen-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-collections:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-collections/3.3.4/c2b6c4c624e6c9ef944579d30c929edb6a1bc45f/neo4j-collections-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-command-line:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-command-line/3.3.4/23396a31256a7c55e14219b971989882eabfb2bb/neo4j-command-line-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-common:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-common/3.3.4/a1b9032c0e36c45d004ea811af9bc815a6708c46/neo4j-common-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-configuration:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-configuration/3.3.4/d53a3752051b28bbab7ee1896bc051f245fa7f97/neo4j-configuration-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-consistency-check:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-consistency-check/3.3.4/be421703c27b7e786a6a426ff13a4ed386cf374e/neo4j-consistency-check-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-csv:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-csv/3.3.4/43692359981932c88786506878ee5cf6df9e951/neo4j-csv-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-compiler-2.3:2.3.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-2.3/2.3.12/72ac3a861e32b681461d74523bfdadeeb6f8a72b/neo4j-cypher-compiler-2.3-2.3.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-compiler-3.1:3.1.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-3.1/3.1.6/1b307772ad80c2b36681d7425a1931be7f0d2b28/neo4j-cypher-compiler-3.1-3.1.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-compiler-3.2:3.2.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-3.2/3.2.9/e9865b93e76a8bf4a48f2d184290d95e16ad9caa/neo4j-cypher-compiler-3.2-3.2.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-compiler-3.3:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-3.3/3.3.4/fc7dfd1245ed75f631342dcedcc193acb2e3ff0b/neo4j-cypher-compiler-3.3-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-frontend-2.3:2.3.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-2.3/2.3.12/d87e903d0b8a10b34ff8f6372362777e51bfbfbe/neo4j-cypher-frontend-2.3-2.3.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-frontend-3.1:3.1.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-3.1/3.1.6/33bc3872d058e6ee5c16c5fcded7ccd5f1e6c1dc/neo4j-cypher-frontend-3.1-3.1.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-frontend-3.2:3.2.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-3.2/3.2.9/7104b0e0c28321598b26fedd536eae35b4c470c3/neo4j-cypher-frontend-3.2-3.2.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-frontend-3.3:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-3.3/3.3.4/44c2bd835e52beeab5e7dd614fd2f94177b66c52/neo4j-cypher-frontend-3.3-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-ir-3.2:3.2.9.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-ir-3.2/3.2.9/4231f700fab2121ba1ab52e2534cb7286884b0f9/neo4j-cypher-ir-3.2-3.2.9.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-ir-3.3:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-ir-3.3/3.3.4/2cd27389c515bdcc6af783f894a0edf60e69a670/neo4j-cypher-ir-3.3-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher-logical-plans-3.3:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-logical-plans-3.3/3.3.4/2a110c44e75335401714a0c34ebf121929622c73/neo4j-cypher-logical-plans-3.3-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-cypher:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher/3.3.4/dc42680155eb07fec4139ab23d54c79d1d568993/neo4j-cypher-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-dbms:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-dbms/3.3.4/3e87db3435321a4cb6c6122812bfabae19356ec3/neo4j-dbms-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-graph-algo:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graph-algo/3.3.4/bbc95339ddf9581dbdc002ebb535e84f21f0e7fd/neo4j-graph-algo-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-graph-matching:3.1.6.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graph-matching/3.1.6/163dd8c75d99a402252877fef90dd946ff2134db/neo4j-graph-matching-3.1.6.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-graphdb-api:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graphdb-api/3.3.4/c8ffb7425a258fbefa3e5fa20d9a617ffec57135/neo4j-graphdb-api-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-import-tool:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-import-tool/3.3.4/37f359f8b3d95c971223f882aaddfd25d9e21c6/neo4j-import-tool-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-index:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-index/3.3.4/140860a1fb6b061bee33a438ce54c9e555eca8fc/neo4j-index-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-io:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-io/3.3.4/7110980401a82c36f4691281848f72d25c593d45/neo4j-io-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-jmx:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-jmx/3.3.4/5e4e7217905e1ef61b0ab9584e2fcfd29240f25b/neo4j-jmx-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-kernel:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-kernel/3.3.4/d67110372b77e0622f4d6dca0f75707b8a73fb6d/neo4j-kernel-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-logging:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-logging/3.3.4/47726159653b200d60b8cf27be6fc70ad1c0a46c/neo4j-logging-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-lucene-index:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-lucene-index/3.3.4/a49015b63153f1df04026ba81f700ccaab72b96b/neo4j-lucene-index-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-lucene-upgrade:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-lucene-upgrade/3.3.4/8a759540e5ebbac334ef658dbf24e32fb47940ae/neo4j-lucene-upgrade-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-primitive-collections:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-primitive-collections/3.3.4/357a95b4eb71f01c3437c98b6412f20104d63ad2/neo4j-primitive-collections-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-resource:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-resource/3.3.4/f13fd9ed2a88fc4e287309bd5dfdacfc9162b9e9/neo4j-resource-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-ssl:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-ssl/3.3.4/9a961fab7dd4d18d39fb2322559fbc7eb93d8b6d/neo4j-ssl-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-udc:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-udc/3.3.4/95b1f360833d102d55668ce92a80afbe0cda128b/neo4j-udc-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-unsafe:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-unsafe/3.3.4/3c44acd18fb395eba7f5ab01ad7627a5ecabc937/neo4j-unsafe-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j-values:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-values/3.3.4/4e335b3298567b33d66559d98e37e056cf4b71f2/neo4j-values-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.neo4j:neo4j:3.3.4.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j/3.3.4/7116be45c123e5d27530aaae4f968412a435c86d/neo4j-3.3.4.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.opentest4j:opentest4j:1.1.1.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.1.1/efd9f971e91074491ea55b19f67b13470cf4fcdd/opentest4j-1.1.1.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.ow2.asm:asm-analysis:5.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/5.2/2de10833bb3ade1939b1489b7656c9de20343e14/asm-analysis-5.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.ow2.asm:asm-tree:5.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/5.2/733a8d67f6f4174d12142b7bbcfc496a6d99882e/asm-tree-5.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.ow2.asm:asm-util:5.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/5.2/9408ea14e73b7c9b427545a1b84923d6afaf8e1e/asm-util-5.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.ow2.asm:asm:5.2.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/5.2/4ce3ecdc7115bcbf9d4ff4e6ec638e60760819df/asm-5.2.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.parboiled:parboiled-core:1.1.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.parboiled/parboiled-core/1.1.7/a60ff9a54cbeb30ec44c89e16ac4c35913cbad5a/parboiled-core-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.parboiled:parboiled-scala_2.11:1.1.7.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.parboiled/parboiled-scala_2.11/1.1.7/4e14ecb11f40f25216ce01dc349f541bc801354f/parboiled-scala_2.11-1.1.7.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.scala-lang:scala-library:2.11.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.12/bf5534e6fec3d665bd6419c952a929a8bdd4b591/scala-library-2.11.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.scala-lang:scala-reflect:2.11.12.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.11.12/2bb23c13c527566d9828107ca4108be2a2c06f01/scala-reflect-2.11.12.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.slf4j:jcl-over-slf4j:1.7.21.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.21/331b564a3a42f002a0004b039c1c430da89062cd/jcl-over-slf4j-1.7.21.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.slf4j:jul-to-slf4j:1.7.21.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/jul-to-slf4j/1.7.21/2f22c882ffa479d1e9ff4eb0e8e2c29f2a0871ed/jul-to-slf4j-1.7.21.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.slf4j:log4j-over-slf4j:1.7.21.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/log4j-over-slf4j/1.7.21/b3700d97464d99bdcd42c0177d6e7951c94d75ff/log4j-over-slf4j-1.7.21.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.slf4j:slf4j-api:1.7.21.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.21/139535a69a4239db087de9bab0bee568bf8e0b70/slf4j-api-1.7.21.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-actuator:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator/1.4.2.RELEASE/698c1560faa11be98e590eb4e87cc5abb55a2802/spring-boot-actuator-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-autoconfigure:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.4.2.RELEASE/368e464f9ce4622722ce0944cc4ba6fa71332b68/spring-boot-autoconfigure-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-actuator:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.4.2.RELEASE/43177cefa7697ae38236a5e1852539ce03e071c5/spring-boot-starter-actuator-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-aop:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-aop/1.4.2.RELEASE/8046bac04ea163a93b27268fbee16164dbafad5/spring-boot-starter-aop-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-data-jpa:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa/1.4.2.RELEASE/b74a1318032bb187ecb7511c18cb93753c5a5154/spring-boot-starter-data-jpa-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-data-mongodb:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-mongodb/1.4.2.RELEASE/9c4e38421e53aa31f9f767dc827bdda864eb827f/spring-boot-starter-data-mongodb-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-jdbc:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc/1.4.2.RELEASE/706b5cd5996bd8c03248c3236e90e9d2d7c948db/spring-boot-starter-jdbc-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-logging:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/1.4.2.RELEASE/2799c67340d6a27af5f17a7ecdfa1f50cb1d152d/spring-boot-starter-logging-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-security:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/1.4.2.RELEASE/2aec053d0894f5113f974775b53fad27ae056ea6/spring-boot-starter-security-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-tomcat:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.4.2.RELEASE/1ab1939bb566bbaf25cc1f50cdf955b6c927c4d3/spring-boot-starter-tomcat-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter-web:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.4.2.RELEASE/7145c258f8fba4067f9e3880fad23586c9b8ff10/spring-boot-starter-web-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot-starter:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter/1.4.2.RELEASE/c6068dc9688c12509bb1c36fcf6ff4817d46cce2/spring-boot-starter-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.boot:spring-boot:1.4.2.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.4.2.RELEASE/19ecf2582f58722c08147918982227885f6e31b1/spring-boot-1.4.2.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.data:spring-data-commons:1.12.5.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.12.5.RELEASE/29ed49845ecb804c140a8fea7bb4a524b0502135/spring-data-commons-1.12.5.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.data:spring-data-jpa:1.10.5.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/1.10.5.RELEASE/1c0c3e53a8047fecf2a8a30e9c2635609fef43ec/spring-data-jpa-1.10.5.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.data:spring-data-mongodb:1.9.5.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.9.5.RELEASE/4f0d95a30d6a884c5cac8b5388fab1f384868027/spring-data-mongodb-1.9.5.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.plugin:spring-plugin-core:1.2.0.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.plugin:spring-plugin-metadata:1.2.0.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.security:spring-security-config:4.1.3.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.1.3.RELEASE/39d5f20a453a4a57601344212cb877e29a9bf9be/spring-security-config-4.1.3.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.security:spring-security-core:4.1.3.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.1.3.RELEASE/e6e5b9a52c887484e61069d836520228ddb9b545/spring-security-core-4.1.3.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework.security:spring-security-web:4.1.3.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.1.3.RELEASE/21d7c95a1f72189cd40ac5caf11357af7ba90508/spring-security-web-4.1.3.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-aop:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.3.4.RELEASE/43f3d4a43a8dcc91137e092b981101332a645e4b/spring-aop-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-aspects:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.3.4.RELEASE/1c71b7e427d898e9374090d6251b25282581bcfa/spring-aspects-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-beans:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.3.4.RELEASE/4fbf4327d6c7f81c821f2d56e8695d394c7b930a/spring-beans-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-context:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.3.4.RELEASE/c8086505715fba4927fed3d7e3314692817413b6/spring-context-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-core:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.3.4.RELEASE/da373e491d3863477568896089ee9457bc316783/spring-core-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-expression:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.3.4.RELEASE/5573955b5373669be0e352a1eb5dc9c87b069cb6/spring-expression-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-jdbc:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.3.4.RELEASE/42175d194cf6aa7c716c0887f30255e5c0a5262c/spring-jdbc-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-orm:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-orm/4.3.4.RELEASE/f83034fb7ab21434bdb8367fba81d08cfc44556a/spring-orm-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-tx:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.3.4.RELEASE/303d00338193c04312426325121572d2fc1d4ec5/spring-tx-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-web:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.3.4.RELEASE/719f05404ba8a9de1516398d31d9622042584f0d/spring-web-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.springframework:spring-webmvc:4.3.4.release.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.3.4.RELEASE/79529d7ea72045e92e3dbeb0f4f6919093f47137/spring-webmvc-4.3.4.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.testng:testng:6.8.13.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.testng/testng/6.8.13/a1aed82b88eee9bd806d5e0eefbb452fed5c7877/testng-6.8.13.jar"/>
+  </path>
+  
+  <path id="library.gradle:_org.yaml:snakeyaml:1.17.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.17/7a27ea250c5130b2922b86dea63cbb1cc10a660c/snakeyaml-1.17.jar"/>
+  </path>
+  
+  <path id="library.gradle:_xml-apis:xml-apis:1.4.01.classpath">
+    <pathelement location="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis/1.4.01/3789d9fada2d3d458c4ba2de349d48780f381ee3/xml-apis-1.4.01.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/.idea/modules/module_springnewboot3.xml"/>
+  
+  <import file="${basedir}/.idea/modules/module_springnewboot3_main.xml"/>
+  
+  <import file="${basedir}/.idea/modules/module_springnewboot3_test.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.springnewboot3, clean.module.springnewboot3_main, clean.module.springnewboot3_test, clean.artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.springnewboot3, compile.module.springnewboot3_main, compile.module.springnewboot3_test" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war" value="${basedir}/build/libs"/>
+    <property name="artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)" value="${basedir}/build/libs/exploded/SpringNewBoot3-1.0-SNAPSHOT.war"/>
+    <property name="artifact.output.root" value="${basedir}/out/artifacts/ROOT"/>
+    <property name="artifact.output.springnewboot3_main:jar" value="${basedir}/out/artifacts/SpringNewBoot3_main_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.SpringNewBoot3-1.0-SNAPSHOT.war" value="${artifacts.temp.dir}/SpringNewBoot3-1.0-SNAPSHOT.war"/>
+    <property name="temp.jar.path.ROOT.war" value="${artifacts.temp.dir}/ROOT.war"/>
+    <property name="temp.jar.path.SpringNewBoot3_main.jar" value="${artifacts.temp.dir}/SpringNewBoot3_main.jar"/>
+  </target>
+  
+  <target name="clean.artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)" description="clean Gradle : SpringNewBoot3 : SpringNewBoot3-1.0-SNAPSHOT.war (exploded) artifact output">
+    <delete dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}"/>
+  </target>
+  
+  <target name="artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war" depends="init.artifacts, artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)" description="Build &#39;Gradle : SpringNewBoot3 : SpringNewBoot3-1.0-SNAPSHOT.war&#39; artifact">
+    <property name="artifact.temp.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war" value="${artifacts.temp.dir}/Gradle___SpringNewBoot3___SpringNewBoot3_1_0_SNAPSHOT_war"/>
+    <mkdir dir="${artifact.temp.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war}"/>
+    <zip destfile="${temp.jar.path.SpringNewBoot3-1.0-SNAPSHOT.war}">
+      <zipfileset dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}"/>
+    </zip>
+    <copy file="${temp.jar.path.SpringNewBoot3-1.0-SNAPSHOT.war}" tofile="${artifact.temp.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war}/SpringNewBoot3-1.0-SNAPSHOT.war"/>
+  </target>
+  
+  <target name="artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)" depends="init.artifacts, compile.module.springnewboot3_main" description="Build &#39;Gradle : SpringNewBoot3 : SpringNewBoot3-1.0-SNAPSHOT.war (exploded)&#39; artifact">
+    <mkdir dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}"/>
+    <mkdir dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/META-INF"/>
+    <copy file="${basedir}/build/libs/exploded/SpringNewBoot3-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/META-INF/MANIFEST.MF"/>
+    <copy todir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}">
+      <fileset dir="${basedir}/src/main/webapp"/>
+    </copy>
+    <mkdir dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF"/>
+    <mkdir dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/classes">
+      <fileset dir="${springnewboot3_main.output.dir}"/>
+    </copy>
+    <copy todir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/classes">
+      <fileset dir="${basedir}/build/resources/main"/>
+    </copy>
+    <mkdir dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/junit-4.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.4.2.RELEASE/7145c258f8fba4067f9e3880fad23586c9b8ff10/spring-boot-starter-web-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-web-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/1.4.2.RELEASE/2aec053d0894f5113f974775b53fad27ae056ea6/spring-boot-starter-security-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-security-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa/1.4.2.RELEASE/b74a1318032bb187ecb7511c18cb93753c5a5154/spring-boot-starter-data-jpa-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-data-jpa-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.4.2.RELEASE/43177cefa7697ae38236a5e1852539ce03e071c5/spring-boot-starter-actuator-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-actuator-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter/1.4.2.RELEASE/c6068dc9688c12509bb1c36fcf6ff4817d46cce2/spring-boot-starter-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-mongodb/1.4.2.RELEASE/9c4e38421e53aa31f9f767dc827bdda864eb827f/spring-boot-starter-data-mongodb-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-data-mongodb-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-broker/5.9.0/182371cc4428bdaebb42fba73a6e3522db174a45/activemq-broker-5.9.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/activemq-broker-5.9.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.9.0/df009ac31252e2f7a00f863992628a5496a7c04d/activemq-client-5.9.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/activemq-client-5.9.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-aop/1.4.2.RELEASE/8046bac04ea163a93b27268fbee16164dbafad5/spring-boot-starter-aop-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-aop-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-swagger2-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-swagger-ui-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.40/ef2a2ceab1735eaaae0b5d1cccf574fb7c6e1c52/mysql-connector-java-5.1.40.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/mysql-connector-java-5.1.40.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-recipes/3.3.0/76e1433dc67f57a3caca298252860617a8293f85/curator-recipes-3.3.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/curator-recipes-3.3.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j.driver/neo4j-java-driver/1.5.0/25d4467127d99340c9a7f02ab30ea19b15e52c88/neo4j-java-driver-1.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-java-driver-1.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j/3.3.4/7116be45c123e5d27530aaae4f968412a435c86d/neo4j-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.0/aa12980fe4eca7331a660bdeed371d024687c68d/commons-collections-3.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/commons-collections-3.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.8/222fc4cf714a63f27cbdafdbd863efd0d30c8a1e/commons-lang3-3.8.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/commons-lang3-3.8.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.alibaba/fastjson/1.2.6/b74bde9cceb2f9ec1077a9c7c3a007c251531ba6/fastjson-1.2.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/fastjson-1.2.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.calcite/calcite-linq4j/1.18.0/bc7d7a74b2e5ead39ee3688f107bece3ad13eca6/calcite-linq4j-1.18.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/calcite-linq4j-1.18.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.4.2.RELEASE/1ab1939bb566bbaf25cc1f50cdf955b6c927c4d3/spring-boot-starter-tomcat-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-tomcat-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.4.Final/fb18766b576aa6632bcfe9a20a023cbd52bf9769/hibernate-validator-5.2.4.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hibernate-validator-5.2.4.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.8.4/1c36c81e79cacdf48116afba8495e3393d267ba1/jackson-databind-2.8.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jackson-databind-2.8.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.3.4.RELEASE/719f05404ba8a9de1516398d31d9622042584f0d/spring-web-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-web-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.3.4.RELEASE/79529d7ea72045e92e3dbeb0f4f6919093f47137/spring-webmvc-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-webmvc-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.3.4.RELEASE/43f3d4a43a8dcc91137e092b981101332a645e4b/spring-aop-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-aop-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.1.3.RELEASE/39d5f20a453a4a57601344212cb877e29a9bf9be/spring-security-config-4.1.3.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-security-config-4.1.3.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.1.3.RELEASE/21d7c95a1f72189cd40ac5caf11357af7ba90508/spring-security-web-4.1.3.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-security-web-4.1.3.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc/1.4.2.RELEASE/706b5cd5996bd8c03248c3236e90e9d2d7c948db/spring-boot-starter-jdbc-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-jdbc-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.0.11.Final/c2487fb72a2217a7cec9ab478d4c21a36fc09977/hibernate-core-5.0.11.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hibernate-core-5.0.11.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-entitymanager/5.0.11.Final/549565caed4e0bcb816843693e66ff7b04ce025f/hibernate-entitymanager-5.0.11.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hibernate-entitymanager-5.0.11.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.transaction/javax.transaction-api/1.2/d81aff979d603edd90dcd8db2abc1f4ce6479e3e/javax.transaction-api-1.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/javax.transaction-api-1.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/1.10.5.RELEASE/1c0c3e53a8047fecf2a8a30e9c2635609fef43ec/spring-data-jpa-1.10.5.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-data-jpa-1.10.5.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.3.4.RELEASE/1c71b7e427d898e9374090d6251b25282581bcfa/spring-aspects-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-aspects-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator/1.4.2.RELEASE/698c1560faa11be98e590eb4e87cc5abb55a2802/spring-boot-actuator-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-actuator-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.4.2.RELEASE/19ecf2582f58722c08147918982227885f6e31b1/spring-boot-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.4.2.RELEASE/368e464f9ce4622722ce0944cc4ba6fa71332b68/spring-boot-autoconfigure-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-autoconfigure-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/1.4.2.RELEASE/2799c67340d6a27af5f17a7ecdfa1f50cb1d152d/spring-boot-starter-logging-1.4.2.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-boot-starter-logging-1.4.2.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.3.4.RELEASE/da373e491d3863477568896089ee9457bc316783/spring-core-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-core-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.17/7a27ea250c5130b2922b86dea63cbb1cc10a660c/snakeyaml-1.17.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/snakeyaml-1.17.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver/3.2.2/8b5c4610953eec83435d87547d34976848508875/mongodb-driver-3.2.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/mongodb-driver-3.2.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.9.5.RELEASE/4f0d95a30d6a884c5cac8b5388fab1f384868027/spring-data-mongodb-1.9.5.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-data-mongodb-1.9.5.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-openwire-legacy/5.13.4/95995fb6819e162ac4df299505800c65f670d2bf/activemq-openwire-legacy-5.13.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/activemq-openwire-legacy-5.13.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.21/139535a69a4239db087de9bab0bee568bf8e0b70/slf4j-api-1.7.21.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/slf4j-api-1.7.21.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1/c872b46c601d8dc03633288b81269f9e42762cea/geronimo-jms_1.1_spec-1.1.1.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/geronimo-jms_1.1_spec-1.1.1.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.9/4a42b835d1df77db8c9a144a11ebb4600a372f5f/hawtbuf-1.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hawtbuf-1.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1/5372615b0c04c1913c95c34a0414cef720ca2855/geronimo-j2ee-management_1.1_spec-1.0.1.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.9/db28774f477f07220eac18d5ec9c4e01f48589d7/aspectjweaver-1.8.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/aspectjweaver-1.8.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/swagger-annotations-1.5.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/swagger-models-1.5.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-spi-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-schema-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-swagger-common-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-spring-web-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.3.3/864c8e370a691e343210cc7c532fc198cee460d8/classmate-1.3.3.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/classmate-1.3.3.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-plugin-core-1.2.0.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-plugin-metadata-1.2.0.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.Final/794bb2c7d3dd69211deb22857d92fb4c5361be3f/mapstruct-1.0.0.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/mapstruct-1.0.0.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-framework/3.3.0/a59083b18ed8db2ad01d061a9038ff2aab5fd8bd/curator-framework-3.3.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/curator-framework-3.3.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-kernel/3.3.4/d67110372b77e0622f4d6dca0f75707b8a73fb6d/neo4j-kernel-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-kernel-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-lucene-index/3.3.4/a49015b63153f1df04026ba81f700ccaab72b96b/neo4j-lucene-index-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-lucene-index-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graph-algo/3.3.4/bbc95339ddf9581dbdc002ebb535e84f21f0e7fd/neo4j-graph-algo-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-graph-algo-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-udc/3.3.4/95b1f360833d102d55668ce92a80afbe0cda128b/neo4j-udc-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-udc-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher/3.3.4/dc42680155eb07fec4139ab23d54c79d1d568993/neo4j-cypher-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-jmx/3.3.4/5e4e7217905e1ef61b0ab9584e2fcfd29240f25b/neo4j-jmx-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-jmx-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-consistency-check/3.3.4/be421703c27b7e786a6a426ff13a4ed386cf374e/neo4j-consistency-check-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-consistency-check-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-ant/2.4.7/c56eb616e1485df8df5493a09bf30cdf8c7c36b0/groovy-ant-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-ant-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-cli-commons/2.5.5/4a814d163a7299f7ca875121a753216cf549fd97/groovy-cli-commons-2.5.5.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-cli-commons-2.5.5.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-cli-picocli/2.5.5/5dd2d42bada880358ac9f616a46e0318e4b1c591/groovy-cli-picocli-2.5.5.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-cli-picocli-2.5.5.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-console/2.4.7/573e8838b42e40aeaefaec0b93a42ea41d1a11ed/groovy-console-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-console-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-datetime/2.5.5/617f9e499a0b25927e08706523a34ef0df1ab9e9/groovy-datetime-2.5.5.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-datetime-2.5.5.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-docgenerator/2.4.7/8532a761e7e90afebc06923747f9e2df5545832a/groovy-docgenerator-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-docgenerator-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-groovydoc/2.4.7/6327c63b9f0820849dd73749c14c56a7449a97d9/groovy-groovydoc-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-groovydoc-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-groovysh/2.4.7/13622361dc63feed994a4188ff322f05b7317290/groovy-groovysh-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-groovysh-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-jmx/2.4.7/c3dcb5c6a35f3df8d0c10558c4afcf7ea6ae09f3/groovy-jmx-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-jmx-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-json/2.4.7/c62bc909e3bb996cbc9509435a522f6fb8cf1461/groovy-json-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-json-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-jsr223/2.4.7/779e5d684d2ac7b988ec000dd22580b737fb550c/groovy-jsr223-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-jsr223-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-macro/2.5.5/ee1e459223b450d8f98b5b0efbe974d85a32e4a2/groovy-macro-2.5.5.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-macro-2.5.5.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-nio/2.4.7/8964abaa9194a276881805b4372ea08f148df441/groovy-nio-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-nio-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-servlet/2.4.7/ba9caac52e4ff1744afd9a86ef760c9aa074306/groovy-servlet-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-servlet-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-sql/2.4.7/eb13f8aadd7b7c2c920ef52dfda74155e7803255/groovy-sql-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-sql-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-swing/2.4.7/f5a2cdca4598ba59e9ab94d267bd20925ab368/groovy-swing-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-swing-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-templates/2.4.7/3153f11ab70d65526109d9bcbe4f7b11f60b6fb6/groovy-templates-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-templates-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-test/2.4.7/ea885d613fb89f83abf6d529f8e02be40a4274fc/groovy-test-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-test-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-test-junit5/2.5.5/2fd36ecfdc0c1e7bc69858dc5c4c8418b9e29682/groovy-test-junit5-2.5.5.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-test-junit5-2.5.5.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-testng/2.4.7/9180998132e079e586b519d7e77f92a34b05154d/groovy-testng-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-testng-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-xml/2.4.7/864b9dc44fb0e05f329fad473e8b4df172f1b48f/groovy-xml-2.4.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-xml-2.4.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/8.5.6/960834b5abc6b2135250487abf6c060a0fa5a22e/tomcat-embed-core-8.5.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/tomcat-embed-core-8.5.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-el/8.5.6/a102298d8dc72f4065533d5962953d753b172602/tomcat-embed-el-8.5.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/tomcat-embed-el-8.5.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-websocket/8.5.6/6f6940a216b380ea8506530c374fcfeef820ba54/tomcat-embed-websocket-8.5.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/tomcat-embed-websocket-8.5.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/3616bb87707910296e2c195dc016287080bba5af/jboss-logging-3.3.0.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jboss-logging-3.3.0.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.8.4/de3570327cf8d1d4f37920535c51a1f74225a6de/jackson-annotations-2.8.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jackson-annotations-2.8.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.8.4/ca365c0817cc345ea831cae7c4e9b42a72b32281/jackson-core-2.8.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jackson-core-2.8.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.3.4.RELEASE/4fbf4327d6c7f81c821f2d56e8695d394c7b930a/spring-beans-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-beans-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.3.4.RELEASE/c8086505715fba4927fed3d7e3314692817413b6/spring-context-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-context-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.3.4.RELEASE/5573955b5373669be0e352a1eb5dc9c87b069cb6/spring-expression-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-expression-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.1.3.RELEASE/e6e5b9a52c887484e61069d836520228ddb9b545/spring-security-core-4.1.3.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-security-core-4.1.3.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-jdbc/8.5.6/feb10a9e22f70565c7556f327b0481dba8587bbc/tomcat-jdbc-8.5.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/tomcat-jdbc-8.5.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.3.4.RELEASE/42175d194cf6aa7c716c0887f30255e5c0a5262c/spring-jdbc-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-jdbc-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.20.0-GA/a9cbcdfb7e9f86fbc74d3afae65f2248bfbf82a0/javassist-3.20.0-GA.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/javassist-3.20.0-GA.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/antlr/antlr/2.7.7/83cd2cd674a217ade95a4bb83a8a14f351f48bd0/antlr-2.7.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/antlr-2.7.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/2.0.0.Final/3e899258936f94649c777193e1be846387ed54b3/jandex-2.0.0.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jandex-2.0.0.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/dom4j/dom4j/1.6.1/5d3ccc056b6f056dbf0dddfdf43894b9065a8f94/dom4j-1.6.1.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/dom4j-1.6.1.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/5.0.1.Final/71e1cff3fcb20d3b3af4f3363c3ddb24d33c6879/hibernate-commons-annotations-5.0.1.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/hibernate-commons-annotations-5.0.1.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.12.5.RELEASE/29ed49845ecb804c140a8fea7bb4a524b0502135/spring-data-commons-1.12.5.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-data-commons-1.12.5.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-orm/4.3.4.RELEASE/f83034fb7ab21434bdb8367fba81d08cfc44556a/spring-orm-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-orm-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.3.4.RELEASE/303d00338193c04312426325121572d2fc1d4ec5/spring-tx-4.3.4.RELEASE.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/spring-tx-4.3.4.RELEASE.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.21/331b564a3a42f002a0004b039c1c430da89062cd/jcl-over-slf4j-1.7.21.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jcl-over-slf4j-1.7.21.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/9865cf6994f9ff13fce0bf93f2054ef6c65bb462/logback-classic-1.1.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/logback-classic-1.1.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/jul-to-slf4j/1.7.21/2f22c882ffa479d1e9ff4eb0e8e2c29f2a0871ed/jul-to-slf4j-1.7.21.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jul-to-slf4j-1.7.21.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/log4j-over-slf4j/1.7.21/b3700d97464d99bdcd42c0177d6e7951c94d75ff/log4j-over-slf4j-1.7.21.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/log4j-over-slf4j-1.7.21.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-core/3.2.2/5fe989e7863333970ab0698f18c2ae9d3cb1b2d0/mongodb-driver-core-3.2.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/mongodb-driver-core-3.2.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/bson/3.2.2/b0278bca693eeb91e14db32aea0987a0eed99336/bson-3.2.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/bson-3.2.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/springfox-core-2.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-client/3.3.0/4eb9fa4d049fe190555ee7930455341797a6edb4/curator-client-3.3.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/curator-client-3.3.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graphdb-api/3.3.4/c8ffb7425a258fbefa3e5fa20d9a617ffec57135/neo4j-graphdb-api-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-graphdb-api-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-common/3.3.4/a1b9032c0e36c45d004ea811af9bc815a6708c46/neo4j-common-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-common-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-values/3.3.4/4e335b3298567b33d66559d98e37e056cf4b71f2/neo4j-values-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-values-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-collections/3.3.4/c2b6c4c624e6c9ef944579d30c929edb6a1bc45f/neo4j-collections-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-collections-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-primitive-collections/3.3.4/357a95b4eb71f01c3437c98b6412f20104d63ad2/neo4j-primitive-collections-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-primitive-collections-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-io/3.3.4/7110980401a82c36f4691281848f72d25c593d45/neo4j-io-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-io-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-csv/3.3.4/43692359981932c88786506878ee5cf6df9e951/neo4j-csv-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-csv-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-logging/3.3.4/47726159653b200d60b8cf27be6fc70ad1c0a46c/neo4j-logging-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-logging-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-lucene-upgrade/3.3.4/8a759540e5ebbac334ef658dbf24e32fb47940ae/neo4j-lucene-upgrade-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-lucene-upgrade-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-configuration/3.3.4/d53a3752051b28bbab7ee1896bc051f245fa7f97/neo4j-configuration-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-configuration-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-index/3.3.4/140860a1fb6b061bee33a438ce54c9e555eca8fc/neo4j-index-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-index-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-ssl/3.3.4/9a961fab7dd4d18d39fb2322559fbc7eb93d8b6d/neo4j-ssl-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-ssl-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analyzers-common/5.5.0/1e0e8243a4410be20c34683034fafa7bb52e55cc/lucene-analyzers-common-5.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/lucene-analyzers-common-5.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-core/5.5.0/a74fd869bb5ad7fe6b4cd29df9543a34aea81164/lucene-core-5.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/lucene-core-5.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-queryparser/5.5.0/fddc49725b562fd48dff0cff004336ad2a090a4/lucene-queryparser-5.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/lucene-queryparser-5.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-codecs/5.5.0/b6d6b847a516b5fee88f7cfcf173cf9564233471/lucene-codecs-5.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/lucene-codecs-5.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.12/bf5534e6fec3d665bd6419c952a929a8bdd4b591/scala-library-2.11.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/scala-library-2.11.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.11.12/2bb23c13c527566d9828107ca4108be2a2c06f01/scala-reflect-2.11.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/scala-reflect-2.11.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graph-matching/3.1.6/163dd8c75d99a402252877fef90dd946ff2134db/neo4j-graph-matching-3.1.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-graph-matching-3.1.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-codegen/3.3.4/95280d9736114e7edfca189d09aba36c69e48d9d/neo4j-codegen-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-codegen-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-2.3/2.3.12/72ac3a861e32b681461d74523bfdadeeb6f8a72b/neo4j-cypher-compiler-2.3-2.3.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-compiler-2.3-2.3.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-3.1/3.1.6/1b307772ad80c2b36681d7425a1931be7f0d2b28/neo4j-cypher-compiler-3.1-3.1.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-compiler-3.1-3.1.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-3.2/3.2.9/e9865b93e76a8bf4a48f2d184290d95e16ad9caa/neo4j-cypher-compiler-3.2-3.2.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-compiler-3.2-3.2.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-compiler-3.3/3.3.4/fc7dfd1245ed75f631342dcedcc193acb2e3ff0b/neo4j-cypher-compiler-3.3-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-compiler-3.3-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.parboiled/parboiled-scala_2.11/1.1.7/4e14ecb11f40f25216ce01dc349f541bc801354f/parboiled-scala_2.11-1.1.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/parboiled-scala_2.11-1.1.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/net.sf.opencsv/opencsv/2.3/c23708cdb9e80a144db433e23344a788a1fd6599/opencsv-2.3.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/opencsv-2.3.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-command-line/3.3.4/23396a31256a7c55e14219b971989882eabfb2bb/neo4j-command-line-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-command-line-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-dbms/3.3.4/3e87db3435321a4cb6c6122812bfabae19356ec3/neo4j-dbms-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-dbms-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant/1.9.4/6d473e8653d952045f550f4ef225a9591b79094a/ant-1.9.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/ant-1.9.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-antlr/1.9.4/4cf30025981dc2344324a0ef0e40063c3ef08f0a/ant-antlr-1.9.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/ant-antlr-1.9.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-launcher/1.9.4/334b62cb4be0432769679e8b94e83f8fd5ed395c/ant-launcher-1.9.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/ant-launcher-1.9.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-junit/1.9.4/b063757dacaa716b643c2f9270e469183636ff11/ant-junit-1.9.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/ant-junit-1.9.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.4/c51c00206bb913cd8612b24abd9fa98ae89719b1/commons-cli-1.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/commons-cli-1.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/3.7.0/cc77580eac545a49ec71f395561c4f1b9822c30a/picocli-3.7.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/picocli-3.7.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.thoughtworks.qdox/qdox/1.12.1/f7122f6ab1f64bdf9f5970b0e89bfb355e036897/qdox-1.12.1.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/qdox-1.12.1.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/jline/jline/2.12/ce9062c6a125e0f9ad766032573c041ae8ecc986/jline-2.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jline-2.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-launcher/1.3.2/4c503033e9085087cf70d241142068f1e6bd8195/junit-platform-launcher-1.3.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/junit-platform-launcher-1.3.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.3.2/69350316a14c46d8f6c4c909e469ec9edf58c4f8/junit-jupiter-engine-5.3.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/junit-jupiter-engine-5.3.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.testng/testng/6.8.13/a1aed82b88eee9bd806d5e0eefbb452fed5c7877/testng-6.8.13.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/testng-6.8.13.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.beust/jcommander/1.47/7aa7cfcce8bba3f9ad912d1078f34ace3cc8c662/jcommander-1.47.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/jcommander-1.47.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-juli/8.5.6/83d2d1e3362ecca504f3bf8ed1bc4cc451754d24/tomcat-juli-8.5.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/tomcat-juli-8.5.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis/1.4.01/3789d9fada2d3d458c4ba2de349d48780f381ee3/xml-apis-1.4.01.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/xml-apis-1.4.01.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/7873092d39ef741575ca91378a6a21c388363ac8/logback-core-1.1.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/logback-core-1.1.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.zookeeper/zookeeper/3.5.1-alpha/1b4d9ccd567eb0a5ddf11f209688e0b78ee7e1e2/zookeeper-3.5.1-alpha.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/zookeeper-3.5.1-alpha.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-resource/3.3.4/f13fd9ed2a88fc4e287309bd5dfdacfc9162b9e9/neo4j-resource-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-resource-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-unsafe/3.3.4/3c44acd18fb395eba7f5ab01ad7627a5ecabc937/neo4j-unsafe-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-unsafe-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-backward-codecs/5.5.0/68480974b2f54f519763632a7c1c5d51cbff3805/lucene-backward-codecs-5.5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/lucene-backward-codecs-5.5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.netty/netty-all/4.1.21.Final/d702a5858843dd83725ffcdfd6ed213ae22a8906/netty-all-4.1.21.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/netty-all-4.1.21.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.53/a95b3dec919267af451256c2e6bf811b7f2da8e6/bcpkix-jdk15on-1.53.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/bcpkix-jdk15on-1.53.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/5.2/4ce3ecdc7115bcbf9d4ff4e6ec638e60760819df/asm-5.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/asm-5.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/5.2/9408ea14e73b7c9b427545a1b84923d6afaf8e1e/asm-util-5.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/asm-util-5.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/5.2/2de10833bb3ade1939b1489b7656c9de20343e14/asm-analysis-5.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/asm-analysis-5.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/5.2/733a8d67f6f4174d12142b7bbcfc496a6d99882e/asm-tree-5.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/asm-tree-5.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-2.3/2.3.12/d87e903d0b8a10b34ff8f6372362777e51bfbfbe/neo4j-cypher-frontend-2.3-2.3.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-frontend-2.3-2.3.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.4.2/2eaf3d3c9746d526ff7e5b93931d482c3887e6ac/concurrentlinkedhashmap-lru-1.4.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/concurrentlinkedhashmap-lru-1.4.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-3.1/3.1.6/33bc3872d058e6ee5c16c5fcded7ccd5f1e6c1dc/neo4j-cypher-frontend-3.1-3.1.6.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-frontend-3.1-3.1.6.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/2.3.4/7b65cd4af7141606b9e7e74abdbbb02ef7ee0cc4/caffeine-2.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/caffeine-2.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-3.2/3.2.9/7104b0e0c28321598b26fedd536eae35b4c470c3/neo4j-cypher-frontend-3.2-3.2.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-frontend-3.2-3.2.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-ir-3.2/3.2.9/4231f700fab2121ba1ab52e2534cb7286884b0f9/neo4j-cypher-ir-3.2-3.2.9.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-ir-3.2-3.2.9.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-frontend-3.3/3.3.4/44c2bd835e52beeab5e7dd614fd2f94177b66c52/neo4j-cypher-frontend-3.3-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-frontend-3.3-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-ir-3.3/3.3.4/2cd27389c515bdcc6af783f894a0edf60e69a670/neo4j-cypher-ir-3.3-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-ir-3.3-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-cypher-logical-plans-3.3/3.3.4/2a110c44e75335401714a0c34ebf121929622c73/neo4j-cypher-logical-plans-3.3-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-cypher-logical-plans-3.3-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.parboiled/parboiled-core/1.1.7/a60ff9a54cbeb30ec44c89e16ac4c35913cbad5a/parboiled-core-1.1.7.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/parboiled-core-1.1.7.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-text/1.1/c336bf600f44b88af356c8a85eef4af822b06a4d/commons-text-1.1.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/commons-text-1.1.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-import-tool/3.3.4/37f359f8b3d95c971223f882aaddfd25d9e21c6/neo4j-import-tool-3.3.4.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/neo4j-import-tool-3.3.4.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/84caa68576e345eb5e7ae61a0e5a9229eb100d7b/commons-compress-1.12.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/commons-compress-1.12.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.0.0/3ef5276905e36f4d8055fe3cb0bdcc7503ffc85d/apiguardian-api-1.0.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/apiguardian-api-1.0.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.3.2/c54bc1d4654bd1ef15fccf512ce664184085969/junit-platform-engine-1.3.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/junit-platform-engine-1.3.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.3.2/3602b523ffae9dabc04c329d73ab39ab04b3cbe2/junit-jupiter-api-5.3.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/junit-jupiter-api-5.3.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.16/7999a63bfccbc7c247a9aea10d83d4272bd492c6/log4j-1.2.16.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/log4j-1.2.16.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.netty/netty/3.7.0.Final/7a8c35599c68c0bf383df74469aa3e03d9aca87/netty-3.7.0.Final.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/netty-3.7.0.Final.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/net.java.dev.javacc/javacc/5.0/f19b7d4278b837fe92504946e6860b0bcc180956/javacc-5.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/javacc-5.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.3.2/378d1d1b162426ad031522f6d51e3bf28d1631a4/junit-platform-commons-1.3.2.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/junit-platform-commons-1.3.2.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.1.1/efd9f971e91074491ea55b19f67b13470cf4fcdd/opentest4j-1.1.1.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/opentest4j-1.1.1.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/guava-19.0.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.53/9d3def2fa5a0d2ed0c1146e9945df10d29eb4ccb/bcprov-jdk15on-1.53.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/bcprov-jdk15on-1.53.jar"/>
+    <copy file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/2.5.5/2388f952b369f6b11cde8e15ec872e9ca3e0ff3e/groovy-2.5.5.jar" tofile="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded)}/WEB-INF/lib/groovy-2.5.5.jar"/>
+  </target>
+  
+  <target name="artifact.root" depends="init.artifacts, compile.module.springnewboot3_main" description="Build &#39;ROOT&#39; artifact">
+    <property name="artifact.temp.output.root" value="${artifacts.temp.dir}/ROOT"/>
+    <mkdir dir="${artifact.temp.output.root}"/>
+    <zip destfile="${temp.jar.path.ROOT.war}">
+      <zipfileset dir="${springnewboot3_main.output.dir}"/>
+      <zipfileset file="${basedir}/out/artifacts/warmeta/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/antlr/antlr/2.7.7/83cd2cd674a217ade95a4bb83a8a14f351f48bd0/antlr-2.7.7.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.3.3/864c8e370a691e343210cc7c532fc198cee460d8/classmate-1.3.3.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/dom4j/dom4j/1.6.1/5d3ccc056b6f056dbf0dddfdf43894b9065a8f94/dom4j-1.6.1.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.netty/netty/3.7.0.Final/7a8c35599c68c0bf383df74469aa3e03d9aca87/netty-3.7.0.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.transaction/javax.transaction-api/1.2/d81aff979d603edd90dcd8db2abc1f4ce6479e3e/javax.transaction-api-1.2.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.16/7999a63bfccbc7c247a9aea10d83d4272bd492c6/log4j-1.2.16.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/net.java.dev.javacc/javacc/5.0/f19b7d4278b837fe92504946e6860b0bcc180956/javacc-5.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-broker/5.9.0/182371cc4428bdaebb42fba73a6e3522db174a45/activemq-broker-5.9.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.9.0/df009ac31252e2f7a00f863992628a5496a7c04d/activemq-client-5.9.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-client/3.3.0/4eb9fa4d049fe190555ee7930455341797a6edb4/curator-client-3.3.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-framework/3.3.0/a59083b18ed8db2ad01d061a9038ff2aab5fd8bd/curator-framework-3.3.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-recipes/3.3.0/76e1433dc67f57a3caca298252860617a8293f85/curator-recipes-3.3.0.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1/5372615b0c04c1913c95c34a0414cef720ca2855/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1/c872b46c601d8dc03633288b81269f9e42762cea/geronimo-jms_1.1_spec-1.1.1.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.zookeeper/zookeeper/3.5.1-alpha/1b4d9ccd567eb0a5ddf11f209688e0b78ee7e1e2/zookeeper-3.5.1-alpha.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.9/db28774f477f07220eac18d5ec9c4e01f48589d7/aspectjweaver-1.8.9.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.9/4a42b835d1df77db8c9a144a11ebb4600a372f5f/hawtbuf-1.9.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/5.0.1.Final/71e1cff3fcb20d3b3af4f3363c3ddb24d33c6879/hibernate-commons-annotations-5.0.1.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/3616bb87707910296e2c195dc016287080bba5af/jboss-logging-3.3.0.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/2.0.0.Final/3e899258936f94649c777193e1be846387ed54b3/jandex-2.0.0.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.Final/794bb2c7d3dd69211deb22857d92fb4c5361be3f/mapstruct-1.0.0.Final.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar"/>
+      <zipfileset file="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.17/7a27ea250c5130b2922b86dea63cbb1cc10a660c/snakeyaml-1.17.jar"/>
+      <zipfileset dir="${basedir}/src/main/webapp"/>
+      <zipfileset file="${basedir}/.idea/modules/web/WEB-INF/web.xml" prefix="WEB-INF"/>
+    </zip>
+    <copy file="${temp.jar.path.ROOT.war}" tofile="${artifact.temp.output.root}/ROOT.war"/>
+  </target>
+  
+  <target name="artifact.springnewboot3_main:jar" depends="init.artifacts, compile.module.springnewboot3_main" description="Build &#39;SpringNewBoot3_main:jar&#39; artifact">
+    <property name="artifact.temp.output.springnewboot3_main:jar" value="${artifacts.temp.dir}/SpringNewBoot3_main_jar"/>
+    <mkdir dir="${artifact.temp.output.springnewboot3_main:jar}"/>
+    <jar destfile="${temp.jar.path.SpringNewBoot3_main.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/out/artifacts/meta/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${springnewboot3_main.output.dir}"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.transaction/javax.transaction-api/1.2/d81aff979d603edd90dcd8db2abc1f4ce6479e3e/javax.transaction-api-1.2.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.1.RELEASE/7da4a8f70af30e0eee5bfa943b550e7d1cc5208a/spring-data-mongodb-1.10.1.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/2.0.0.Final/3e899258936f94649c777193e1be846387ed54b3/jandex-2.0.0.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator/1.5.2.RELEASE/a477a9bcf414bce26c702872354ae60b1ed832f0/spring-boot-actuator-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-core/3.4.2/d0a18b4e46fe79467a71d7f9f1bc5932de670829/mongodb-driver-core-3.4.2.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.41/b0878056f15616989144d6114d36d3942321d0d1/mysql-connector-java-5.1.41.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter/1.5.2.RELEASE/c72938c86ed3beadb385f29bc2954c8ca3aa47ab/spring-boot-starter-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/1.5.2.RELEASE/9d7dcade0fd23664247d8d1ab1bb44cf7ed1edf7/spring-boot-starter-security-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.3.7.RELEASE/b761cc783e49b5aa998ac63a721495a9f0f69f9c/spring-tx-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.5.2.RELEASE/27f29876980c079b46be16b759eafe92720f3338/spring-boot-starter-web-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.Final/794bb2c7d3dd69211deb22857d92fb4c5361be3f/mapstruct-1.0.0.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa/1.5.2.RELEASE/9e2dfd470f0df4a7ba00a71ca462aeefbd382a4d/spring-boot-starter-data-jpa-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.9/db28774f477f07220eac18d5ec9c4e01f48589d7/aspectjweaver-1.8.9.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.3.7.RELEASE/54fa2db94cc7222edc90ec71354e47cd1dc07f7b/spring-core-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.17/7a27ea250c5130b2922b86dea63cbb1cc10a660c/snakeyaml-1.17.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.3.7.RELEASE/305c8db0f9552948aec093528cd01393cc98a646/spring-jdbc-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/log4j-over-slf4j/1.7.24/6ab46c51a3848286a0db3ba7b22037b3834c3c44/log4j-over-slf4j-1.7.24.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/antlr/antlr/2.7.7/83cd2cd674a217ade95a4bb83a8a14f351f48bd0/antlr-2.7.7.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.3.7.RELEASE/d25b11a605589f176e3ecf1dcae62a991a18b377/spring-webmvc-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1/c872b46c601d8dc03633288b81269f9e42762cea/geronimo-jms_1.1_spec-1.1.1.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/1.5.2.RELEASE/32210889e1f9bb09ac134b9f43a117ed62f0bed2/spring-boot-starter-logging-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9/slf4j-api-1.7.24.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver/3.4.2/d565cc4db7fd756973b1500424577a503d17f48a/mongodb-driver-3.4.2.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-jdbc/8.5.11/4d156969f12963b5f9232e9fe68ab710c3318ad5/tomcat-jdbc-8.5.11.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.9/4a42b835d1df77db8c9a144a11ebb4600a372f5f/hawtbuf-1.9.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.netty/netty/3.7.0.Final/7a8c35599c68c0bf383df74469aa3e03d9aca87/netty-3.7.0.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-juli/8.5.11/fa0b261ce002175b65ebb6ae8eb4345cb7e57da3/tomcat-juli-8.5.11.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.21.0-GA/598244f595db5c5fb713731eddbb1c91a58d959b/javassist-3.21.0-GA.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-openwire-legacy/5.14.3/c77db63e0035ae50719930c3580070a34db6d727/activemq-openwire-legacy-5.14.3.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-broker/5.9.0/182371cc4428bdaebb42fba73a6e3522db174a45/activemq-broker-5.9.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-recipes/3.3.0/76e1433dc67f57a3caca298252860617a8293f85/curator-recipes-3.3.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/18.0/cce0823396aa693798f8882e64213b1772032b09/guava-18.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.2.2.RELEASE/632c66fc1c826748f64867689c6688765db593c9/spring-security-web-4.2.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/1.5.2.RELEASE/e30a1a03f1521adbc0a6cfdb13b2f7038cafa279/spring-boot-starter-actuator-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-mongodb/1.5.2.RELEASE/58304c581b700fb9af1314f6c03f742e1c2875b8/spring-boot-starter-data-mongodb-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.1.RELEASE/4e4257f2eb3f191613b4b000d43e8d0c3ff4457e/spring-data-commons-1.13.1.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.3.3/864c8e370a691e343210cc7c532fc198cee460d8/classmate-1.3.3.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/net.java.dev.javacc/javacc/5.0/f19b7d4278b837fe92504946e6860b0bcc180956/javacc-5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.3.7.RELEASE/2de9f59f3202965438f3a02057d6ad8274636044/spring-beans-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.11/88b8df40340eed549fb07e2613879bf6b006704d/logback-core-1.1.11.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.8.0/45b426f7796b741035581a176744d91090e2e6fb/jackson-annotations-2.8.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/1.11.1.RELEASE/fa362aecd78883991f57a5d64e19f34b57a2c34d/spring-data-jpa-1.11.1.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.16/7999a63bfccbc7c247a9aea10d83d4272bd492c6/log4j-1.2.16.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-entitymanager/5.0.12.Final/302a526f5058290e9cbd719a5caf9f248d344719/hibernate-entitymanager-5.0.12.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.11/ccedfbacef4a6515d2983e3f89ed753d5d4fb665/logback-classic-1.1.11.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/5.0.1.Final/71e1cff3fcb20d3b3af4f3363c3ddb24d33c6879/hibernate-commons-annotations-5.0.1.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-orm/4.3.7.RELEASE/d9b193994609086ea1f067af07e0af5f53303d92/spring-orm-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.9.0/df009ac31252e2f7a00f863992628a5496a7c04d/activemq-client-5.9.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.2.2.RELEASE/1129e18946a6af408f96e4e0c42c4313f6e191b4/spring-security-config-4.2.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.3.7.RELEASE/7b69fc68cdb74c1c92f72905af6995696fcb56aa/spring-web-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.5.2.RELEASE/8a9b8c747bc2c86eefde10330cb2984541bcb9d1/spring-boot-autoconfigure-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc/1.5.2.RELEASE/bf431678f6e201fadac9b06f4627358c1554d4e0/spring-boot-starter-jdbc-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/3616bb87707910296e2c195dc016287080bba5af/jboss-logging-3.3.0.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/5.0.12.Final/e58bf1c660e6706d8e2cbb53bae110f574366102/hibernate-core-5.0.12.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.3.7.RELEASE/5257b6486e43d8c05674323fea5b415d4da72f38/spring-expression-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-aop/1.5.2.RELEASE/9a21295c00a62bfaaa930ba5f7909fe26eea2562/spring-boot-starter-aop-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-framework/3.3.0/a59083b18ed8db2ad01d061a9038ff2aab5fd8bd/curator-framework-3.3.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.mongodb/bson/3.4.2/8455e0c6926ff2bf444325ea46fd8b74adaf0362/bson-3.4.2.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.2.2.RELEASE/b4797b71d9f7d1a4b76b5d095ac20868369a8c31/spring-security-core-4.2.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1/5372615b0c04c1913c95c34a0414cef720ca2855/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.8.7/8b46f39c78476fb848c81a49fa807a9e9506dddd/jackson-core-2.8.7.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.3.7.RELEASE/3f243d685e4a8a78a0c291445c6d85560ec4d339/spring-aop-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/dom4j/dom4j/1.6.1/5d3ccc056b6f056dbf0dddfdf43894b9065a8f94/dom4j-1.6.1.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.8.7/6c3257ef458ac58a8da69a6dca3d2a15286d88c8/jackson-databind-2.8.7.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.3.4.Final/2f6c8c0b646afe18e3ad205726729d3c4a85fe2e/hibernate-validator-5.3.4.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.24/e6a8629079856a2aa7862c6327ccf6dd1988d7fc/jcl-over-slf4j-1.7.24.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.3.7.RELEASE/fa0671826a42f6bac5145ffbc78075493dcb4e8b/spring-aspects-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.slf4j/jul-to-slf4j/1.7.24/25a2be668cb2ad1d05d76c0773df73b4b53617fd/jul-to-slf4j-1.7.24.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.zookeeper/zookeeper/3.5.1-alpha/1b4d9ccd567eb0a5ddf11f209688e0b78ee7e1e2/zookeeper-3.5.1-alpha.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.3.7.RELEASE/34b66b0b7910122ef95ba4fff6da9238ef80a5de/spring-context-4.3.7.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.5.2.RELEASE/46bb5d8c9ab5d3ef9e158ca5906ee7d3569befc1/spring-boot-1.5.2.RELEASE.jar"/>
+      <zipfileset src="C:/Users/Administrator/.gradle/caches/modules-2/files-2.1/org.apache.curator/curator-client/3.3.0/4eb9fa4d049fe190555ee7930455341797a6edb4/curator-client-3.3.0.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.SpringNewBoot3_main.jar}" tofile="${artifact.temp.output.springnewboot3_main:jar}/SpringNewBoot3_main.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war, artifact.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war_(exploded), artifact.root, artifact.springnewboot3_main:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war}"/>
+    <copy todir="${artifact.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war}">
+      <fileset dir="${artifact.temp.output.gradle_:_springnewboot3_:_springnewboot3-1.0-snapshot.war}"/>
+    </copy>
+    <mkdir dir="${artifact.output.root}"/>
+    <copy todir="${artifact.output.root}">
+      <fileset dir="${artifact.temp.output.root}"/>
+    </copy>
+    <mkdir dir="${artifact.output.springnewboot3_main:jar}"/>
+    <copy todir="${artifact.output.springnewboot3_main:jar}">
+      <fileset dir="${artifact.temp.output.springnewboot3_main:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

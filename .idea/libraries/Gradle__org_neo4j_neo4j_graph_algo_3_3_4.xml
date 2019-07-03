@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.neo4j:neo4j-graph-algo:3.3.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graph-algo/3.3.4/bbc95339ddf9581dbdc002ebb535e84f21f0e7fd/neo4j-graph-algo-3.3.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.neo4j/neo4j-graph-algo/3.3.4/e7c6d41b3f8a7a9607d9448783d5048385bc02f1/neo4j-graph-algo-3.3.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
