@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.codehaus.groovy:groovy-cli-picocli:2.5.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-cli-picocli/2.5.5/5dd2d42bada880358ac9f616a46e0318e4b1c591/groovy-cli-picocli-2.5.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-cli-picocli/2.5.5/9ae0251d251359a08b7074795c058cdbf583a767/groovy-cli-picocli-2.5.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

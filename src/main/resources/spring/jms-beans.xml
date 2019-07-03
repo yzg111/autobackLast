@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       "
+       default-autowire="byName">
+
+    <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+    <bean id="ACMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${jms.url}" />
+        <property name="userName" value="${jms.username}" />
+        <property name="password" value="${jms.password}" />
+    </bean>
+
+    <!--  发送者初始化一对多-->
+    <bean id="MQTopicSender" class="com.doc.Manager.jms.ACMQTopicSender" scope="singleton">
+        <constructor-arg index="0" ref="ACMQConnectionFactory" />
+        <constructor-arg index="1" value="${jms.notify.topic}" />
+    </bean>
+    <!--  发送者默认初始化一对多-->
+    <bean id="DFMQTopicSender" class="com.doc.Manager.jms.ACMQTopicSender" scope="singleton">
+        <constructor-arg index="0" value="${jms.notify.topic}" />
+    </bean>
+    <!--  接收者初始化一对多-->
+    <bean id="MQTopicReceiver" class="com.doc.Manager.jms.ACMQTopicReceiver" scope="singleton">
+        <constructor-arg index="0" ref="ACMQConnectionFactory" />
+        <constructor-arg index="1" value="${jms.notify.topic}" />
+    </bean>
+    <!--  接收者默认初始化一对多-->
+    <bean id="DFMQTopicReceiver" class="com.doc.Manager.jms.ACMQTopicReceiver" scope="singleton">
+        <constructor-arg index="0" value="${jms.notify.topic}" />
+    </bean>
+
+    <!--  发送者初始化一对一-->
+    <bean id="MQQueueSender" class="com.doc.Manager.jms.ACMQQueueSender" scope="singleton">
+        <constructor-arg index="0" ref="ACMQConnectionFactory" />
+        <constructor-arg index="1" value="${jms.notify.topic}" />
+    </bean>
+
+    <!--  发送者默认初始化一对一-->
+    <bean id="DFMQQueueSender" class="com.doc.Manager.jms.ACMQQueueSender" scope="singleton">
+        <constructor-arg index="0" value="${jms.notify.topic}" />
+    </bean>
+
+    <!--  接收者初始化一对一-->
+    <bean id="MQQueueReceiver" class="com.doc.Manager.jms.ACMQQueueReceiver" scope="singleton">
+        <constructor-arg index="0" ref="ACMQConnectionFactory" />
+        <constructor-arg index="1" value="${jms.notify.topic}" />
+    </bean>
+
+    <!--  接收者默认初始化一对一-->
+    <bean id="DFMQTopicQueue" class="com.doc.Manager.jms.ACMQQueueReceiver" scope="singleton">
+        <constructor-arg index="0" value="${jms.notify.topic}" />
+    </bean>
+    <!-- 初始化类需要的发送者和接受者-->
+    <!--<bean id="NotifyService" class="com.common.notify.JmsNotifyService">-->
+        <!--<constructor-arg index="0" ref="MQTopicSender" />-->
+        <!--<constructor-arg index="1" ref="MQTopicReceiver" />-->
+    <!--</bean>-->
+</beans>
