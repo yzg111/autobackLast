@@ -1,10 +1,8 @@
 package com.doc.Manager.AOP;
 
 import com.doc.Entity.MogoEntity.Log.log;
-import com.doc.Entity.MysqlEntity.Log.mysqlLog;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Log.LogRepository;
-import com.doc.Repository.MysqlRepository.Log.mysqlLogRepository;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -30,11 +28,11 @@ public class WatchAOP {
     private LogRepository logRepository;
 
     private log lg;
+//
+//    @Autowired
+//    private mysqlLogRepository sqlLogRepository;
 
-    @Autowired
-    private mysqlLogRepository sqlLogRepository;
-
-    private mysqlLog sqlLog;
+//    private mysqlLog sqlLog;
 
     /**
      * 定义一个pointCut，pointcut的名称addAddMethod(),此方法没有返回值和参数，
@@ -70,10 +68,10 @@ public class WatchAOP {
                     "WatchLog","Time");
             logRepository.insert(lg);
 
-            sqlLog=new mysqlLog(Long.toString(time),
-                    pjd.getSignature().getDeclaringTypeName() + "." + pjd.getSignature().getName(),
-                    "WatchLog","Time");
-            sqlLogRepository.save(sqlLog);
+//            sqlLog=new mysqlLog(Long.toString(time),
+//                    pjd.getSignature().getDeclaringTypeName() + "." + pjd.getSignature().getName(),
+//                    "WatchLog","Time");
+//            sqlLogRepository.save(sqlLog);
 
         } catch (Throwable throwable) {
             throwable.printStackTrace();

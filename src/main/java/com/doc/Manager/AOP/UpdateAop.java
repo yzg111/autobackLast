@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Entity.MogoEntity.Log.log;
-import com.doc.Entity.MysqlEntity.Log.mysqlLog;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Manager.SelfAnno.UpdateLog;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;

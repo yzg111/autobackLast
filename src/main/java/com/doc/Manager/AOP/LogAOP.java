@@ -1,12 +1,8 @@
 package com.doc.Manager.AOP;
 
 import com.doc.Entity.MogoEntity.Log.log;
-import com.doc.Entity.MysqlEntity.Log.mysqlLog;
-import com.doc.Entity.MysqlEntity.User.mysqlUser;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Log.LogRepository;
-import com.doc.Repository.MysqlRepository.Log.mysqlLogRepository;
-import com.doc.Repository.MysqlRepository.User.mysqlUserRepository;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -35,15 +31,15 @@ public class LogAOP {
 
     private log lg;
 
-    @Autowired
-    private mysqlLogRepository sqlLogRepository;
+//    @Autowired
+//    private mysqlLogRepository sqlLogRepository;
 
-    private mysqlLog sqlLog;
+//    private mysqlLog sqlLog;
+//
+//    @Autowired
+//    private mysqlUserRepository sqlUserRepository;
 
-    @Autowired
-    private mysqlUserRepository sqlUserRepository;
-
-    private mysqlUser user;
+//    private mysqlUser user;
 
     /**
      * 定义一个pointCut，pointcut的名称addAddMethod(),此方法没有返回值和参数，
@@ -81,8 +77,8 @@ public class LogAOP {
             lg = new log(request.getRequestURL().toString(), Event.desc(),"Log", request.getMethod());
             logRepository.insert(lg);
 
-            sqlLog = new mysqlLog(request.getRequestURL().toString(), Event.desc(),"Log", request.getMethod());
-            sqlLogRepository.save(sqlLog);
+//            sqlLog = new mysqlLog(request.getRequestURL().toString(), Event.desc(),"Log", request.getMethod());
+//            sqlLogRepository.save(sqlLog);
 
 
             result = pjd.proceed();
