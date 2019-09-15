@@ -19,6 +19,7 @@ public class CP_Form implements Serializable{
     private String formname;//Form配件名称
     private List<Map<String, Object>> datamap;//字段属性信息
     private List<Map<String, Object>> buttons;//按钮属性信息
+    private List<Map<String,Object>> defaultbtns;//默认按钮信息
     private String cpid;//父类id信息
 
 
@@ -67,5 +68,13 @@ public class CP_Form implements Serializable{
 
     public void setButtons(List<Map<String, Object>> buttons) {
         this.buttons = buttons;
+    }
+
+    public List<Map<String, Object>> getDefaultbtns() {
+        return defaultbtns;
+    }
+
+    public void setDefaultbtns(List<Map<String, Object>> defaultbtns) {
+        this.defaultbtns = defaultbtns;
     }
 }
