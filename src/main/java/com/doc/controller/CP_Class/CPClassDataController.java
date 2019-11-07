@@ -4,6 +4,7 @@ import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Manager.SelfAnno.DelDataLog;
+import com.doc.Manager.SelfAnno.DelListDataLog;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Manager.SelfAnno.UpdateLog;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
@@ -118,6 +119,25 @@ public class CPClassDataController {
         Back<Integer> back=new Back<Integer>();
         back.setData(1);
         back.setCmd("删除父类字段内容数据成功！");
+        back.setState(1);
+
+        return back;
+    }
+
+    //批量删除数据
+    @RequestMapping(value = "/delcpdataByIDs", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "根据id批量删除数据！")
+    @DelListDataLog(desc = "根据id批量删除数据！")
+    @ApiOperation(value = "根据id批量删除数据！", notes = "根据id批量删除数据！")
+    public Back delCpListData(@RequestBody List<String> ids) {
+        List<CP_Class_Data> listcpdatas = cp_class_dataRepository.findByIdIn(ids);
+        logger.info(listcpdatas.toString());
+        cp_class_dataRepository.delete(listcpdatas);
+
+        Back<Integer> back=new Back<Integer>();
+        back.setData(1);
+        back.setCmd("删除数据成功！");
         back.setState(1);
 
         return back;

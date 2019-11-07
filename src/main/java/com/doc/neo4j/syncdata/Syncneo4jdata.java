@@ -68,7 +68,7 @@ public class Syncneo4jdata implements ComService {
             CreateOrUpdateNode(cpClass);
             tx.success();
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             tx.close();
         }
