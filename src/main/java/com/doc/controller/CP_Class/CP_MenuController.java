@@ -84,13 +84,13 @@ public class CP_MenuController {
     public Back GetCPTreemenusByids(@RequestBody roleandsysmenuids roleandsysmenuids) {
         Back<List<CP_Menu>> cpmenus = new Back<>();
         //获得交际
-        List<String> menuids=UtilsTools.getJH(roleandsysmenuids.getRolemenuids(),
+        List<String> menuids = UtilsTools.getJH(roleandsysmenuids.getRolemenuids(),
                 roleandsysmenuids.getSysmenuids());
 
         List<CP_Menu> listcpmenus = cp_menuRepository.findByIdIn(menuids);
         //获取相应的上级id
-        List<String> pr=new ArrayList<>();
-        for(CP_Menu mn:listcpmenus){
+        List<String> pr = new ArrayList<>();
+        for (CP_Menu mn : listcpmenus) {
             pr.add(mn.getParentid());
         }
 
@@ -98,7 +98,7 @@ public class CP_MenuController {
 //        listcpmenus.forEach(i->{
 //            System.out.println(i);
 //        });
-        listcpmenus = ToTree(prs,menuids);
+        listcpmenus = ToTree(prs, menuids);
         cpmenus.setCmd("查询所有顶级CP父类信息");
         cpmenus.setState(1);
         cpmenus.setData(listcpmenus);
@@ -116,10 +116,10 @@ public class CP_MenuController {
         return result;
     }
 
-    public List<CP_Menu> ToTree(List<CP_Menu> top,List<String> menuids) {
+    public List<CP_Menu> ToTree(List<CP_Menu> top, List<String> menuids) {
         List<CP_Menu> result = top;
         for (CP_Menu cp : top) {
-            List<CP_Menu> listcps = cp_menuRepository.findByParentidAndIdIn(cp.getId(),menuids);
+            List<CP_Menu> listcps = cp_menuRepository.findByParentidAndIdIn(cp.getId(), menuids);
             cp.setChildren(listcps);
             ToTree(listcps);
         }
@@ -145,6 +145,10 @@ public class CP_MenuController {
         String formid = menuinfo.getFormid();
         CP_Form cp_form = cp_formRepository.findById(formid);
         datamap.put("forminfo", cp_form);
+        //获取表格的默认配置信息
+//        if (cp_table.getQuerydata().size() > 0&&cp_table.getQuerydata()!=null) {
+//            logger.info(cp_table.getQuerydata().toString());
+//        }
 
         //获取cp表中的相关数据,在这里需要去neo4j里面取相应的数据
 //        List<CP_Class_Data> cpdatas=cp_class_dataRepository.findByCpid(menuinfo.getCpid());
@@ -174,7 +178,53 @@ public class CP_MenuController {
                             where = where + " and n." + obj.get("name") + " =~ '.*" + obj.get("value") + ".*'";
                         }
                     }
+                    if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+                        //获取默认配置过滤数据
+                        JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                        for (int i = 0; i < maps.size(); i++) {
+                            JSONObject map = maps.getJSONObject(i);
+                            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+                            if ("1".equals(map.getString("condition"))) {
+                                condition = "=" + "'" + map.get("value") + "' ";
+                            } else if ("2".equals(map.getString("condition"))) {
+                                condition = ">" + "'" + map.get("value") + "' ";
+                            } else if ("3".equals(map.getString("condition"))) {
+                                condition = "<" + "'" + map.get("value") + "' ";
+                            } else if ("4".equals(map.getString("condition"))) {
+                                condition = "<>" + "'" + map.get("value") + "' ";
+                            } else if ("5".equals(map.getString("condition"))) {
+                                condition = " =~ '.*" + map.get("value") + ".*' ";
+                            }
+                            where = where + " and n." + map.get("name") + condition;
+                        }
+
+                    }
                 }
+            } else if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+                //获取默认配置过滤数据
+                where = " where ";
+                JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                for (int i = 0; i < maps.size(); i++) {
+                    JSONObject map = maps.getJSONObject(i);
+                    String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+                    if ("1".equals(map.getString("condition"))) {
+                        condition = "=" + "'" + map.get("value") + "' ";
+                    } else if ("2".equals(map.getString("condition"))) {
+                        condition = ">" + "'" + map.get("value") + "' ";
+                    } else if ("3".equals(map.getString("condition"))) {
+                        condition = "<" + "'" + map.get("value") + "' ";
+                    } else if ("4".equals(map.getString("condition"))) {
+                        condition = "<>" + "'" + map.get("value") + "' ";
+                    } else if ("5".equals(map.getString("condition"))) {
+                        condition = " =~ '.*" + map.get("value") + ".*' ";
+                    }
+                    if (i == 0) {
+                        where = where + " n." + map.get("name") + condition;
+                    } else {
+                        where = where + " and n." + map.get("name") + condition;
+                    }
+                }
+
             }
             String query = start + cp_class.getCpname() + beforew + where + end;
             List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
@@ -200,6 +250,12 @@ public class CP_MenuController {
         Map<String, Object> datamap = new HashedMap();
 
         CP_Class cp_class = cp_classRepository.findById(menuinfo.getCpid());
+        //获取表格的默认配置信息
+        CP_Table cp_table = cp_tableRepository.findById(menuinfo.getTableid());
+//        if (cp_table.getQuerydata().size() > 0&&cp_table.getQuerydata()!=null) {
+//            logger.info(cp_table.getQuerydata().toString());
+//        }
+
         if (cp_class != null) {
             //拼接查询语句
             String start = "match (n:`";
@@ -219,7 +275,53 @@ public class CP_MenuController {
                             where = where + " and n." + obj.get("name") + " =~ '.*" + obj.get("value") + ".*'";
                         }
                     }
+                    if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+                        //获取默认配置过滤数据
+                        JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                        for (int i = 0; i < maps.size(); i++) {
+                            JSONObject map = maps.getJSONObject(i);
+                            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+                            if ("1".equals(map.getString("condition"))) {
+                                condition = "=" + "'" + map.get("value") + "' ";
+                            } else if ("2".equals(map.getString("condition"))) {
+                                condition = ">" + "'" + map.get("value") + "' ";
+                            } else if ("3".equals(map.getString("condition"))) {
+                                condition = "<" + "'" + map.get("value") + "' ";
+                            } else if ("4".equals(map.getString("condition"))) {
+                                condition = "<>" + "'" + map.get("value") + "' ";
+                            } else if ("5".equals(map.getString("condition"))) {
+                                condition = " =~ '.*" + map.get("value") + ".*' ";
+                            }
+                            where = where + " and n." + map.get("name") + condition;
+                        }
+
+                    }
                 }
+            } else if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+                //获取默认配置过滤数据
+                where = " where ";
+                JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                for (int i = 0; i < maps.size(); i++) {
+                    JSONObject map = maps.getJSONObject(i);
+                    String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+                    if ("1".equals(map.getString("condition"))) {
+                        condition = "=" + "'" + map.get("value") + "' ";
+                    } else if ("2".equals(map.getString("condition"))) {
+                        condition = ">" + "'" + map.get("value") + "' ";
+                    } else if ("3".equals(map.getString("condition"))) {
+                        condition = "<" + "'" + map.get("value") + "' ";
+                    } else if ("4".equals(map.getString("condition"))) {
+                        condition = "<>" + "'" + map.get("value") + "' ";
+                    } else if ("5".equals(map.getString("condition"))) {
+                        condition = " =~ '.*" + map.get("value") + ".*' ";
+                    }
+                    if (i == 0) {
+                        where = where + " n." + map.get("name") + condition;
+                    } else {
+                        where = where + " and n." + map.get("name") + condition;
+                    }
+                }
+
             }
             String query = start + cp_class.getCpname() + beforew + where + end;
             List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
@@ -286,8 +388,8 @@ public class CP_MenuController {
 
 }
 
-class roleandsysmenuids{
-    private List<String>sysmenuids;
+class roleandsysmenuids {
+    private List<String> sysmenuids;
     private List<String> rolemenuids;
 
     public List<String> getSysmenuids() {
