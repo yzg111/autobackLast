@@ -18,7 +18,8 @@ public class CP_Class<T> implements Serializable{
     @Id
     private String id;
     private String cpname;//父类名称
-    private Map<String, Integer> datamap; //定义父类里面包含多少个属性
+    private Map<String, Integer> datamap; //定义父类里面包含多少个字段
+    private Map<String,Object> atrrs;//字段的属性
     private String parentid;//上级父类id
     private List<T> children;
 
@@ -66,5 +67,13 @@ public class CP_Class<T> implements Serializable{
 
     public void setChildren(List<T> children) {
         this.children = children;
+    }
+
+    public Map<String, Object> getAtrrs() {
+        return atrrs;
+    }
+
+    public void setAtrrs(Map<String, Object> atrrs) {
+        this.atrrs = atrrs;
     }
 }
