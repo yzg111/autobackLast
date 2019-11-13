@@ -159,6 +159,7 @@ public class CP_MenuController {
 //            listmap.add(map);
 //        });
         CP_Class cp_class = cp_classRepository.findById(menuinfo.getCpid());
+        datamap.put("cpinfo", cp_class);
         if (cp_class != null) {
             //拼接查询语句
             String start = "match (n:`";
