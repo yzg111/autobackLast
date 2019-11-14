@@ -143,4 +143,20 @@ public class CPClassDataController {
         return back;
     }
 
+    //查询父级相关数据的接口
+    @RequestMapping(value = "/getCpDataByCpIDs", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "根据父类ID集合查询出相关数据！")
+    @ApiOperation(value = "根据父类ID集合查询出相关数据！", notes = "根据父类ID集合查询出相关数据！")
+    public Back getCpDataByCpIDs(@RequestBody List<String> ids) {
+        List<CP_Class_Data> listcpdatas = cp_class_dataRepository.findByIdIn(ids);
+
+        Back<List<CP_Class_Data>> back=new Back<List<CP_Class_Data>>();
+        back.setData(listcpdatas);
+        back.setCmd("查询父类字段内容数据成功！");
+        back.setState(1);
+
+        return back;
+    }
+
 }

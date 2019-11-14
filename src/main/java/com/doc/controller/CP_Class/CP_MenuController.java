@@ -160,71 +160,36 @@ public class CP_MenuController {
 //        });
         CP_Class cp_class = cp_classRepository.findById(menuinfo.getCpid());
         datamap.put("cpinfo", cp_class);
+        if(cp_class.getAtrrs()!=null){
+            Map atrrs=cp_class.getAtrrs();
+            List<String> ids=new ArrayList<>();
+            atrrs.forEach((key,value)->{
+//                logger.info(value.toString());
+                JSONObject jsonObject=new JSONObject((Map)value);
+                if(jsonObject.getBoolean("isenum")!=null){
+                    boolean isenum=jsonObject.getBoolean("isenum");
+                    if (isenum){
+                        if (jsonObject.getString("glcp")!=null){
+                            ids.add(jsonObject.getString("glcp"));
+                        }
+                    }
+                }
+            });
+            //获取cp的数据信息
+            List<CP_Class_Data> listcpdatas = cp_class_dataRepository.findByCpidIn(ids);
+            datamap.put("cpselectdata",listcpdatas);
+        }
         if (cp_class != null) {
             //拼接查询语句
             String start = "match (n:`";
             String end = " return n";
             String beforew = "`)";
             String where = "";
-            if (pm.get("options") != null) {
-                JSONArray array = pm.getJSONArray("options");
-                if (array.size() > 0) {
-                    where = " where ";
-                    //like搜索
-                    for (int i = 0; i < array.size(); i++) {
-                        JSONObject obj = array.getJSONObject(i);
-                        if (i == 0) {
-                            where = where + " n." + obj.get("name") + " =~ '.*" + obj.get("value") + ".*' ";
-                        } else {
-                            where = where + " and n." + obj.get("name") + " =~ '.*" + obj.get("value") + ".*'";
-                        }
-                    }
-                    if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
-                        //获取默认配置过滤数据
-                        JSONArray maps = new JSONArray(cp_table.getQuerydata());
-                        for (int i = 0; i < maps.size(); i++) {
-                            JSONObject map = maps.getJSONObject(i);
-                            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
-                            if ("1".equals(map.getString("condition"))) {
-                                condition = "=" + "'" + map.get("value") + "' ";
-                            } else if ("2".equals(map.getString("condition"))) {
-                                condition = ">" + "'" + map.get("value") + "' ";
-                            } else if ("3".equals(map.getString("condition"))) {
-                                condition = "<" + "'" + map.get("value") + "' ";
-                            } else if ("4".equals(map.getString("condition"))) {
-                                condition = "<>" + "'" + map.get("value") + "' ";
-                            } else if ("5".equals(map.getString("condition"))) {
-                                condition = " =~ '.*" + map.get("value") + ".*' ";
-                            }
-                            where = where + " and n." + map.get("name") + condition;
-                        }
-
-                    }
-                }
-            } else if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+            if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
                 //获取默认配置过滤数据
                 where = " where ";
                 JSONArray maps = new JSONArray(cp_table.getQuerydata());
-                for (int i = 0; i < maps.size(); i++) {
-                    JSONObject map = maps.getJSONObject(i);
-                    String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
-                    if ("1".equals(map.getString("condition"))) {
-                        condition = "=" + "'" + map.get("value") + "' ";
-                    } else if ("2".equals(map.getString("condition"))) {
-                        condition = ">" + "'" + map.get("value") + "' ";
-                    } else if ("3".equals(map.getString("condition"))) {
-                        condition = "<" + "'" + map.get("value") + "' ";
-                    } else if ("4".equals(map.getString("condition"))) {
-                        condition = "<>" + "'" + map.get("value") + "' ";
-                    } else if ("5".equals(map.getString("condition"))) {
-                        condition = " =~ '.*" + map.get("value") + ".*' ";
-                    }
-                    if (i == 0) {
-                        where = where + " n." + map.get("name") + condition;
-                    } else {
-                        where = where + " and n." + map.get("name") + condition;
-                    }
-                }
+                where=where+GetqueryString(maps,true);
 
             }
             String query = start + cp_class.getCpname() + beforew + where + end;
@@ -279,50 +244,19 @@ public class CP_MenuController {
                     if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
                         //获取默认配置过滤数据
                         JSONArray maps = new JSONArray(cp_table.getQuerydata());
-                        for (int i = 0; i < maps.size(); i++) {
-                            JSONObject map = maps.getJSONObject(i);
-                            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
-                            if ("1".equals(map.getString("condition"))) {
-                                condition = "=" + "'" + map.get("value") + "' ";
-                            } else if ("2".equals(map.getString("condition"))) {
-                                condition = ">" + "'" + map.get("value") + "' ";
-                            } else if ("3".equals(map.getString("condition"))) {
-                                condition = "<" + "'" + map.get("value") + "' ";
-                            } else if ("4".equals(map.getString("condition"))) {
-                                condition = "<>" + "'" + map.get("value") + "' ";
-                            } else if ("5".equals(map.getString("condition"))) {
-                                condition = " =~ '.*" + map.get("value") + ".*' ";
-                            }
-                            where = where + " and n." + map.get("name") + condition;
-                        }
-
+                        where=where+GetqueryString(maps,false);
                     }
+                }else if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+                    //获取默认配置过滤数据
+                    where = " where ";
+                    JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                    where=where+GetqueryString(maps,true);
                 }
             } else if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
                 //获取默认配置过滤数据
                 where = " where ";
                 JSONArray maps = new JSONArray(cp_table.getQuerydata());
-                for (int i = 0; i < maps.size(); i++) {
-                    JSONObject map = maps.getJSONObject(i);
-                    String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
-                    if ("1".equals(map.getString("condition"))) {
-                        condition = "=" + "'" + map.get("value") + "' ";
-                    } else if ("2".equals(map.getString("condition"))) {
-                        condition = ">" + "'" + map.get("value") + "' ";
-                    } else if ("3".equals(map.getString("condition"))) {
-                        condition = "<" + "'" + map.get("value") + "' ";
-                    } else if ("4".equals(map.getString("condition"))) {
-                        condition = "<>" + "'" + map.get("value") + "' ";
-                    } else if ("5".equals(map.getString("condition"))) {
-                        condition = " =~ '.*" + map.get("value") + ".*' ";
-                    }
-                    if (i == 0) {
-                        where = where + " n." + map.get("name") + condition;
-                    } else {
-                        where = where + " and n." + map.get("name") + condition;
-                    }
-                }
-
+                where=where+GetqueryString(maps,true);
             }
             String query = start + cp_class.getCpname() + beforew + where + end;
             List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
@@ -334,6 +268,32 @@ public class CP_MenuController {
         back.setData(datamap);
 
         return back;
+    }
+
+    private String GetqueryString(JSONArray maps,boolean flag){
+        String where="";
+        for (int i = 0; i < maps.size(); i++) {
+            JSONObject map = maps.getJSONObject(i);
+            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+            if ("1".equals(map.getString("condition"))) {
+                condition = "=" + "'" + map.get("value") + "' ";
+            } else if ("2".equals(map.getString("condition"))) {
+                condition = ">" + "'" + map.get("value") + "' ";
+            } else if ("3".equals(map.getString("condition"))) {
+                condition = "<" + "'" + map.get("value") + "' ";
+            } else if ("4".equals(map.getString("condition"))) {
+                condition = "<>" + "'" + map.get("value") + "' ";
+            } else if ("5".equals(map.getString("condition"))) {
+                condition = " =~ '.*" + map.get("value") + ".*' ";
+            }
+            if (i == 0&&flag) {
+                where = where + " n." + map.get("name") + condition;
+            } else {
+                where = where + " and n." + map.get("name") + condition;
+            }
+        }
+
+        return where;
     }
 
     //查询下级CP二级菜单信息

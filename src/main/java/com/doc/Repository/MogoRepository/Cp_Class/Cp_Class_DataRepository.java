@@ -17,4 +17,6 @@ public interface Cp_Class_DataRepository extends MongoRepository<CP_Class_Data,O
     public CP_Class_Data findById(String id);
     //根据id数组查询数据
     public List<CP_Class_Data> findByIdIn(List<String> ids);
+    //根据cpid数组查询数据
+    public List<CP_Class_Data> findByCpidIn(List<String> ids);
 }
