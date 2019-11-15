@@ -1,5 +1,7 @@
 package com.doc.neo4j.syncdata;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.doc.Manager.Service.ComService;
 import com.doc.StartMain;
 import com.doc.UtilsTools.UtilsTools;
@@ -9,6 +11,8 @@ import com.doc.neo4j.syncdata.service.Neo4jservice;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.neo4j.cypher.internal.javacompat.MapRow;
 import org.neo4j.graphdb.*;
 import org.slf4j.Logger;
@@ -75,7 +79,7 @@ public class Syncneo4jdata implements ComService {
         logger.info("neo4j connect success!");
     }
 
-    public void DeleteCp(CpClass cpClass){
+    public void DeleteCp(CpClass cpClass) {
         logger.info("neo4j connect start!");
         GraphDatabaseService graphDb = this.neo4jservice.getdatabase();
         Transaction tx = graphDb.beginTx();
@@ -99,14 +103,20 @@ public class Syncneo4jdata implements ComService {
     private Node CreateNode(CpClass cpClass, String cpid) {
         Node node = this.neo4jservice.getdatabase().createNode(createLabel(cpClass));
         this.neo4jservice.PutMapid(cpid, node.getId());
-        node.setProperty("id",cpid);
-        node.setProperty("cpid",cpClass.getCpid());
+        node.setProperty("id", cpid);
+        node.setProperty("cpid", cpClass.getCpid());
         //在这里循环cp类里面的数据，将数据插入到neo4j里面
         for (Map.Entry<String, Object> kv : cpClass.getDataMap().entrySet()) {
-            if (kv.getValue() == null)
+            if (kv.getValue() == null) {
                 node.setProperty(kv.getKey(), "");
-            else
-                node.setProperty(kv.getKey(), kv.getValue());
+            } else {
+                if (kv.getValue() instanceof ArrayList) {
+                    logger.info(JSON.toJSONString(kv.getValue()));
+                    node.setProperty(kv.getKey(), JSON.toJSONString(kv.getValue()));
+                } else {
+                    node.setProperty(kv.getKey(), kv.getValue());
+                }
+            }
         }
         return node;
     }
@@ -115,8 +125,9 @@ public class Syncneo4jdata implements ComService {
      * Method  通过查询语句查询数据，返回数据字段需要制定
      * 示例  String query = "match (n:`123`)  return n.部门名称 as 部门名称,n.部门责任 as 部门责任";
      * * @param null
+     *
      * @Date 2019/1/8
-      * @description:a
+     * @description:a
      */
     public List<Map<String, Object>> excuteList(String cysql) {
         List<Map<String, Object>> list = new ArrayList<>();
@@ -134,14 +145,13 @@ public class Syncneo4jdata implements ComService {
     }
 
 
-
     /**
      * @Method 根据查询语句查询数据，返回所有字段以及数据
      * 示例  String query = "match (n:`123`)  return n,n.部门名称 as 名称,n.部门责任 as 职责";
      * * @param null
      * @Date 2019/1/8
      * * @description:a
-    */
+     */
     public List<Map<String, Object>> excuteListByAll(String cysql) {
         List<Map<String, Object>> list = new ArrayList<>();
         //查询数据库
@@ -154,12 +164,12 @@ public class Syncneo4jdata implements ComService {
             while (result.hasNext()) {
                 Map<String, Object> row = result.next();
                 MapRow mapRow = new MapRow(row);
-                Map<String, Object> clmrow= new HashedMap();
+                Map<String, Object> clmrow = new HashedMap();
                 //拷贝map对象
                 clmrow.putAll(row);
-                for(String clm:columns){
-                    if(UtilsTools.isNode(mapRow,clm)){
-                        Node node=mapRow.getNode(clm);
+                for (String clm : columns) {
+                    if (UtilsTools.isNode(mapRow, clm)) {
+                        Node node = mapRow.getNode(clm);
                         clmrow.remove(clm);
                         Iterator<String> it = node.getPropertyKeys().iterator();
                         List<String> pks = new LinkedList<String>();
@@ -182,8 +192,9 @@ public class Syncneo4jdata implements ComService {
      * Method 根据查询语句查询数据，只能查询一个表中所有数据根据字段显示
      * 示例  String query = "match (n:`123`)  return n";
      * * @param null
+     *
      * @Date 2019/1/8
-      * @description:a
+     * @description:a
      */
     public List<Map<String, Object>> excuteListByOneAll(String cysql) {
         List<Map<String, Object>> list = new ArrayList<>();
@@ -218,7 +229,7 @@ public class Syncneo4jdata implements ComService {
         return list;
     }
 
-    private void CreateOrUpdateNode(CpClass cpClass){
+    private void CreateOrUpdateNode(CpClass cpClass) {
         String cpid = cpClass.getId();
         Long neo4jId = this.neo4jservice.getNeo4jId(cpid);
         Node node = null;
@@ -236,20 +247,28 @@ public class Syncneo4jdata implements ComService {
 //            for (String pk : pks) {
 //                node.removeProperty(pk);
 //            }
-            node.setProperty("id",cpid);
-            node.setProperty("cpid",cpClass.getCpid());
+            node.setProperty("id", cpid);
+            node.setProperty("cpid", cpClass.getCpid());
             for (Map.Entry<String, Object> kv : cpClass.getDataMap().entrySet()) {
-                if (kv.getValue() == null)
+                if (kv.getValue() == null){
                     node.setProperty(kv.getKey(), "");
-                else
-                    node.setProperty(kv.getKey(), kv.getValue());
+                }
+                else {
+                    if (kv.getValue() instanceof ArrayList) {
+                        logger.info(JSON.toJSONString(kv.getValue()));
+                        node.setProperty(kv.getKey(), JSON.toJSONString(kv.getValue()));
+                    } else {
+                        node.setProperty(kv.getKey(), kv.getValue());
+                    }
+                }
             }
         } else {
             //数据不存在则添加数据
             node = CreateNode(cpClass, cpid);
         }
     }
-    private void DeleteNode(CpClass cpClass){
+
+    private void DeleteNode(CpClass cpClass) {
         String cpid = cpClass.getId();
         Long neo4jId = this.neo4jservice.getNeo4jId(cpid);
         Node node = null;

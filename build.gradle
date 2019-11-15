@@ -53,6 +53,7 @@ dependencies {
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.5'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: '2.5.5'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
+    compile group: 'net.oschina.zcx7878', name: 'fastdfs-client-java', version: '1.27.0.0'
     //打包时使用
     //    providedCompile('org.springframework.boot:spring-boot-starter-tomcat')
 

@@ -194,6 +194,13 @@ public class CP_MenuController {
             }
             String query = start + cp_class.getCpname() + beforew + where + end;
             List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
+            for(int i=0;i<listmap.size();i++){
+                Map<String,Object> map=listmap.get(i);
+                map.forEach((String key, Object val) ->{
+                    if(val.toString().contains("[")&&val.toString().contains("]"))
+                    map.put(key,JSONArray.parseArray(val.toString()));
+                });
+            }
 
             datamap.put("cpdata", listmap);
         }
