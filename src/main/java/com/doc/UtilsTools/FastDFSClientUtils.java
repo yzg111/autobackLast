@@ -191,6 +191,21 @@ public class FastDFSClientUtils {
 			return null;
 		}
 	}
+	/**
+	 * 文件下载
+	 *
+	 * @param fileId
+	 * @return 返回一个流
+	 */
+	public static byte[] downloadFilebytes(String fileId) {
+		try {
+			byte[] bytes = storageClient1.download_file1(fileId);
+			return bytes;
+		} catch (Exception ex) {
+			logger.error(ex);
+			return null;
+		}
+	}
 
 	/**
 	 * 获取文件后缀名（不带点）.
