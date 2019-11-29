@@ -1,8 +1,10 @@
 package com.doc.controller.File;
 
 import com.doc.Entity.BackEntity.Back;
+import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Entity.MogoEntity.CP_Class.CP_File;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Table;
+import com.doc.Manager.SelfAnno.DelDataLog;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Cp_Class.CP_FileRepository;
 import com.doc.UtilsTools.AposeUtils;
@@ -160,6 +162,25 @@ public class Cp_FileController {
         ;
 //        return outputStream;
 //        return inputStream;
+    }
+
+    //查询父级相关数据的接口
+    @RequestMapping(value = "/delfile", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "删除附件！")
+    @ApiOperation(value = "删除附件！", notes = "删除附件！")
+    public Back delCpData(@RequestParam String id,@RequestParam String fieldid) {
+        CP_File listcpdatas = cp_fileRepository.findById(id);
+        cp_fileRepository.delete(listcpdatas);
+
+        FastDFSClientUtils.deleteFile(fieldid);
+
+        Back<Integer> back=new Back<Integer>();
+        back.setData(1);
+        back.setCmd("删除附件成功！");
+        back.setState(1);
+
+        return back;
     }
 
 }

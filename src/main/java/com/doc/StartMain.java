@@ -13,11 +13,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.servlet.MultipartConfigElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +63,14 @@ public class StartMain extends SpringBootServletInitializer {
 //        cps.add(cpClass);
 //        syncneo4jdata.saveOrUpdateCp(cps);
 //        System.out.println("数据库生成完成！");
+    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory(); //文件最大10M,DataUnit提供5中类型B,KB,MB,GB,TB
+        factory.setMaxFileSize("10240KB"); /// 设置单个上传数据总大小10M
+        factory.setMaxRequestSize("102400KB"); /// 设置总上传数据总大小100M
+        return factory.createMultipartConfig();
     }
 
 }
