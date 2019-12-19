@@ -12,7 +12,7 @@ import java.util.Map;
  */
 //定义父类下面的字段
 @Document(collection = "CP_Class")
-public class CP_Class<T> implements Serializable{
+public class CP_Class<T,R> implements Serializable{
     private static final long serialVersionUID = -3258839839160856613L;
 
     @Id
@@ -22,6 +22,7 @@ public class CP_Class<T> implements Serializable{
     private Map<String,Object> atrrs;//字段的属性
     private String parentid;//上级父类id
     private List<T> children;
+    private List<R> cpselectdata;
 
     public String getId() {
         return id;
@@ -75,5 +76,13 @@ public class CP_Class<T> implements Serializable{
 
     public void setAtrrs(Map<String, Object> atrrs) {
         this.atrrs = atrrs;
+    }
+
+    public List<R> getCpselectdata() {
+        return cpselectdata;
+    }
+
+    public void setCpselectdata(List<R> cpselectdata) {
+        this.cpselectdata = cpselectdata;
     }
 }

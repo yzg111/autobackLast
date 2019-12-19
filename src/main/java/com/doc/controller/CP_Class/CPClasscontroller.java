@@ -3,9 +3,11 @@ package com.doc.controller.CP_Class;
 import com.alibaba.fastjson.JSONObject;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
+import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Entity.MogoEntity.User.MogoUser;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
+import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.calcite.linq4j.Linq4j;
@@ -30,6 +32,8 @@ public class CPClasscontroller {
     private static final Logger logger = LoggerFactory.getLogger(CPClasscontroller.class);
     @Autowired
     private Cp_ClassRepository cp_classRepository;
+    @Autowired
+    private Cp_Class_DataRepository cp_class_dataRepository;
 
     //获取所有cp父类信息
     @RequestMapping(value = "/takecps", method = RequestMethod.GET)
@@ -54,6 +58,25 @@ public class CPClasscontroller {
             HashMap<String, Integer> aMap2 = new LinkedHashMap<>();
             for (Map.Entry<String, Integer> entry : infoIds) {
                 aMap2.put(entry.getKey(), entry.getValue());
+            }
+            if (listcps.get(i).getAtrrs() != null) {
+                Map atrrs = listcps.get(i).getAtrrs();
+                List<String> ids = new ArrayList<>();
+                atrrs.forEach((key, value) -> {
+//                logger.info(value.toString());
+                    JSONObject jsonObject = new JSONObject((Map) value);
+                    if (jsonObject.getBoolean("isenum") != null) {
+                        boolean isenum = jsonObject.getBoolean("isenum");
+                        if (isenum) {
+                            if (jsonObject.getString("glcp") != null) {
+                                ids.add(jsonObject.getString("glcp"));
+                            }
+                        }
+                    }
+                });
+                //获取cp的数据信息
+                List<CP_Class_Data> listcpdatas = cp_class_dataRepository.findByCpidIn(ids);
+                listcps.get(i).setCpselectdata(listcpdatas);
             }
             listcps.get(i).setDatamap(aMap2);
         }

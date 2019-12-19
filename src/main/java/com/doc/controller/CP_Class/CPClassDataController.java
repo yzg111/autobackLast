@@ -1,5 +1,6 @@
 package com.doc.controller.CP_Class;
 
+import com.alibaba.fastjson.JSONArray;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
@@ -95,6 +96,13 @@ public class CPClassDataController {
         }
         String query=start+cpname+beforew+where+end;
         List<Map<String, Object>> datas=syncneo4jdata.excuteListByAll(query);
+        for(int i=0;i<datas.size();i++){
+            Map<String,Object> map=datas.get(i);
+            map.forEach((String key, Object val) ->{
+                if(val.toString().contains("[")&&val.toString().contains("]"))
+                    map.put(key, JSONArray.parseArray(val.toString()));
+            });
+        }
         List<CP_Class_Data> listcpdatas ;
 
         listcpdatas= UtilsTools.changeCPData(datas);
