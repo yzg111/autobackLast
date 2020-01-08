@@ -76,20 +76,40 @@ public class Cp_FileController {
         byte[] data ;
         response.reset();
         response.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/xml");
+//        response.setContentType("application/pdf");
 //        response.setContentType(UtilsTools.getContentType(filename));
         //文件名后缀
         String fileExtension = filename.substring(filename.lastIndexOf("."));
         if(".doc".equalsIgnoreCase(fileExtension) || ".docx".equalsIgnoreCase(fileExtension)) {
+            response.setContentType("application/pdf");
             inputStream = FastDFSClientUtils.downloadFile(fileaddress);
            data=AposeUtils.doc2pdf(inputStream);
         }else if (".xls".equalsIgnoreCase(fileExtension) || ".xlsx".equalsIgnoreCase(fileExtension)){
+            response.setContentType("application/pdf");
             inputStream = FastDFSClientUtils.downloadFile(fileaddress);
             data=AposeUtils.excel2pdf(inputStream);
         }else if (".ppt".equalsIgnoreCase(fileExtension) || ".pptx".equalsIgnoreCase(fileExtension)){
+            response.setContentType("application/pdf");
             inputStream = FastDFSClientUtils.downloadFile(fileaddress);
             data=AposeUtils.ppt2pdf(inputStream);
+        }else if (".jpg".equalsIgnoreCase(fileExtension)
+                || ".png".equalsIgnoreCase(fileExtension)||
+                ".jpeg".equalsIgnoreCase(fileExtension)
+                ||".jpe".equalsIgnoreCase(fileExtension)
+                ){
+            response.setContentType("image/jpeg");
+            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+        }else if (".pdf".equalsIgnoreCase(fileExtension) ){
+            response.setContentType("application/pdf");
+            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+        }else if (".txt".equalsIgnoreCase(fileExtension)
+                ||".conf".equalsIgnoreCase(fileExtension)
+                ||".def".equalsIgnoreCase(fileExtension)
+                ||".in".equalsIgnoreCase(fileExtension)){
+            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+
         }else {
+            response.setContentType("application/octet-stream");
             data = FastDFSClientUtils.downloadFilebytes(fileaddress);
         }
         ServletOutputStream outputStream = null;

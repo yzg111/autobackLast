@@ -1,8 +1,10 @@
 {
-  "main.css": "static/css/main.975ce434.css",
-  "main.css.map": "static/css/main.975ce434.css.map",
-  "main.js": "static/js/main.b0382e3d.js",
-  "main.js.map": "static/js/main.b0382e3d.js.map",
+  "main.css": "less.css",
+  "main.css.map": "less.css.map",
+  "main.js": "static/js/main.01ca0556.js",
+  "main.js.map": "static/js/main.01ca0556.js.map",
+  "static/js/0.dcf2053e.chunk.js": "static/js/0.dcf2053e.chunk.js",
+  "static/js/0.dcf2053e.chunk.js.map": "static/js/0.dcf2053e.chunk.js.map",
   "static\\media\\404.png": "static/media/404.55129156.png",
   "static\\media\\github.png": "static/media/github.26ae8e57.png"
 }

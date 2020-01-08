@@ -46,11 +46,13 @@ public class StartMain extends SpringBootServletInitializer {
         logger.info("开始启动服务！");
         ApplicationContext appCtx = SpringApplication.run(StartMain.class, args);
 
-        MongoUserService userService = (MongoUserService) appCtx.getBean("MongoUserService");
-        userService.start();
-
-        ComService syncmoudel = (ComService) appCtx.getBean("SyncMoudel");
-        syncmoudel.start();
+//        logger.info("mogo service start");
+//        MongoUserService userService = (MongoUserService) appCtx.getBean("MongoUserService");
+//        userService.start();
+//        logger.info("before Moule start");
+//        ComService syncmoudel = (ComService) appCtx.getBean("SyncMoudel");
+//        syncmoudel.start();
+//        logger.info("after Moule start");
 //        List<CpClass> cps = new ArrayList<>();
 //        Map<String, Object> map = new HashMap<>();
 //        map.put("部门名称", "哈哈部门");

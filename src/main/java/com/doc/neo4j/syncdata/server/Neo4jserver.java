@@ -1,10 +1,13 @@
 package com.doc.neo4j.syncdata.server;
 
 import com.doc.Manager.Service.ComService;
+import com.doc.controller.CP_Class.CP_FormController;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
 import org.neo4j.graphdb.factory.GraphDatabaseBuilder;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,7 @@ import java.util.Map;
  */
 @Component("neo4jserver")
 public class Neo4jserver implements ComService{
+    private static final Logger logger = LoggerFactory.getLogger(Neo4jserver.class);
     @Value(value = "${db.path}")
     private String               dbPath;
     //数据库实例
@@ -31,8 +35,10 @@ public class Neo4jserver implements ComService{
         return dbPath;
     }
     public void start(){
+        logger.info("neo4j start create0!");
          graphDbService = new GraphDatabaseFactory()
                 .newEmbeddedDatabase(new File(dbPath + File.separator + "data"));
+        logger.info("neo4j start create1!");
         //配置数据库的一些数据
 //        gb.setConfig("neostore.nodestore.db.mapped_memory", "100m");
 //        gb.setConfig("neostore.propertystore.db.arrays.mapped_memory", "260m");

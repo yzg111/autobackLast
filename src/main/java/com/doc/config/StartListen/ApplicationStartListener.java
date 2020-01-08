@@ -1,5 +1,7 @@
 package com.doc.config.StartListen;
 
+import com.doc.Manager.Service.ComService;
+import com.doc.Service.MogoService.MongoUserService;
 import com.doc.config.Until.SpringContextUtil;
 import com.mongodb.ReadPreference;
 import org.slf4j.Logger;
@@ -23,7 +25,14 @@ public class ApplicationStartListener implements ApplicationListener {
         if (applicationEvent instanceof ContextRefreshedEvent) {
             ApplicationContext applicationContext = ((ContextRefreshedEvent) applicationEvent).getApplicationContext();
             try {
-                logger.info("配置信息启动成功！");
+                logger.info("Setting success!");
+                logger.info("mogo service start");
+                MongoUserService userService = (MongoUserService) applicationContext.getBean("MongoUserService");
+                userService.start();
+                logger.info("before Moule start");
+                ComService syncmoudel = (ComService) applicationContext.getBean("SyncMoudel");
+                syncmoudel.start();
+                logger.info("after Moule start");
             } catch (Exception e) {
                 e.printStackTrace();
             }

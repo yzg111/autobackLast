@@ -36,6 +36,7 @@ public class UploadFileController {
                                  @RequestParam(value = "file") MultipartFile file) {
         JSONObject ob=new JSONObject();
         ob.put("text","余正刚上传成功");
+        logger.info("start upload");
         System.out.println(file.getOriginalFilename());
         String fileid=FastDFSClientUtils.uploadFile(file,file.getOriginalFilename());
         logger.info("上传之后的id"+fileid);
