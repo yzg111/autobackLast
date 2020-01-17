@@ -13,4 +13,6 @@ public interface PageOriginalTreeRepository extends MongoRepository<PageOrignalT
     public PageOrignalTree findById(String id);
 
     public List<PageOrignalTree> findByParentid(String parentid);
+
+    public List<PageOrignalTree> findByParentidIsNull();
 }

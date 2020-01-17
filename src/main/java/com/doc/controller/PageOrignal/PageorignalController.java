@@ -35,14 +35,14 @@ public class PageorignalController {
     @ApiOperation(value = "插入一个页面原件！", notes = "插入一个页面原件！")
     //@RequestBody CP_Class cp
     public Back inpageorignal(@RequestBody PageOrignal pg) {
-        logger.info("插入一个页面原件树！");
+        logger.info("插入一个页面原件！");
 
         System.out.println(pg.toString());
         PageOrignal i = pageOriginalRepository.save(pg);
 
         Back<PageOrignal> back=new Back<>();
         back.setData(i);
-        back.setCmd("页面原件树信息创建成功！");
+        back.setCmd("页面原件信息创建成功！");
         back.setState(1);
 
         return back;
@@ -51,12 +51,29 @@ public class PageorignalController {
     //根据id查询页面原件树信息
     @RequestMapping(value = "/getpageorignalbyid", method = RequestMethod.GET)
     @ResponseBody
-    @EventLog(desc = "根据id查询页面原件树信息！")
-    @ApiOperation(value = "根据id查询页面原件树信息！", notes = "根据id查询页面原件树信息！")
+    @EventLog(desc = "根据id查询页面原件信息！")
+    @ApiOperation(value = "根据id查询页面原件信息！", notes = "根据id查询页面原件树信息！")
     public Back getpageorignalbyid(@RequestParam String id) {
         PageOrignal cptable = pageOriginalRepository.findById(id);
 
         Back<PageOrignal> back=new Back<>();
+        back.setData(cptable);
+        back.setCmd("根据id查询页面原件树信息成功！");
+        back.setState(1);
+
+        return back;
+    }
+
+    //根据页面原件树id查询页面原件信息
+    @RequestMapping(value = "/getpageorignalbytreeid", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "根据页面原件树id查询页面原件信息！")
+    @ApiOperation(value = "根据页面原件树id查询页面原件信息！",
+            notes = "根据页面原件树id查询页面原件信息！")
+    public Back getpageorignalbytreeid(@RequestParam String id) {
+        List<PageOrignal> cptable = pageOriginalRepository.findByPageorignaltreeid(id);
+
+        Back<List<PageOrignal>> back=new Back<>();
         back.setData(cptable);
         back.setCmd("根据id查询页面原件树信息成功！");
         back.setState(1);

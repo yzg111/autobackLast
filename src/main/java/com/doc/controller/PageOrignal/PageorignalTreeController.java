@@ -28,6 +28,21 @@ public class PageorignalTreeController {
     @Autowired
     private PageOriginalTreeRepository pageOriginalTreeRepository;
 
+    //查询所有顶级页面原件树信息
+    @RequestMapping(value = "/takepageorignaltreetop", method = RequestMethod.GET)
+    @EventLog(desc = "查询所有顶级页面原件树信息！")
+    @ApiOperation(value = "查询所有顶级页面原件树信息！", notes = "查询所有顶级页面原件树信息！")
+    public Back Getscripttreetop() {
+        Back<List<PageOrignalTree>> cpscripttree = new Back<>();
+
+        List<PageOrignalTree> listcpscripttrres = pageOriginalTreeRepository.findByParentidIsNull();
+
+        cpscripttree.setCmd("查询所有顶级页面原件树信息成功！");
+        cpscripttree.setState(1);
+        cpscripttree.setData(listcpscripttrres);
+        return cpscripttree;
+    }
+
     @RequestMapping(value = "/inpageorignaltree", method = RequestMethod.POST)
     @ResponseBody
     @EventLog(desc = "插入一个页面原件树！")
@@ -67,8 +82,8 @@ public class PageorignalTreeController {
     @ResponseBody
     @EventLog(desc = "根据id查询下级页面原件树信息！")
     @ApiOperation(value = "根据id查询下级页面原件树信息！", notes = "根据id查询下级页面原件树信息！")
-    public Back getcpFormdatabyparentid(@RequestParam String id) {
-        List<PageOrignalTree> ls = pageOriginalTreeRepository.findByParentid(id);
+    public Back getcpFormdatabyparentid(@RequestParam String parentid) {
+        List<PageOrignalTree> ls = pageOriginalTreeRepository.findByParentid(parentid);
 
         Back<List<PageOrignalTree>> back=new Back<>();
         back.setData(ls);
@@ -76,5 +91,30 @@ public class PageorignalTreeController {
         back.setState(1);
 
         return back;
+    }
+
+    //查询所有页面原件树信息
+    @RequestMapping(value = "/takeallpageorignaltree", method = RequestMethod.GET)
+    @EventLog(desc = "查询所有页面原件树信息！")
+    @ApiOperation(value = "查询所有页面原件树信息！", notes = "查询所有页面原件树信息！")
+    public Back GetTreeCPs() {
+        Back<List<PageOrignalTree>> cps = new Back<>();
+
+        List<PageOrignalTree> listcps = pageOriginalTreeRepository.findByParentidIsNull();
+        listcps = ToTree(listcps);
+
+        cps.setCmd("查询所有页面原件树信息");
+        cps.setState(1);
+        cps.setData(listcps);
+        return cps;
+    }
+    public List<PageOrignalTree> ToTree(List<PageOrignalTree> top) {
+        List<PageOrignalTree> result = top;
+        for (PageOrignalTree cp : top) {
+            List<PageOrignalTree> listcps = pageOriginalTreeRepository.findByParentid(cp.getId());
+            cp.setChildren(listcps);
+            ToTree(listcps);
+        }
+        return result;
     }
 }
