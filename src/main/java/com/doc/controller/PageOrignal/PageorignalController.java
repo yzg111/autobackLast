@@ -81,4 +81,21 @@ public class PageorignalController {
         return back;
     }
 
+    //删除父类的表单配件数据的接口
+    @RequestMapping(value = "/delpageorigindata", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "删除页面原件数据的接口！")
+    @ApiOperation(value = "删除页面原件数据的接口！", notes = "删除页面原件数据的接口！")
+    public Back delpageorigindata(@RequestParam String id) {
+        PageOrignal listcpdatas = pageOriginalRepository.findById(id);
+        pageOriginalRepository.delete(listcpdatas);
+
+        Back<Integer> back=new Back<>();
+        back.setData(1);
+        back.setCmd("删除页面原件数据成功！");
+        back.setState(1);
+
+        return back;
+    }
+
 }
