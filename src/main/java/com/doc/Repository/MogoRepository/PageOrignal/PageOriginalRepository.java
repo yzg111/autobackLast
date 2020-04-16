@@ -13,4 +13,6 @@ public interface PageOriginalRepository extends MongoRepository<PageOrignal,Obje
     public PageOrignal findById(String id);
 
     public List<PageOrignal> findByPageorignaltreeid(String pageorignaltreeid);
+
+    public List<PageOrignal> findByIdIn(List<String> ids);
 }

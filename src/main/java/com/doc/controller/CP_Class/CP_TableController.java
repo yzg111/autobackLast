@@ -95,4 +95,20 @@ public class CP_TableController {
 
         return back;
     }
+
+    //查询表格配件信息
+    @RequestMapping(value = "/getcptbdatabyids", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "查询id集合表格配件信息！")
+    @ApiOperation(value = "查询id集合表格配件信息！", notes = "查询id集合表格配件信息！")
+    public Back getcptbdatabyids(@RequestBody List<String> ids) {
+        List<CP_Table> cptable = cp_tableRepository.findByIdIn(ids);
+
+        Back<List<CP_Table>> back=new Back<>();
+        back.setData(cptable);
+        back.setCmd("查询表格配件信息！");
+        back.setState(1);
+
+        return back;
+    }
 }

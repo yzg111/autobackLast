@@ -82,11 +82,28 @@ public class PageorignalController {
     }
 
     //根据页面原件树id查询页面原件信息
+    @RequestMapping(value = "/getpageorignalbyListIds", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "根据页面元件id集合查询页面原件信息！")
+    @ApiOperation(value = "根据页面元件id集合查询页面原件信息！",
+            notes = "根据页面元件id集合查询页面原件信息！")
+    public Back getpageorignalbyListIds(@RequestBody List<String> ids) {
+        List<PageOrignal> cptable = pageOriginalRepository.findByIdIn(ids);
+
+        Back<List<PageOrignal>> back=new Back<>();
+        back.setData(cptable);
+        back.setCmd("根据页面元件id集合查询页面原件信息！");
+        back.setState(1);
+
+        return back;
+    }
+
+    //根据页面原件树id查询页面原件信息
     @RequestMapping(value = "/getallpageorignal", method = RequestMethod.GET)
     @ResponseBody
-    @EventLog(desc = "根据页面原件树id查询页面原件信息！")
-    @ApiOperation(value = "根据页面原件树id查询页面原件信息！",
-            notes = "根据页面原件树id查询页面原件信息！")
+    @EventLog(desc = "查询所有页面原件信息！")
+    @ApiOperation(value = "查询所有页面原件信息！",
+            notes = "查询所有页面原件信息！")
     public Back getallpageorignal() {
         List<PageOrignal> cptable = pageOriginalRepository.findAll();
 

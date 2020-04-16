@@ -15,4 +15,7 @@ public interface Cp_TableRepository extends MongoRepository<CP_Table,ObjectId> {
     public List<CP_Table> findByCpid(String cpid);
     //根据id查询出数据
     public CP_Table findById(String id);
+
+    //根据id集合查询出数据
+    public List<CP_Table> findByIdIn(List<String> ids);
 }
