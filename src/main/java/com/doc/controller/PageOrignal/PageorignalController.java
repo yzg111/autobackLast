@@ -81,6 +81,23 @@ public class PageorignalController {
         return back;
     }
 
+    //根据页面原件树id查询页面原件信息
+    @RequestMapping(value = "/getallpageorignal", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "根据页面原件树id查询页面原件信息！")
+    @ApiOperation(value = "根据页面原件树id查询页面原件信息！",
+            notes = "根据页面原件树id查询页面原件信息！")
+    public Back getallpageorignal() {
+        List<PageOrignal> cptable = pageOriginalRepository.findAll();
+
+        Back<List<PageOrignal>> back=new Back<>();
+        back.setData(cptable);
+        back.setCmd("根据id查询页面原件树信息成功！");
+        back.setState(1);
+
+        return back;
+    }
+
     //删除父类的表单配件数据的接口
     @RequestMapping(value = "/delpageorigindata", method = RequestMethod.GET)
     @ResponseBody
