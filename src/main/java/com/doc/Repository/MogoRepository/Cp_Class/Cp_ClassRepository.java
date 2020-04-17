@@ -19,6 +19,7 @@ public interface Cp_ClassRepository extends MongoRepository<CP_Class,ObjectId> {
 
     public List<CP_Class>findByParentid(String parentid);
     public CP_Class findById(String id);
+    public List<CP_Class> findByIdIn(List<String> ids);
 
     public CP_Class findByCpname(String cpname);
 }
