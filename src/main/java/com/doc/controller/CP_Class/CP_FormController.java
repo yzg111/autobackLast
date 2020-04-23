@@ -1,6 +1,7 @@
 package com.doc.controller.CP_Class;
 
 import com.doc.Entity.BackEntity.Back;
+import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Form;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_FormRepository;
@@ -91,5 +92,22 @@ public class CP_FormController {
         back.setState(1);
 
         return back;
+    }
+
+    //查询下级CP父类信息
+    @RequestMapping(value = "/getformsByids", method = RequestMethod.POST)
+    @EventLog(desc = "根据id集合查询出表单信息！")
+    @ApiOperation(value = "根据id集合查询出表单信息！", notes = "根据id集合查询出表单信息！")
+    public Back getformsByids(@RequestBody List<String> ids) {
+        Back<List<CP_Form>> cpforms = new Back<>();
+
+        List<CP_Form> listcpforms = cp_formRepository.findByIdIn(ids);
+
+        cpforms.setCmd("根据id集合查询出表单信息");
+        cpforms.setState(1);
+        cpforms.setData(listcpforms);
+
+
+        return cpforms;
     }
 }

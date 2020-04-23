@@ -15,4 +15,6 @@ public interface Cp_FormRepository extends MongoRepository<CP_Form,ObjectId> {
     public List<CP_Form> findByCpid(String cpid);
     //根据id查询出数据
     public CP_Form findById(String id);
+    //根据id集合查询出表单信息
+    public List<CP_Form>findByIdIn(List<String> ids);
 }
