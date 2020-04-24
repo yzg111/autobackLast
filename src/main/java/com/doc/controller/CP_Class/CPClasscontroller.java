@@ -95,6 +95,42 @@ public class CPClasscontroller {
         Back<List<CP_Class>> cps = new Back<>();
 
         List<CP_Class> listcps = cp_classRepository.findByParentid(parentid);
+        for (int i = 0; i < listcps.size(); i++) {
+            System.out.println(listcps.get(i).getDatamap().toString());
+            List<Map.Entry<String, Integer>> infoIds =
+                    new LinkedList<Map.Entry<String, Integer>>(listcps.get(i).getDatamap().entrySet());
+            //排序
+            Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    return o1.getValue().compareTo(o2.getValue());
+                }
+            });
+            HashMap<String, Integer> aMap2 = new LinkedHashMap<>();
+            for (Map.Entry<String, Integer> entry : infoIds) {
+                aMap2.put(entry.getKey(), entry.getValue());
+            }
+            if (listcps.get(i).getAtrrs() != null) {
+                Map atrrs = listcps.get(i).getAtrrs();
+                List<String> ids = new ArrayList<>();
+                atrrs.forEach((key, value) -> {
+//                logger.info(value.toString());
+                    JSONObject jsonObject = new JSONObject((Map) value);
+                    if (jsonObject.getBoolean("isenum") != null) {
+                        boolean isenum = jsonObject.getBoolean("isenum");
+                        if (isenum) {
+                            if (jsonObject.getString("glcp") != null) {
+                                ids.add(jsonObject.getString("glcp"));
+                            }
+                        }
+                    }
+                });
+                //获取cp的数据信息
+                List<CP_Class_Data> listcpdatas = cp_class_dataRepository.findByCpidIn(ids);
+                listcps.get(i).setCpselectdata(listcpdatas);
+            }
+            listcps.get(i).setDatamap(aMap2);
+        }
 
         cps.setCmd("查询下级CP父类信息");
         cps.setState(1);
