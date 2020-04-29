@@ -15,6 +15,7 @@ public class CP_GroovyScript implements Serializable {
     @Id
     private String id;
     private String scriptname;//父类名称,一定唯一
+    private String scriptcode;//脚本编码，一定唯一
     private String scripttreeid;//脚本树id
     private String scriptcontent;//脚本内容
 
@@ -48,5 +49,13 @@ public class CP_GroovyScript implements Serializable {
 
     public void setScriptcontent(String scriptcontent) {
         this.scriptcontent = scriptcontent;
+    }
+
+    public String getScriptcode() {
+        return scriptcode;
+    }
+
+    public void setScriptcode(String scriptcode) {
+        this.scriptcode = scriptcode;
     }
 }
