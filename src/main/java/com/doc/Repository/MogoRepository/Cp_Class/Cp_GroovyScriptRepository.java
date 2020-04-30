@@ -16,4 +16,5 @@ public interface Cp_GroovyScriptRepository extends MongoRepository<CP_GroovyScri
     public CP_GroovyScript findByScriptname(String scriptname);
 
     public CP_GroovyScript findById(String id);
+    public CP_GroovyScript findByScriptcode(String scriptcode);
 }

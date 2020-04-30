@@ -156,6 +156,22 @@ public class CPClasscontroller {
 
         return cps;
     }
+    //根据id查询出cp类信息
+    @RequestMapping(value = "/takecpByid", method = RequestMethod.GET)
+    @EventLog(desc = "根据id查询出cp类信息！")
+    @ApiOperation(value = "根据id查询出cp类信息！", notes = "根据id查询出cp类信息！")
+    public Back takecpByid(@RequestParam String id) {
+        Back<CP_Class> cp = new Back<>();
+
+        CP_Class listcp = cp_classRepository.findById(id);
+
+        cp.setCmd("根据id集合查询出cp类信息");
+        cp.setState(1);
+        cp.setData(listcp);
+
+
+        return cp;
+    }
 
     //获取所有cp父类信息
     @RequestMapping(value = "/takealltreecps", method = RequestMethod.GET)

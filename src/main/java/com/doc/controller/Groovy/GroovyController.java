@@ -141,4 +141,51 @@ public class GroovyController {
         return back;
 
     }
+
+    //根据脚本编码执行groovy脚本！
+    @RequestMapping(value = "/runscriptbyscriptcode/{scriptcode}", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "根据脚本编码执行groovy脚本！")
+    @ApiOperation(value = "根据脚本编码执行groovy脚本！", notes = "根据脚本编码执行groovy脚本！")
+    public Back runscriptbyscriptcode(@PathVariable("scriptcode") String scriptcode
+            ,@RequestBody SelectedRows rows) {
+        //通过脚本编码查询出脚本信息
+        CP_GroovyScript script = cp_groovyScriptRepository.findByScriptcode(scriptcode);
+        String groovyscript=script.getScriptcontent();
+        StringBuilder sb=new StringBuilder();
+        sb.append("import java.text.SimpleDateFormat;");
+        sb.append("import com.doc.UtilsTools.CpTools;");
+        sb.append("import com.doc.neo4j.syncdata.*;");
+        sb.append("def cpTools=new CpTools();");
+        sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
+        sb.append("cpTools.setCpClassRepository(cp_classRepository);");
+        sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+
+
+        sb.append(groovyscript);
+        Map<String,Object> pm=new HashMap<>();
+//        List<Map<String,Object>>lrs=new ArrayList<>();
+//        for (int i=0;i<10;i++){
+//            Map<String,Object> r=new HashedMap();
+//            r.put("r","测试测试余正刚"+i);
+//            lrs.add(r);
+//        }
+        Map<String,Object> rws=new HashedMap();
+        rws.put("rows",rows.getRows());
+        pm.put("args$",rws);
+        pm.put("syncneo4jdata",syncneo4jdata);
+        pm.put("cp_classRepository",cp_classRepository);
+        pm.put("cpClassDataRepository",cpClassDataRepository);
+
+        Object res=groovyTools.runGroovyScript(sb.toString(),pm);
+
+//        System.out.println(res.toString());
+        Back<Object> back=new Back<>();
+        back.setData(res);
+        back.setCmd("测试脚本执行情况！");
+        back.setState(1);
+
+        return back;
+
+    }
 }
