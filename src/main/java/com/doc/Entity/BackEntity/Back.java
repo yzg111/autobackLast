@@ -14,4 +14,13 @@ public class Back<T> extends Base {
     public void setData(T data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer retVal = new StringBuffer();
+        retVal.append("{state:").append(this.getState());
+        retVal.append(",Cmd:").append(this.getCmd());
+        retVal.append(",data:").append(this.getData()).append("}");
+        return retVal.toString();
+    }
 }
