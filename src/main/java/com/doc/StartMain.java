@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -29,7 +30,7 @@ import java.util.Map;
 /**
  * Doc.Server 于2017/8/2 由Administrator 创建 .
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = WebSocketAutoConfiguration.class)
 @ImportResource({"classpath:spring/*.xml"})
 @EnableAutoConfiguration
 @EnableTransactionManagement

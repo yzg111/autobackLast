@@ -6,6 +6,7 @@ import com.doc.Entity.MogoEntity.PageOrignal.PageOrignalTree;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.PageOrignal.PageOriginalRepository;
 import com.doc.Repository.MogoRepository.PageOrignal.PageOriginalTreeRepository;
+import com.doc.WebSocket.WebSocketController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -36,6 +37,8 @@ public class PageorignalController {
     //@RequestBody CP_Class cp
     public Back inpageorignal(@RequestBody PageOrignal pg) {
         logger.info("插入一个页面原件！");
+//        logger.error("插入页面原件出错！");
+//        logger.warn("插入页面原件报警！");
 
         System.out.println(pg.toString());
         PageOrignal i = pageOriginalRepository.save(pg);

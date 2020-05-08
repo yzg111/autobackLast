@@ -10,6 +10,7 @@ import com.doc.Manager.SelfAnno.UpdateLog;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.neo4j.mode.CpClass;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
+import jline.internal.Log;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -86,6 +87,7 @@ public class UpdateAop {
             CP_Class cp_class=cpClassRepository.findById(cpid);
             CpClass cpClass=new CpClass(cp_class.getCpname(),data.getId(),data.getDatamap(),cpid);
             System.out.println(JSON.toJSONString(data));
+            Log.info("更新数据："+JSON.toJSONString(data));
             //在这里更新neo4j数据库中的数据
             syncneo4jdata.saveOrUpdateCp(cpClass);
         }

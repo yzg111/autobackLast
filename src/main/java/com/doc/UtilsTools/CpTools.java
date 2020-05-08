@@ -5,6 +5,7 @@ import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
+import com.doc.WebSocket.WebSocketController;
 import com.doc.neo4j.mode.CpClass;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import com.doc.neo4j.syncdata.server.Neo4jserver;
@@ -16,6 +17,8 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Result;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import springfox.documentation.spring.web.json.Json;
@@ -34,6 +37,7 @@ public class CpTools {
     private Syncneo4jdata syncneo4jdata;
     private Cp_ClassRepository cpClassRepository;
     private Cp_Class_DataRepository cpClassDataRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CpTools.class);
 
     public void getCpDataTest() {
         System.out.println("CP类数据获取成功！");
@@ -169,6 +173,24 @@ public class CpTools {
         CpClass cpClass = new CpClass(cp_class.getCpname(), cpdata.getId(), cpdata.getDatamap(), cpdata.getCpid());
 
         this.syncneo4jdata.saveOrUpdateCp(cpClass);
+    }
+
+    /**
+     * 功能描述:打印groovy日志
+     *
+     * @return :
+     */
+    public void printLog(Object message){
+        if(message!=null){
+            if(message instanceof String){
+                logger.info((String) message);
+            }else {
+                logger.info(message.toString());
+            }
+        }else {
+            logger.info("null");
+        }
+
     }
 
 

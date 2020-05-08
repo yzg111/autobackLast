@@ -13,10 +13,15 @@ public class GlobalValue {
     private String secretKey;//秘钥
     @Value("${info.key}")
     private String InfoKey;//信息秘钥
+    @Value("${info.redreictaddress}")
+    private String redictaddress;//重定向地址
 
     public String getSecretKey() {
         return secretKey;
     }
 
     public String getInfoKey(){return InfoKey;}
+    public String getRedictaddress() {
+        return redictaddress;
+    }
 }

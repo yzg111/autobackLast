@@ -12,11 +12,14 @@ import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_GroovyScriptRepository;
 import com.doc.UtilsTools.CpTools;
 import com.doc.UtilsTools.GroovyTools;
+import com.doc.controller.CP_Class.CP_FormController;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +36,10 @@ import java.util.Map;
 @Api(description = "执行脚本的接口", tags = "执行脚本的接口")
 @RequestMapping("/cp")
 public class GroovyController {
+    /**
+     * 日志记录。
+     */
+    private static final Logger logger = LoggerFactory.getLogger(CP_FormController.class);
     @Autowired
     private GroovyTools groovyTools;
     @Autowired
@@ -123,9 +130,9 @@ public class GroovyController {
 //            r.put("r","测试测试余正刚"+i);
 //            lrs.add(r);
 //        }
-        Map<String,Object> rws=new HashedMap();
-        rws.put("rows",rows.getRows());
-        pm.put("args$",rws);
+//        Map<String,Object> rws=new HashedMap();
+//        rws.put("rows",rows.getRows());
+        pm.put("args$",rows);
         pm.put("syncneo4jdata",syncneo4jdata);
         pm.put("cp_classRepository",cp_classRepository);
         pm.put("cpClassDataRepository",cpClassDataRepository);
@@ -151,6 +158,7 @@ public class GroovyController {
             ,@RequestBody SelectedRows rows) {
         //通过脚本编码查询出脚本信息
         CP_GroovyScript script = cp_groovyScriptRepository.findByScriptcode(scriptcode);
+        logger.info("开始执行脚本:"+script.getScriptname()+"!");
         String groovyscript=script.getScriptcontent();
         StringBuilder sb=new StringBuilder();
         sb.append("import java.text.SimpleDateFormat;");
@@ -170,14 +178,16 @@ public class GroovyController {
 //            r.put("r","测试测试余正刚"+i);
 //            lrs.add(r);
 //        }
-        Map<String,Object> rws=new HashedMap();
-        rws.put("rows",rows.getRows());
-        pm.put("args$",rws);
+//        Map<String,Object> rws=new HashedMap();
+//        rws.put("rows",rows.getRows());
+        pm.put("args$",rows);
         pm.put("syncneo4jdata",syncneo4jdata);
         pm.put("cp_classRepository",cp_classRepository);
         pm.put("cpClassDataRepository",cpClassDataRepository);
 
         Object res=groovyTools.runGroovyScript(sb.toString(),pm);
+        logger.info(script.getScriptname()+"脚本执行结束！");
+        logger.info(script.getScriptname()+"脚本执行结果:"+res);
 
 //        System.out.println(res.toString());
         Back<Object> back=new Back<>();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration >
+    <!--    下面这句话意思是保留springboot原先的日志配置，要不然后面日志打不出来了-->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="mylog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout
+                class="ch.qos.logback.classic.PatternLayout">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{@riqi@yyyy-MM-dd HH:mm:ss.SSS} %-5level --- [%thread] %logger Line:%-3L - %msg%n</pattern>
+        </layout>
+        <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+        <filter class="com.doc.config.LogConfig.MyLog4JAppender.LogFilter"></filter>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="mylog" />
+    </root>
+
+    <!--<appender name="deb" class="com.doc.config.LogConfig.MyLog4JAppender.MyLog4JAppender">-->
+        <!--<layout-->
+                <!--class="ch.qos.logback.classic.PatternLayout">-->
+            <!--&lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 &ndash;&gt;-->
+            <!--<pattern>%d{@riqi@yyyy-MM-dd HH:mm:ss.SSS} %-5level -&#45;&#45; [%thread] %logger Line:%-3L - %msg%n</pattern>-->
+        <!--</layout>-->
+        <!--<filter class="com.doc.config.LogConfig.MyLog4JAppender.LogFilter"></filter>-->
+    <!--</appender>-->
+    <!--<root level="INFO">-->
+        <!--<appender-ref ref="deb" />-->
+    <!--</root>-->
+
+</configuration>
