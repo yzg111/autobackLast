@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
-import com.doc.Manager.SelfAnno.DelDataLog;
-import com.doc.Manager.SelfAnno.DelListDataLog;
-import com.doc.Manager.SelfAnno.EventLog;
-import com.doc.Manager.SelfAnno.UpdateLog;
+import com.doc.Manager.SelfAnno.*;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.UtilsTools.UtilsTools;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
@@ -50,7 +47,29 @@ public class CPClassDataController {
     @ApiOperation(value = "插入一个父类字段内容数据！", notes = "插入一个父类字段内容数据！")
     //@RequestBody CP_Class_Data cp
     public Back inCpData(@RequestBody CP_Class_Data cpdata) {
+        //插入数据可能后面需要考虑到数据重复的问题，重复就过滤掉
+        //主要是主键重复的问题
         CP_Class_Data i = cp_class_dataRepository.save(cpdata);
+
+        Back<Integer> back=new Back<Integer>();
+        back.setData(1);
+        back.setCmd("父类字段数据操作成功！");
+        back.setState(1);
+
+        return back;
+    }
+
+    //批量插入数据的接口
+    @RequestMapping(value = "/plincpdatas", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "批量插入相关cp父类的数据！")
+    @PLUpdateLog(desc = "批量插入相关cp父类的数据")
+    @ApiOperation(value = "批量插入相关cp父类的数据！", notes = "批量插入相关cp父类的数据！")
+    //@RequestBody CP_Class_Data cp
+    public Back plincpdatas(@RequestBody List<CP_Class_Data> cpdata) {
+        //批量插入数据可能后面需要考虑到数据重复的问题，重复就过滤掉
+        //主要是主键重复的问题
+         List<CP_Class_Data> cpdatas=cp_class_dataRepository.save(cpdata);
 
         Back<Integer> back=new Back<Integer>();
         back.setData(1);
