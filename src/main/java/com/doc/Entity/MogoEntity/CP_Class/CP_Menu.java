@@ -1,6 +1,5 @@
 package com.doc.Entity.MogoEntity.CP_Class;
 
-import org.apache.catalina.LifecycleState;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,14 +16,18 @@ public class CP_Menu<T> implements Serializable{
     @Id
     private String id;
     private String menuname;
+    private String type;//菜单要显示的个性化页面还是普通的表格表单还是页面原件
     private String tableid;
     private String formid;
     private String parentid;//上级父类id
     private String cpid;//cp类id
+    private String pageoriginparentid;//页面原件父级id
+    private String pageoriginid;//页面原件的id
+    private String ljstr;//个性化页面的路径字符串
+
+    private String zjlj;//个性化页面的组件路径类型
     private List<T> children;
 
-    public CP_Menu() {
-    }
 
     public String getId() {
         return id;
@@ -87,5 +90,42 @@ public class CP_Menu<T> implements Serializable{
 
     public void setChildren(List<T> children) {
         this.children = children;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getPageoriginparentid() {
+        return pageoriginparentid;
+    }
+
+    public void setPageoriginparentid(String pageoriginparentid) {
+        this.pageoriginparentid = pageoriginparentid;
+    }
+
+    public String getPageoriginid() {
+        return pageoriginid;
+    }
+
+    public void setPageoriginid(String pageoriginid) {
+        this.pageoriginid = pageoriginid;
+    }
+
+    public String getLjstr() {
+        return ljstr;
+    }
+
+    public void setLjstr(String ljstr) {
+        this.ljstr = ljstr;
+    }
+    public String getZjlj() {
+        return zjlj;
+    }
+
+    public void setZjlj(String zjlj) {
+        this.zjlj = zjlj;
     }
 }
