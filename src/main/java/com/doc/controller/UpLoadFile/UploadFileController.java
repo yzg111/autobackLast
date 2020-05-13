@@ -42,6 +42,24 @@ public class UploadFileController {
         logger.info("上传之后的id"+fileid);
         return fileid;
     }
+
+    //上传单个文件的接口produces = {"application/json; charset=UTF-8"},
+//    , headers = "content-type=multipart/form-data"
+    @RequestMapping(value = {"/uploadpicfile"},produces = {"application/json; charset=UTF-8"},
+            method = RequestMethod.POST, headers = "content-type=multipart/form-data"
+    )
+    @ResponseBody
+    @ApiOperation(value = "上传图片文件的接口", hidden = true)
+    public String uploadpicture(HttpServletRequest request,
+                             @RequestParam(value = "file") MultipartFile file) {
+        JSONObject ob=new JSONObject();
+        ob.put("text","余正刚上传成功");
+        logger.info("start upload");
+        System.out.println(file.getOriginalFilename());
+//        String fileid=FastDFSClientUtils.uploadFile(file,file.getOriginalFilename());
+//        logger.info("上传之后的id"+fileid);
+        return "上传成功";
+    }
 //
 //
 //    //上传多个单个文件的接口produces = {"application/json; charset=UTF-8"},
