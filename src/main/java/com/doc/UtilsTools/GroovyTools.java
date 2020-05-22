@@ -1,8 +1,11 @@
 package com.doc.UtilsTools;
 
+import com.doc.controller.CP_Class.CP_FormController;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.script.*;
@@ -18,6 +21,10 @@ public class GroovyTools {
     final ScriptEngine engine = factory.getEngineByName("groovy");
     final Compilable compilable = (Compilable) engine;
     /**
+     * 日志记录。
+     */
+    private static final Logger logger = LoggerFactory.getLogger(GroovyTools.class);
+    /**
      * @author yzg
      * @创建时间 2017年3月2日 下午9:43:08
      * @desc 执行groovy脚本(不指定方法)
@@ -27,9 +34,12 @@ public class GroovyTools {
      *            执行grovvy需要传入的参数
      * @return 脚本执行结果
      */
-    public Object runGroovyScript(String script, Map<String, Object> params) {
-        if (script == null || "".equals(script))
+    public Object runGroovyScript(String script, Map<String, Object> params,String scriptname) {
+        if (script == null || "".equals(script)){
+            logger.error("方法runGroovyScript无法执行，传入的脚本为空！");
             throw new RuntimeException("方法runGroovyScript无法执行，传入的脚本为空");
+        }
+
 
         try {
             Bindings bindings = engine.createBindings();
@@ -38,6 +48,8 @@ public class GroovyTools {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            logger.error(e.getMessage());
+            logger.error(scriptname+"脚本执行失败！");
             return null;
         }
     }
