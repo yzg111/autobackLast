@@ -35,7 +35,7 @@ public class LogFilter extends Filter<ILoggingEvent> {
 
 //        webSocketController.sendMessage(consoleLogInfo.toString());
 //        webSocketController.sendMessage(event.getLevel().levelStr);
-        webSocketController.sendMessage(event.getLevel().levelStr+"@"+event.getMessage());
+        webSocketController.sendMessage(event.getLevel().levelStr+"|"+event.getMessage());
         return FilterReply.ACCEPT;
     }
 }
