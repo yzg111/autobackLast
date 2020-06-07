@@ -1,0 +1,2 @@
+1、需要注释掉websocket的compent（会导致打包之后的websocket不能使用，后续解决掉）
+2、需要将gradle里面的tomcat注释掉
