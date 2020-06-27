@@ -86,9 +86,9 @@ public class CpTools {
             for (int i = 0; i < options.size(); i++) {
                 Map<String, Object> obj = options.get(i);
                 if (i == 0) {
-                    where = where + " n." + obj.get("name") + " = " + obj.get("value") + " ";
+                    where = where + " n." + obj.get("name") + " = '" + obj.get("value") + "' ";
                 } else {
-                    where = where + " and n." + obj.get("name") + " = " + obj.get("value") + " ";
+                    where = where + " and n." + obj.get("name") + " = '" + obj.get("value") + "' ";
                 }
             }
         }
