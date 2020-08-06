@@ -38,7 +38,7 @@ public class JwtFilter extends GenericFilterBean {
                                                               "/swagger-ui.html",
                                                               "/swagger-resources", "/webjars",
                                                               "/configuration/ui", "/v2/api-docs",
-                                                              "/assets", "/vendor","/cp/" };
+                                                              "/assets", "/vendor","/cp/","/staticpage" };
 
     private final static String checkToken = "/api/checkToken";
     private final static String mobileLogin = "/cms/v1/mobileLogin";
