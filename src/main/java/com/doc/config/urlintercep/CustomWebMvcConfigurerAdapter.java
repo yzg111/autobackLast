@@ -30,7 +30,7 @@ public class CustomWebMvcConfigurerAdapter extends WebSecurityConfigurerAdapter 
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterAfter(new JwtFilter("123456"), AnonymousAuthenticationFilter.class);
+        http.addFilterAfter(new JwtFilter("ZCfasfhuaUUHufguGuwu2020BQWE"), AnonymousAuthenticationFilter.class);
 
 //        super.configure(auth);
     }

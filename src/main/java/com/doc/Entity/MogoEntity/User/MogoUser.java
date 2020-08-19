@@ -25,6 +25,8 @@ public class MogoUser extends ComEnt implements Serializable  {
     private String desc;
     private List<String> roles;
     private List<Object> rolesinfo;
+    private String token;
+    private String userid;
 
     public MogoUser() {
     }
@@ -99,5 +101,21 @@ public class MogoUser extends ComEnt implements Serializable  {
 
     public void setRolesinfo(List<Object> rolesinfo) {
         this.rolesinfo = rolesinfo;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

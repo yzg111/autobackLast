@@ -1,6 +1,9 @@
 package com.doc.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Component;
  * Doc.config 于2017/8/23 由Administrator 创建 .
  */
 @Component("GlobalValue")
+@Configuration
+@PropertySource("classpath:application-default.properties")//指定属性文件的路径
 public class GlobalValue {
     @Value("${secret.key}")
     private String secretKey;//秘钥
@@ -15,6 +20,8 @@ public class GlobalValue {
     private String InfoKey;//信息秘钥
     @Value("${info.redreictaddress}")
     private String redictaddress;//重定向地址
+    @Value("${token.isneedexpris}")
+    private String isneedexpris;
 
     public String getSecretKey() {
         return secretKey;
@@ -24,4 +31,9 @@ public class GlobalValue {
     public String getRedictaddress() {
         return redictaddress;
     }
+    public String getIsneedexpris() {
+        return isneedexpris;
+    }
+
+
 }
