@@ -36,4 +36,27 @@ public class swaggerConfig {
                 .version("1.0")
                 .build();
     }
+
+    //最上面的下拉框通过groupname来控制显示
+//    @Bean
+//    public Docket V7docApi() {
+//        Docket swaggerSpringMvcPlugin =new Docket(DocumentationType.SWAGGER_2)
+//                .apiInfo(v7apiInfo())
+//                .groupName("第7版新加接口")
+//                .enable(true)
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.rf.cms.v3.v7"))
+//                .paths(PathSelectors.any())
+//                .build();
+//        return swaggerSpringMvcPlugin;
+//    }
+//    private ApiInfo v7apiInfo() {
+//        return new ApiInfoBuilder()
+//                .title("RESTful APIs")
+//                .description("RESTful API")
+//                .termsOfServiceUrl("无")
+//                .contact("上海元方")
+//                .version("7.0")
+//                .build();
+//    }
 }

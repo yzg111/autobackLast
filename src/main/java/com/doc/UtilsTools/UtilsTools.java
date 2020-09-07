@@ -12,6 +12,10 @@ import java.util.*;
  * com.doc.UtilsTools 于2019/1/7 由Administrator 创建 .
  */
 public class UtilsTools {
+
+//    ServletContext s1=this.getServletContext();
+//    String temp=s1.getRealPath("/"); (关键)
+//    结果形如：D:\工具\Tomcat-6.0\webapps\002_ext\ (002_ext为项目名字)
     public static void delFolder(String folderPath) {
         try {
             delAllFile(folderPath); //删除完里面所有内容

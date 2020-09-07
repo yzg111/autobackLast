@@ -26,8 +26,16 @@ public class CP_Menu<T> implements Serializable{
     private String ljstr;//个性化页面的路径字符串
 
     private String zjlj;//个性化页面的组件路径类型
+    private List<String> echartid;//图表配置的id
     private List<T> children;
 
+    public List<String> getEchartid() {
+        return echartid;
+    }
+
+    public void setEchartid(List<String> echartid) {
+        this.echartid = echartid;
+    }
 
     public String getId() {
         return id;
