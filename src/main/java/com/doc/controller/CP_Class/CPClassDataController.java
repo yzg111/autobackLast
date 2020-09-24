@@ -4,12 +4,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
+import com.doc.Entity.MogoEntity.CP_Class.CP_Table;
 import com.doc.Manager.SelfAnno.*;
+import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
+import com.doc.Repository.MogoRepository.Cp_Class.Cp_TableRepository;
 import com.doc.UtilsTools.UtilsTools;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.doc.UtilsTools.UtilsTools.GetqueryString;
 
 /**
  * com.doc.controller.CP_Class 于2018/2/26 由Administrator 创建 .
@@ -35,6 +41,11 @@ public class CPClassDataController {
 
     @Autowired
     private Cp_Class_DataRepository cp_class_dataRepository;
+    @Autowired
+    private Cp_TableRepository cp_tableRepository;
+
+    @Autowired
+    private Cp_ClassRepository cp_classRepository;
 
     @Autowired
     private Syncneo4jdata syncneo4jdata;
@@ -182,6 +193,54 @@ public class CPClassDataController {
         back.setData(listcpdatas);
         back.setCmd("查询父类字段内容数据成功！");
         back.setState(1);
+
+        return back;
+    }
+
+    //查询父级相关数据的接口
+    @RequestMapping(value = "/getCpDataByTableID", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "根据配置的表格id查询出相关Cp类数据！")
+    @ApiOperation(value = "根据配置的表格id查询出相关Cp类数据！", notes = "根据配置的表格id查询出相关Cp类数据！")
+    public Back getCpDataByTableID(@RequestBody String tableid) {
+        CP_Table cp_table = cp_tableRepository.findById(tableid);
+        CP_Class cp_class = cp_classRepository.findById(cp_table.getCpid());
+        Map<String, Object> datamap = new HashedMap();
+        Back<Map<String, Object>> back = new Back<>();
+        //根据配置表格组装好数据
+        if (cp_class != null) {
+            //拼接查询语句
+            String start = "match (n:`";
+            String end = " return n";
+            String beforew = "`)";
+            String where = "";
+            if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0) {
+                //获取默认配置过滤数据
+                where = " where ";
+                JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                where=where+GetqueryString(maps,true);
+            }
+            String query = start + cp_class.getCpname() + beforew + where + end;
+            List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
+            //字段是数组类型字符串转换数组
+            for(int i=0;i<listmap.size();i++){
+                Map<String,Object> map=listmap.get(i);
+                map.forEach((String key, Object val) ->{
+                    if(val.toString().contains("[")&&val.toString().contains("]"))
+                        map.put(key,JSONArray.parseArray(val.toString()));
+                });
+            }
+            datamap.put("cpdata", listmap);
+            back.setTotalcount(listmap.size());
+        }else {
+           back.setTotalcount(0);
+        }
+
+
+
+        back.setCmd("根据表格ID查询数据成功");
+        back.setState(1);
+        back.setData(datamap);
 
         return back;
     }

@@ -12,12 +12,22 @@ public class Back<T> extends Base {
     @ApiModelProperty(required = false,value = "返回的数据")
     private T data;
 
+    private int totalcount;
+
     public T getData() {
         return data;
     }
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getTotalcount() {
+        return totalcount;
+    }
+
+    public void setTotalcount(int totalcount) {
+        this.totalcount = totalcount;
     }
 
     @Override

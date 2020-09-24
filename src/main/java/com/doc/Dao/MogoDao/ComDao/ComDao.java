@@ -5,6 +5,7 @@ import com.doc.Entity.MogoEntity.ComEntity.ComEnt;
 import com.doc.Entity.MogoEntity.ComEntity.Pagination;
 import com.doc.Entity.MogoEntity.ComEntity.QuerySortOrder;
 import com.mongodb.WriteResult;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
@@ -24,8 +26,9 @@ import java.util.List;
 /**
  * Doc.Dao.Common 于2017/8/22 由Administrator 创建 .
  */
-@Transactional
-public abstract class ComDao<T extends ComEnt> {
+//@Transactional
+public abstract class ComDao<T extends ComEnt>
+         {
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -98,6 +101,7 @@ public abstract class ComDao<T extends ComEnt> {
      */
     public int updateByID(String id, Update update) {
         Query query = new Query(Criteria.where("_id").is(id));
+
         WriteResult wr = this.mongoTemplate.updateFirst(query, update, getEntityClass());
         return wr.getN();
     }

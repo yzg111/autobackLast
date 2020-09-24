@@ -1,5 +1,6 @@
 package com.doc.Entity.MogoEntity.CP_Class;
 
+import com.doc.Entity.MogoEntity.ComEntity.ComEnt;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 //定义父类下面的字段
 @Document(collection = "CP_Class")
-public class CP_Class<T,R> implements Serializable{
+public class CP_Class<T,R> extends ComEnt implements Serializable{
     private static final long serialVersionUID = -3258839839160856613L;
 
     @Id

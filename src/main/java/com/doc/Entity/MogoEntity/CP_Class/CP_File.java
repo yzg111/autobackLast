@@ -1,5 +1,6 @@
 package com.doc.Entity.MogoEntity.CP_Class;
 
+import com.doc.Entity.MogoEntity.ComEntity.ComEnt;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
  * com.doc.Entity.MogoEntity.CP_Class 于2019/11/22 由Administrator 创建 .
  */
 @Document(collection = "CP_File")
-public class CP_File implements Serializable {
+public class CP_File extends ComEnt implements Serializable {
     private static final long serialVersionUID = 3808804974596510988L;
     @Id
     private String id;
@@ -18,7 +19,6 @@ public class CP_File implements Serializable {
     private int filesize;//文件大小
     private String filetype;//文件类型
     private String filename;//文件名称
-    private long createtime;//文件创建时间
     private String createuser;//上传文件的用户
     private String cpid;//cp类的id
     private String dataid;//数据的id
@@ -71,13 +71,6 @@ public class CP_File implements Serializable {
         this.filename = filename;
     }
 
-    public long getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(long createtime) {
-        this.createtime = createtime;
-    }
 
     public String getCreateuser() {
         return createuser;

@@ -71,7 +71,7 @@ public class StartMain extends SpringBootServletInitializer {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory(); //文件最大10M,DataUnit提供5中类型B,KB,MB,GB,TB
-        factory.setMaxFileSize("10240KB"); /// 设置单个上传数据总大小10M
+        factory.setMaxFileSize("102400KB"); /// 设置单个上传数据总大小100M
         factory.setMaxRequestSize("102400KB"); /// 设置总上传数据总大小100M
         return factory.createMultipartConfig();
     }

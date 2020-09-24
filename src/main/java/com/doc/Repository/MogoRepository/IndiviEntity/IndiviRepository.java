@@ -2,6 +2,7 @@ package com.doc.Repository.MogoRepository.IndiviEntity;
 
 import com.doc.Entity.MogoEntity.IndiviEntity.IndiviEntity;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

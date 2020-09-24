@@ -37,6 +37,30 @@ public class swaggerConfig {
                 .build();
     }
 
+
+    //提供给个性化开发的接口
+        @Bean
+    public Docket indidocApi() {
+        Docket swaggerSpringMvcPlugin =new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(indiapiInfo())
+                .groupName("个性化开发需要的接口")
+                .enable(true)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.doc.controller.ThridIndiController"))
+                .paths(PathSelectors.any())
+                .build();
+        return swaggerSpringMvcPlugin;
+    }
+    private ApiInfo indiapiInfo() {
+        return new ApiInfoBuilder()
+                .title("个性化开发需要的接口RESTful APIs")
+                .description("")
+                .termsOfServiceUrl("无")
+                .contact("个性化开发需要的接口")
+                .version("1.0")
+                .build();
+    }
+
     //最上面的下拉框通过groupname来控制显示
 //    @Bean
 //    public Docket V7docApi() {

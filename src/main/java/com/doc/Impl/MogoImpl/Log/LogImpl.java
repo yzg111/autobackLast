@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
  * com.doc.Impl.MogoImpl.Log 于2017/8/25 由Administrator 创建 .
  */
 @Component("LogImpl")
-public class LogImpl extends ComDao<log> {
+public abstract class LogImpl extends ComDao<log> {
 }

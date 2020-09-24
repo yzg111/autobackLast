@@ -1,5 +1,6 @@
 package com.doc.Entity.MogoEntity.IndiviEntity;
 
+import com.doc.Entity.MogoEntity.ComEntity.ComEnt;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
@@ -12,7 +13,7 @@ import java.io.Serializable;
  */
 @Document(collection = "IndiviEntity")
 @ApiModel(description = "定制项目管理实体类")
-public class IndiviEntity implements Serializable {
+public class IndiviEntity extends ComEnt implements Serializable {
     private static final long serialVersionUID = -1108352010503344524L;
 
     @Id
@@ -31,6 +32,17 @@ public class IndiviEntity implements Serializable {
 
     @ApiModelProperty(required = false,value = "定制包文件存放路径")
     private String filepath;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    @ApiModelProperty(required = false,value = "定制包文件名称")
+    private String filename;
 
     public String getPagepath() {
         return pagepath;

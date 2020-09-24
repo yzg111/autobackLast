@@ -1,5 +1,6 @@
 package com.doc.config.StartListen;
 
+import com.doc.Manager.Quartz.QuartzModel;
 import com.doc.Manager.Service.ComService;
 import com.doc.Service.MogoService.MongoUserService;
 import com.doc.config.Until.SpringContextUtil;
@@ -33,6 +34,10 @@ public class ApplicationStartListener implements ApplicationListener {
                 ComService syncmoudel = (ComService) applicationContext.getBean("SyncMoudel");
                 syncmoudel.start();
                 logger.info("after Moule start");
+                logger.info("Quartz Start！");
+                QuartzModel quartzModel=(QuartzModel)applicationContext.getBean("QuartzModel");
+                quartzModel.start();
+                logger.info("Quartz start successful");
             } catch (Exception e) {
                 e.printStackTrace();
             }

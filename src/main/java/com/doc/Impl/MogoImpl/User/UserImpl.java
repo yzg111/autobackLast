@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  * com.doc.Impl.MogoImpl.User 于2017/8/25 由Administrator 创建 .
  */
 @Component("UserImpl")
-public class UserImpl extends ComDao<MogoUser> {
+public abstract class UserImpl extends ComDao<MogoUser> {
 }

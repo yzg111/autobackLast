@@ -6,6 +6,7 @@ import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Entity.MogoEntity.User.MogoUser;
 import com.doc.Manager.SelfAnno.EventLog;
+import com.doc.Repository.MogoRepository.Cp_Class.CP_ClassTestRespository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import io.swagger.annotations.Api;
@@ -15,6 +16,11 @@ import org.apache.calcite.linq4j.function.Predicate1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -30,10 +36,14 @@ public class CPClasscontroller {
      * 日志记录。
      */
     private static final Logger logger = LoggerFactory.getLogger(CPClasscontroller.class);
+    @Qualifier("cp_ClassRepository")
     @Autowired
     private Cp_ClassRepository cp_classRepository;
     @Autowired
     private Cp_Class_DataRepository cp_class_dataRepository;
+    @Qualifier("CP_ClassTestRespository")
+    @Autowired
+    private CP_ClassTestRespository cp_classtestRespository;
 
     //获取所有cp父类信息
     @RequestMapping(value = "/takecps", method = RequestMethod.GET)
@@ -165,7 +175,16 @@ public class CPClasscontroller {
 
         CP_Class listcp = cp_classRepository.findById(id);
 
-        cp.setCmd("根据id集合查询出cp类信息");
+        //测试分页查询
+//        CP_Class listcp = cp_classtestRespository.findByID(id);
+//        List<CP_Class> listcps =cp_classtestRespository.getResBypageNoAndQuery(0,10);
+//        Example<CP_Class> example=new Example<>();
+//        Sort sort=new Sort(Sort.Direction.DESC,"cpname");
+//        Pageable pageable=new PageRequest(0,2,sort);
+//        Pageable pageable=new PageRequest(0,2);
+//        List<CP_Class> listcpsss =cp_classRepository.findByParentid("5a912d0d56e6f03780d0b7b1",pageable);
+
+        cp.setCmd("根据id查询出cp类信息");
         cp.setState(1);
         cp.setData(listcp);
 

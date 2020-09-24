@@ -22,6 +22,8 @@ public class GlobalValue {
     private String redictaddress;//重定向地址
     @Value("${token.isneedexpris}")
     private String isneedexpris;
+    @Value("${filepath}")
+    private String filepath;
 
     public String getSecretKey() {
         return secretKey;
@@ -33,6 +35,9 @@ public class GlobalValue {
     }
     public String getIsneedexpris() {
         return isneedexpris;
+    }
+    public String getFilepath(){
+        return filepath;
     }
 
 
