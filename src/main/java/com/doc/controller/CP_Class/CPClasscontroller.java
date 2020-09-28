@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -36,7 +37,7 @@ public class CPClasscontroller {
      * 日志记录。
      */
     private static final Logger logger = LoggerFactory.getLogger(CPClasscontroller.class);
-    @Qualifier("cp_ClassRepository")
+
     @Autowired
     private Cp_ClassRepository cp_classRepository;
     @Autowired

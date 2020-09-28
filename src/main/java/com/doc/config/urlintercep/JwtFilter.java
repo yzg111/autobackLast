@@ -64,11 +64,11 @@ public class JwtFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
-        String token=jwtTokenUtil.token("123456","123456");
-        logger.info("token:"+token);
-        JWTTokenUtil jwtTokenUtil1=new JWTTokenUtil(token);
-        boolean bt=jwtTokenUtil1.verifyBySecrtKey(this.secretKey);
-        logger.info("是否验证"+bt);
+//        String token=jwtTokenUtil.token("123456","123456");
+//        logger.info("token:"+token);
+//        JWTTokenUtil jwtTokenUtil1=new JWTTokenUtil(token);
+//        boolean bt=jwtTokenUtil1.verifyBySecrtKey(this.secretKey);
+//        logger.info("是否验证"+bt);
         if (!flag) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
@@ -142,7 +142,7 @@ public class JwtFilter extends GenericFilterBean {
                     try {
                         JWTTokenUtil jwtTokenUtilhead=new JWTTokenUtil(accessToken);
                         boolean jwtflag=jwtTokenUtilhead.verifyBySecrtKey(this.secretKey);
-                        logger.debug("从header中获取到auth_token:" + accessToken);
+                        logger.info("从header中获取到auth_token:" + accessToken);
                         if (jwtflag){
                             filterChain.doFilter(servletRequest, servletResponse);
                             return;

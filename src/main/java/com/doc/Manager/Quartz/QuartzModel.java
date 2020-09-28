@@ -1,24 +1,37 @@
 package com.doc.Manager.Quartz;
 
+import com.doc.Entity.MogoEntity.QuartzAllEntities.Quartz;
 import com.doc.Manager.Quartz.scheduleService.Impl.ScheduleServiceImpl;
+import com.doc.Repository.MogoRepository.QuartzAllEntities.QuartzRepository;
+import com.doc.config.Until.SpringContextUtil;
+import com.doc.controller.QuartzAllEntController.QuartzController;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * com.doc.Manager.Quartz 于2020/9/23 由Administrator 创建 .
  */
 @Component("QuartzModel")
 public class QuartzModel implements QuartzModul{
+    /**
+     * 日志记录。
+     */
+    private static final Logger logger = LoggerFactory.getLogger(QuartzModel.class);
 
     @Autowired
     private Scheduler scheduler;
 
     @Autowired
     private ScheduleServiceImpl scheduleServiceImpl;
+    @Autowired
+    private QuartzRepository quartzRepository;
 
     @Override
     public String getServiceName() {
@@ -32,7 +45,19 @@ public class QuartzModel implements QuartzModul{
         //启动定时任务
         try {
             //添加定时任务
-//            scheduleServiceImpl.addJob();
+//            QuartzRepository quartzRepository= (QuartzRepository) SpringContextUtil.getBean("QuartzRepository");
+            List<Quartz> quartzs=quartzRepository.findByIsuse(true);
+            for (int i=0;i<quartzs.size();i++){
+                logger.info("添加任务"+i);
+                try {
+                    Quartz quartz=quartzs.get(i);
+                    scheduleServiceImpl.addJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
+                            quartz.getQuartzname(), quartz.getScriptid(), quartz.getQuartzcrondes());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            logger.info("开启所有添加的任务");
             scheduleServiceImpl.startallJob(scheduler);
         } catch (SchedulerException e) {
             e.printStackTrace();

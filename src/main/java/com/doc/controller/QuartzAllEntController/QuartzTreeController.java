@@ -53,6 +53,7 @@ public class QuartzTreeController {
 
     //查询脚本树树形信息
     @RequestMapping(value = "/getquartztree", method = RequestMethod.GET)
+    @ResponseBody
     @EventLog(desc = "查询定时任务树树形信息！")
     @ApiOperation(value = "查询定时任务树树形信息！", notes = "查询定时任务树树形信息！")
     public Back GetQuartzTree() {
@@ -69,6 +70,7 @@ public class QuartzTreeController {
 
     //查询下级CP二级菜单信息
     @RequestMapping(value = "/getquartztreebyid", method = RequestMethod.GET)
+    @ResponseBody
     @EventLog(desc = "根据id查询出定时任务树信息！")
     @ApiOperation(value = "根据id查询出定时任务树信息！", notes = "根据id查询出定时任务树信息！")
     public Back getquartztreebyid(@RequestParam String id) {

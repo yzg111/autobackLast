@@ -20,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -307,12 +308,12 @@ public class Cp_FileController {
         Sort sort=new Sort(Sort.Direction.DESC,"createtime");
         Pageable pageable=new PageRequest(pageno,pagesize,sort);
         //分页查询
-        List<CP_File> listcpdatas = cp_fileRepository.findByDataid(dataid,pageable);
-        List<CP_File> files=cp_fileRepository.findByDataid(dataid);
+        Page<CP_File> listcpdatas = cp_fileRepository.findByDataid(dataid,pageable);
+//        List<CP_File> files=cp_fileRepository.findByDataid(dataid);
 
         Back<List<CP_File>> back= new Back<>();
-        back.setTotalcount(files.size());
-        back.setData(listcpdatas);
+        back.setTotalcount((int)listcpdatas.getTotalElements());
+        back.setData(listcpdatas.getContent());
         back.setCmd("根据数据id查询出相应附件成功！");
         back.setState(1);
 

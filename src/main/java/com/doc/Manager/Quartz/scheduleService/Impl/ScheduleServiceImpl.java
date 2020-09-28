@@ -69,7 +69,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Boolean editJob(Scheduler scheduler, Map<String,String> map) throws Exception {
         //传入的老的任务的名称
-        TriggerKey OldTriggerKey = new TriggerKey(map.get("triggername"), map.get("triggergroup"));
+        TriggerKey OldTriggerKey = new TriggerKey(map.get("oldtriggername"), map.get("oldtriggergroup"));
 
         //要设置的一些信息
         CronTriggerImpl newTrigger = new CronTriggerImpl();
