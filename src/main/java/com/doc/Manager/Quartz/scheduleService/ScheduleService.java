@@ -17,6 +17,9 @@ public interface ScheduleService {
     void addJob(Scheduler scheduler, String jobName,
                 String cronExpression, String groupName,
                 String triggerName, String des) throws Exception;
+    void addJdbcJob(Scheduler scheduler, String jobName,
+                    String cronExpression, String groupName,
+                    String triggerName, String des) throws Exception;;
 
     void startJob(Scheduler scheduler, String jobName, String groupName) throws Exception;
 

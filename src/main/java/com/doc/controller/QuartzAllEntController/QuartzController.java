@@ -13,8 +13,7 @@ import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,30 +47,40 @@ public class QuartzController {
     @ResponseBody
     @EventLog(desc = "插入一个定时任务信息！")
     @ApiOperation(value = "插入一个定时任务信息！", notes = "插入一个定时任务信息！")
-    public Back inquartz(@RequestBody Quartz quartz) {
+    public Back inquartz(@RequestBody Quartz quartz1) {
         logger.info("插入一个定时任务信息！");
 
-        logger.info(JSONObject.toJSONString(quartz));
+        logger.info(JSONObject.toJSONString(quartz1));
+
+        Quartz quartz = quartzRepository.save(quartz1);
+
         if (quartz.getIsuse()){
             //添加任务
             try {
                 if(scheduleService.jobisStarted(scheduler,quartz.getQuartzname(),quartz.getQuartzname())){
                     Quartz oldquartz=quartzRepository.findById(quartz.getId());
                     Map<String,String> jobmap=new HashMap<>();
-                    jobmap.put("oldtriggername",oldquartz.getScriptid());
+                    jobmap.put("oldtriggername",oldquartz.getId());
                     jobmap.put("oldtriggergroup",oldquartz.getQuartzname());
                     jobmap.put("cron",quartz.getQuartzcron());
                     jobmap.put("jobname",quartz.getQuartzname());
                     jobmap.put("jobgroup",quartz.getQuartzname());
-                    jobmap.put("triggername",quartz.getScriptid());
+                    jobmap.put("triggername",quartz.getId());
                     jobmap.put("triggergroup",quartz.getQuartzname());
                     jobmap.put("des",quartz.getQuartzcrondes());
                     scheduleService.editJob(scheduler,jobmap);
                     scheduleService.startJob(scheduler,quartz.getQuartzname(),quartz.getQuartzname());
+
                 }else {
-                    scheduleService.addJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
-                            quartz.getQuartzname(), quartz.getScriptid(), quartz.getQuartzcrondes());
-                    scheduleService.startJob(scheduler,quartz.getQuartzname(),quartz.getQuartzname());
+                    if("1".equals(quartz.getIssynctype())){
+                        scheduleService.addJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
+                                quartz.getQuartzname(), quartz.getId(), quartz.getQuartzcrondes());
+                        scheduleService.startJob(scheduler,quartz.getQuartzname(),quartz.getQuartzname());
+                    }else if("2".equals(quartz.getIssynctype())){
+                        scheduleService.addJdbcJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
+                                quartz.getQuartzname(), quartz.getId(), quartz.getQuartzcrondes());
+                        scheduleService.startJob(scheduler,quartz.getQuartzname(),quartz.getQuartzname());
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -85,7 +94,7 @@ public class QuartzController {
                 e.printStackTrace();
             }
         }
-        Quartz i = quartzRepository.save(quartz);
+
 
         Back<Integer> back = new Back<Integer>();
         back.setData(1);
@@ -124,6 +133,8 @@ public class QuartzController {
         List<Quartz> listcps=new ArrayList<>();
         Quartz qtz=new Quartz();
         ExampleMatcher matcher =ExampleMatcher.matching().withIgnorePaths("createtime","month","weekday","starttime","sfmdata","day");
+        qtz.setIssynctype("1");
+        matcher=matcher.withMatcher("issynctype",ExampleMatcher.GenericPropertyMatchers.exact());
         if (id!=null){
             qtz.setQuartztreeid(id);
             matcher=  matcher.withMatcher("quartztreeid", ExampleMatcher.GenericPropertyMatchers.exact());//精准匹配
@@ -138,17 +149,58 @@ public class QuartzController {
 //                .withIgnorePaths("password");//忽略字段，即不管password是什么值都不加入查询条件
 
 //        Example<Quartz> example = Example.of(qtz);
-//        if(id!=null||quartzname!=null){
+
             Example<Quartz> example = Example.of(qtz ,matcher);
             listcps = quartzRepository.findAll(example);
-//        }else {
-//            listcps = quartzRepository.findAll();
-//        }
+
 
 
         cp.setCmd("根据定时任务树id查询出定时任务信息");
         cp.setState(1);
         cp.setData(listcps);
+
+        return cp;
+    }
+
+    //根据定时任务树id查询出同步数据定时任务信息
+    @RequestMapping(value = "/getquartzbyname", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "根据名称查询定时任务信息！")
+    @ApiOperation(value = "根据名称查询定时任务信息！",
+            notes = "根据名称查询定时任务信息！")
+    public Back getquartzbyname(@RequestParam(required = false) String quartzname,
+                                @RequestParam(required = false) String id,
+                                @RequestParam int pageno,@RequestParam int pagesize) {
+        Back<List<Quartz>> cp = new Back<>();
+        Quartz qtz=new Quartz();
+        qtz.setIssynctype("2");
+        ExampleMatcher matcher =ExampleMatcher.matching().withIgnorePaths("createtime","month","weekday","starttime","sfmdata","day");
+        matcher=matcher.withMatcher("issynctype",ExampleMatcher.GenericPropertyMatchers.exact());
+        if (id!=null){
+            qtz.setQuartztreeid(id);
+            matcher=  matcher.withMatcher("quartztreeid", ExampleMatcher.GenericPropertyMatchers.exact());//精准匹配
+        }
+        if(quartzname!=null){
+            qtz.setQuartzname(quartzname);
+            matcher=matcher.withMatcher("quartzname" , ExampleMatcher.GenericPropertyMatchers.contains())
+            ;//全部模糊查询，即%{address}%
+        }
+//        ExampleMatcher matcher = ExampleMatcher.matching()
+//                .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())//模糊查询匹配开头，即{username}%
+//                .withMatcher("address" , ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{address}%
+//                .withIgnorePaths("password");//忽略字段，即不管password是什么值都不加入查询条件
+
+//        Example<Quartz> example = Example.of(qtz);
+        Example<Quartz> example = Example.of(qtz ,matcher);
+        Pageable page=new PageRequest(pageno,pagesize);
+        Page<Quartz> quartzs = quartzRepository.findAll(example,page);
+
+
+
+        cp.setCmd("查询定时任务信息成功！");
+        cp.setState(1);
+        cp.setData(quartzs.getContent());
+        cp.setTotalcount((int) quartzs.getTotalElements());
 
         return cp;
     }

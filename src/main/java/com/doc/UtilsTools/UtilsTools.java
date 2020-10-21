@@ -253,9 +253,9 @@ public class UtilsTools {
             if ("1".equals(map.getString("condition"))) {
                 condition = "=" + "'" + map.get("value") + "' ";
             } else if ("2".equals(map.getString("condition"))) {
-                condition = ">" + "'" + map.get("value") + "' ";
+                condition = ">" + " " + map.get("value") + " ";
             } else if ("3".equals(map.getString("condition"))) {
-                condition = "<" + "'" + map.get("value") + "' ";
+                condition = "<" + " " + map.get("value") + " ";
             } else if ("4".equals(map.getString("condition"))) {
                 condition = "<>" + "'" + map.get("value") + "' ";
             } else if ("5".equals(map.getString("condition"))) {

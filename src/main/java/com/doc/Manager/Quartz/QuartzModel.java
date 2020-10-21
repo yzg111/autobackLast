@@ -51,8 +51,16 @@ public class QuartzModel implements QuartzModul{
                 logger.info("添加任务"+i);
                 try {
                     Quartz quartz=quartzs.get(i);
-                    scheduleServiceImpl.addJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
-                            quartz.getQuartzname(), quartz.getScriptid(), quartz.getQuartzcrondes());
+                    if("1".equals(quartz.getIssynctype())){
+                        //1代表是自己定义的定时任务
+                        scheduleServiceImpl.addJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
+                                quartz.getQuartzname(), quartz.getId(), quartz.getQuartzcrondes());
+                    }else if("2".equals(quartz.getIssynctype())){
+                        //2代表是同步数据的定时任务
+                        scheduleServiceImpl.addJdbcJob(scheduler, quartz.getQuartzname(), quartz.getQuartzcron(),
+                                quartz.getQuartzname(), quartz.getId(), quartz.getQuartzcrondes());
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

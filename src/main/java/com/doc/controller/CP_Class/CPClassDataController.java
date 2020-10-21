@@ -198,11 +198,11 @@ public class CPClassDataController {
     }
 
     //查询父级相关数据的接口
-    @RequestMapping(value = "/getCpDataByTableID", method = RequestMethod.POST)
+    @RequestMapping(value = "/getCpDataByTableID", method = RequestMethod.GET)
     @ResponseBody
     @EventLog(desc = "根据配置的表格id查询出相关Cp类数据！")
     @ApiOperation(value = "根据配置的表格id查询出相关Cp类数据！", notes = "根据配置的表格id查询出相关Cp类数据！")
-    public Back getCpDataByTableID(@RequestBody String tableid) {
+    public Back getCpDataByTableID(@RequestParam String tableid) {
         CP_Table cp_table = cp_tableRepository.findById(tableid);
         CP_Class cp_class = cp_classRepository.findById(cp_table.getCpid());
         Map<String, Object> datamap = new HashedMap();
@@ -225,6 +225,7 @@ public class CPClassDataController {
             //字段是数组类型字符串转换数组
             for(int i=0;i<listmap.size();i++){
                 Map<String,Object> map=listmap.get(i);
+                map.put("tableid",tableid);
                 map.forEach((String key, Object val) ->{
                     if(val.toString().contains("[")&&val.toString().contains("]"))
                         map.put(key,JSONArray.parseArray(val.toString()));
@@ -242,6 +243,54 @@ public class CPClassDataController {
         back.setState(1);
         back.setData(datamap);
 
+        return back;
+    }
+
+    //查询父级相关数据的接口
+    @RequestMapping(value = "/getCpDataByTableIDs", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "根据配置的表格id集合查询出相关Cp类数据！")
+    @ApiOperation(value = "根据配置的表格id集合查询出相关Cp类数据！", notes = "根据配置的表格id集合查询出相关Cp类数据！")
+    public Back getCpDataByTableIDs(@RequestBody List<String> tableids) {
+        Back<Map<String, Object>> back = new Back<>();
+        Map<String, Object> datamap = new HashedMap();
+        List<CP_Table> cptables = cp_tableRepository.findByIdIn(tableids);
+        List<Map<String, Object>> listmaps=new ArrayList<>();
+
+        for (CP_Table cptable : cptables){
+            CP_Class cp_class = cp_classRepository.findById(cptable.getCpid());
+            if (cp_class != null) {
+                //拼接查询语句
+                String start = "match (n:`";
+                String end = " return n";
+                String beforew = "`)";
+                String where = "";
+                if (cptable.getQuerydata()!=null&&cptable.getQuerydata().size() > 0) {
+                    //获取默认配置过滤数据
+                    where = " where ";
+                    JSONArray maps = new JSONArray(cptable.getQuerydata());
+                    where=where+GetqueryString(maps,true);
+                }
+                String query = start + cp_class.getCpname() + beforew + where + end;
+                List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
+                //字段是数组类型字符串转换数组
+                for(int i=0;i<listmap.size();i++){
+                    Map<String,Object> map=listmap.get(i);
+                    map.put("tableid",cptable.getId());
+                    map.forEach((String key, Object val) ->{
+                        if(val.toString().contains("[")&&val.toString().contains("]"))
+                            map.put(key,JSONArray.parseArray(val.toString()));
+                    });
+                }
+                listmaps.addAll(listmap);
+
+            }
+        }
+        datamap.put("cpdata", listmaps);
+
+        back.setCmd("根据表格ID集合查询数据成功！");
+        back.setState(1);
+        back.setData(datamap);
         return back;
     }
 

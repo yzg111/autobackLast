@@ -16,4 +16,23 @@
     <bean id="MongoUserService" class="com.doc.Service.MogoService.MongoUserService" scope="singleton">
     </bean>
 
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerContextAsMap">
+            <map>
+                <entry key="timeout" value="60" />
+            </map>
+        </property>
+        <property name="overwriteExistingJobs">
+            <value>true</value>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.threadPool.class">
+                    org.quartz.simpl.SimpleThreadPool
+                </prop>
+                <prop key="org.quartz.threadPool.threadCount">10</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>

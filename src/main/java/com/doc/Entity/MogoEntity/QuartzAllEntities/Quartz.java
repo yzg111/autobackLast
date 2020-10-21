@@ -1,11 +1,13 @@
 package com.doc.Entity.MogoEntity.QuartzAllEntities;
 
 import com.doc.Entity.MogoEntity.ComEntity.ComEnt;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.groups.Default;
 import java.io.Serializable;
 
 /**
@@ -22,20 +24,30 @@ public class Quartz extends ComEnt implements Serializable {
     private String id;
     @ApiModelProperty( required = true,value = "定时任务名称")
     private String quartzname;
-    @ApiModelProperty( required = true,value = "定时任务需要执行的脚本树id")
+    @ApiModelProperty( required = false,value = "定时任务需要执行的脚本树id")
     private String scripttreeid;
-    @ApiModelProperty( required = true,value = "定时任务需要执行的脚本id")
+    @ApiModelProperty( required = false,value = "定时任务需要执行的脚本id")
     private String scriptid;
-    @ApiModelProperty( required = true,value = "定时任务树id")
+    @ApiModelProperty( required = false,value = "定时任务需要执行的脚本名称")
+    private String scriptname;
+    @ApiModelProperty( required = false,value = "定时任务树id")
     private String quartztreeid;
     @ApiModelProperty( required = true,value = "定时任务定时规则")
     private String quartzcron;//从左到右分别是：秒，分，时，月的某天，月，星期的某天，年；其中年不是必须的
+    @ApiModelProperty( required = true,value = "是否是同步数据的定时任务，1是自己定义执行脚本的，2是同步数据的定时任务")
+    private String issynctype;
+    @ApiModelProperty( required = false,value = "同步数据定时任务需要执行的脚本id")
+    private String syncscriptid;
+    @ApiModelProperty( required = false,value = "同步数据定时任务需要执行的脚本名称")
+    private String syncscriptname;
+    @ApiModelProperty( required = false,value = "同步数据定时任务是否使用脚本")
+    private Boolean isusescript;
 
     @ApiModelProperty( required = false,value = "定时任务定时规则描述")
     private String quartzcrondes;
     @ApiModelProperty( required = false,value = "是否启用")
     private Boolean isuse;
-    @ApiModelProperty( required = true,value = "定时任务的定时周期类型")
+    @ApiModelProperty( required = false,value = "定时任务的定时周期类型")
     private String type;
     @ApiModelProperty( required = false,value = "时分秒类型")
     private String sfmtype;
@@ -49,6 +61,46 @@ public class Quartz extends ComEnt implements Serializable {
     private int weekday;
     @ApiModelProperty( required = false,value = "开始时间")
     private long starttime;
+
+    public Boolean getIsusescript() {
+        return isusescript;
+    }
+
+    public void setIsusescript(Boolean isusescript) {
+        this.isusescript = isusescript;
+    }
+
+    public String getSyncscriptid() {
+        return syncscriptid;
+    }
+
+    public void setSyncscriptid(String syncscriptid) {
+        this.syncscriptid = syncscriptid;
+    }
+
+    public String getSyncscriptname() {
+        return syncscriptname;
+    }
+
+    public void setSyncscriptname(String syncscriptname) {
+        this.syncscriptname = syncscriptname;
+    }
+
+    public String getScriptname() {
+        return scriptname;
+    }
+
+    public void setScriptname(String scriptname) {
+        this.scriptname = scriptname;
+    }
+
+    public String getIssynctype() {
+        return issynctype;
+    }
+
+    public void setIssynctype(String issynctype) {
+        this.issynctype = issynctype;
+    }
 
     public long getStarttime() {
         return starttime;

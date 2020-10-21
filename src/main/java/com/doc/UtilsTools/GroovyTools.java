@@ -1,6 +1,10 @@
 package com.doc.UtilsTools;
 
+import com.doc.Entity.MogoEntity.CP_Class.CP_GroovyScript;
+import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
+import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.controller.CP_Class.CP_FormController;
+import com.doc.neo4j.syncdata.Syncneo4jdata;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.script.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,6 +29,30 @@ public class GroovyTools {
      * 日志记录。
      */
     private static final Logger logger = LoggerFactory.getLogger(GroovyTools.class);
+
+    public Object AssemAndRunScript(CP_GroovyScript cp_groovyScript,
+                                  Syncneo4jdata syncneo4jdata,
+                                  Cp_ClassRepository cp_classRepository,
+                                  Cp_Class_DataRepository cpClassDataRepository){
+        StringBuilder sb=new StringBuilder();
+        sb.append("import java.text.SimpleDateFormat;");
+        sb.append("import com.doc.UtilsTools.CpTools;");
+        sb.append("import com.doc.neo4j.syncdata.*;");
+        sb.append("def cpTools=new CpTools();");
+        sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
+        sb.append("cpTools.setCpClassRepository(cp_classRepository);");
+        sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+
+
+        sb.append(cp_groovyScript.getScriptcontent());
+        Map<String,Object> pm=new HashMap<>();
+        pm.put("syncneo4jdata",syncneo4jdata);
+        pm.put("cp_classRepository",cp_classRepository);
+        pm.put("cpClassDataRepository",cpClassDataRepository);
+        Object res=runGroovyScript(sb.toString(),pm,cp_groovyScript.getScriptname());
+        return res;
+    }
+
     /**
      * @author yzg
      * @创建时间 2017年3月2日 下午9:43:08

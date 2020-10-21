@@ -1,9 +1,11 @@
 package com.doc.Manager.Quartz.Job;
 
 import com.doc.Entity.MogoEntity.CP_Class.CP_GroovyScript;
+import com.doc.Entity.MogoEntity.QuartzAllEntities.Quartz;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_GroovyScriptRepository;
+import com.doc.Repository.MogoRepository.QuartzAllEntities.QuartzRepository;
 import com.doc.UtilsTools.GroovyTools;
 import com.doc.config.Until.SpringContextUtil;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
@@ -30,37 +32,46 @@ public class ComJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
             JobExecutionContext c=context;
-            //获取脚本编码
-            String scriptid=c.getTrigger().getKey().getName();
+
+        QuartzRepository quartzRepository =
+                (QuartzRepository) SpringContextUtil.getBean("QuartzRepository1");
             //根据脚本编码获取脚本信息，并执行脚本信息
         Cp_GroovyScriptRepository cp_groovyScriptRepository= (Cp_GroovyScriptRepository)
                 SpringContextUtil.getBean("Cp_GroovyScriptRepository1");
-        CP_GroovyScript cp_groovyScript=cp_groovyScriptRepository.findById(scriptid);
-        logger.info("开始执行脚本："+cp_groovyScript.getScriptname());
-        //执行脚本
-        String groovyscript=cp_groovyScript.getScriptcontent();
-        StringBuilder sb=new StringBuilder();
-        sb.append("import java.text.SimpleDateFormat;");
-        sb.append("import com.doc.UtilsTools.CpTools;");
-        sb.append("import com.doc.neo4j.syncdata.*;");
-        sb.append("def cpTools=new CpTools();");
-        sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
-        sb.append("cpTools.setCpClassRepository(cp_classRepository);");
-        sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
-
-
-        sb.append(groovyscript);
-        Map<String,Object> pm=new HashMap<>();
         Syncneo4jdata syncneo4jdata= (Syncneo4jdata) SpringContextUtil.getBean("Syncneo4jdata");
         Cp_ClassRepository cp_classRepository=
                 (Cp_ClassRepository) SpringContextUtil.getBean("Cp_ClassRepository1");
         Cp_Class_DataRepository cpClassDataRepository=
                 (Cp_Class_DataRepository) SpringContextUtil.getBean("Cp_Class_DataRepository1");
-        pm.put("syncneo4jdata",syncneo4jdata);
-        pm.put("cp_classRepository",cp_classRepository);
-        pm.put("cpClassDataRepository",cpClassDataRepository);
+
+        String id=c.getTrigger().getKey().getName();
+
+        Quartz quartz=quartzRepository.findById(id);
+        String scriptid=quartz.getScriptid();//获取脚本编码
+        CP_GroovyScript cp_groovyScript=cp_groovyScriptRepository.findById(scriptid);
+        logger.info("开始执行脚本："+cp_groovyScript.getScriptname());
+        //执行脚本
         GroovyTools groovyTools=new GroovyTools();
-        Object res=groovyTools.runGroovyScript(sb.toString(),pm,cp_groovyScript.getScriptname());
+        Object res=groovyTools.AssemAndRunScript(cp_groovyScript,syncneo4jdata,cp_classRepository,cpClassDataRepository);
+//        String groovyscript=cp_groovyScript.getScriptcontent();
+//        StringBuilder sb=new StringBuilder();
+//        sb.append("import java.text.SimpleDateFormat;");
+//        sb.append("import com.doc.UtilsTools.CpTools;");
+//        sb.append("import com.doc.neo4j.syncdata.*;");
+//        sb.append("def cpTools=new CpTools();");
+//        sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
+//        sb.append("cpTools.setCpClassRepository(cp_classRepository);");
+//        sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+//
+//
+//        sb.append(groovyscript);
+//        Map<String,Object> pm=new HashMap<>();
+//
+//        pm.put("syncneo4jdata",syncneo4jdata);
+//        pm.put("cp_classRepository",cp_classRepository);
+//        pm.put("cpClassDataRepository",cpClassDataRepository);
+//
+//        Object res=groovyTools.runGroovyScript(sb.toString(),pm,cp_groovyScript.getScriptname());
         logger.info("执行结果："+res);
 
     }

@@ -26,5 +26,5 @@
     <!--<root level="INFO">-->
         <!--<appender-ref ref="deb" />-->
     <!--</root>-->
-
+    <logger name="org.springframework.data.mongodb.core" level="DEBUG"/>
 </configuration>

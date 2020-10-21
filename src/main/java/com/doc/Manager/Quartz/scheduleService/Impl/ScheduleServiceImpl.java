@@ -1,6 +1,7 @@
 package com.doc.Manager.Quartz.scheduleService.Impl;
 
 import com.doc.Manager.Quartz.Job.ComJob;
+import com.doc.Manager.Quartz.Job.JdbcJob;
 import com.doc.Manager.Quartz.scheduleService.ScheduleService;
 import com.doc.UtilsTools.GetClassByName;
 import org.quartz.*;
@@ -35,6 +36,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduler.scheduleJob(job, trigger);
     }
 
+
+
     @Override
     public void addJob(Scheduler scheduler, String jobName, String cronExpression,
                        String groupName, String triggerName, String des) throws Exception {
@@ -46,6 +49,20 @@ public class ScheduleServiceImpl implements ScheduleService {
         trigger.setMisfireInstruction(trigger.MISFIRE_INSTRUCTION_DO_NOTHING);
         trigger.setDescription(des);
         JobDetail job = JobBuilder.newJob(ComJob.class)
+                .withIdentity(jobName, groupName).withDescription(des).build();
+        scheduler.scheduleJob(job, trigger);
+    }
+
+    @Override
+    public void addJdbcJob(Scheduler scheduler, String jobName, String cronExpression, String groupName, String triggerName, String des) throws Exception {
+        logger.info("添加任务！！！");
+        CronTriggerImpl trigger = new CronTriggerImpl();
+        trigger.setCronExpression(cronExpression);
+        trigger.setName(triggerName);
+        trigger.setGroup(groupName);
+        trigger.setMisfireInstruction(trigger.MISFIRE_INSTRUCTION_DO_NOTHING);
+        trigger.setDescription(des);
+        JobDetail job = JobBuilder.newJob(JdbcJob.class)
                 .withIdentity(jobName, groupName).withDescription(des).build();
         scheduler.scheduleJob(job, trigger);
     }
