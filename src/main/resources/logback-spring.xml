@@ -26,5 +26,6 @@
     <!--<root level="INFO">-->
         <!--<appender-ref ref="deb" />-->
     <!--</root>-->
-    <logger name="org.springframework.data.mongodb.core" level="DEBUG"/>
+    <!--这里是配置mongodb语句打印的-->
+    <!--<logger name="org.springframework.data.mongodb.core" level="DEBUG"/>-->
 </configuration>
