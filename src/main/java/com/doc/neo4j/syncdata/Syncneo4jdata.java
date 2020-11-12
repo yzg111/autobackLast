@@ -189,6 +189,29 @@ public class Syncneo4jdata implements ComService {
     }
 
     /**
+     * 功能描述:
+     *
+     * @param null 1
+     * @return : 获取总条数
+     */
+    public int getTotalCount(String cpname,String where){
+        int total=0;
+        //拼接查询语句
+        String start="match (n:`";
+        String beforew="`)";
+        String countEnd=" RETURN count(n) as total";
+        //首先要查询出总的条数，然后再查询分页的条数
+        String totalsql=start+cpname+beforew+where+countEnd;
+        List<Map<String, Object>> totaldatas=this.excuteListByAll(totalsql);
+        for (Map<String,Object> totalmap:totaldatas){
+            if(totalmap.containsKey("total")){
+                total=Integer.valueOf(totalmap.get("total").toString());
+            }
+        }
+        return total;
+    }
+
+    /**
      * Method 根据查询语句查询数据，只能查询一个表中所有数据根据字段显示
      * 示例  String query = "match (n:`123`)  return n";
      * * @param null

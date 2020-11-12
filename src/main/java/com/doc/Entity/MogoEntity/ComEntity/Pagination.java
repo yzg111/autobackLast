@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 分页数据类
+ * 返回分页数据类
  * 
  * @author hk
  * 
@@ -154,6 +154,10 @@ public class Pagination<T> {
         this.setPage(page);
         this.setUpPage();// 设置上一页
         this.setNextPage();// 设置下一页
+    }
+
+    public Pagination(){
+
     }
 
     /**

@@ -3,6 +3,8 @@ package com.doc.UtilsTools;
 import com.doc.Entity.MogoEntity.CP_Class.CP_GroovyScript;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
+import com.doc.config.LogConfig.MyLog4JAppender.Log4j2OutPrintStream;
+import com.doc.config.LogConfig.MyLog4JAppender.Log4jOutPrintWriter;
 import com.doc.controller.CP_Class.CP_FormController;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import groovy.lang.Binding;
@@ -13,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.script.*;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +55,7 @@ public class GroovyTools {
         pm.put("cp_classRepository",cp_classRepository);
         pm.put("cpClassDataRepository",cpClassDataRepository);
         Object res=runGroovyScript(sb.toString(),pm,cp_groovyScript.getScriptname());
+//        Object res=runGroovyShellScript(sb.toString(),pm);
         return res;
     }
 
@@ -73,6 +79,15 @@ public class GroovyTools {
         try {
             Bindings bindings = engine.createBindings();
             bindings.putAll(params);
+//            bindings.put("out",new PrintStream(System.out ));
+            //重定向groovy脚本打印信息，然后让日志获取到打印信息
+            Log4jOutPrintWriter writer=new Log4jOutPrintWriter(System.out);
+//            PrintWriter writer = new PrintWriter(System.out,true);
+//            writer.println("测试测试");
+//            PrintWriter writer = new PrintWriter("log.txt");
+            engine.getContext().setWriter(writer);
+            engine.getContext().setErrorWriter(writer);
+
             return engine.eval(script, bindings);
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -127,6 +142,7 @@ public class GroovyTools {
             for(String key: params.keySet()){
                 binding.setVariable(key,params.get(key));
             }
+//            binding.setProperty("out",new PrintStream(System.out));
             GroovyShell shell = new GroovyShell(binding);
             Object value = shell.parse(script);
             return value;

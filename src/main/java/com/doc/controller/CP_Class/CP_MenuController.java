@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.*;
+import com.doc.Entity.MogoEntity.ComEntity.PageinationSelect;
+import com.doc.Entity.MogoEntity.ComEntity.Pagination;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Cp_Class.*;
 import com.doc.UtilsTools.UtilsTools;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+
+import static org.apache.zookeeper.ZooDefs.OpCode.delete;
 
 /**
  * com.doc.controller.CP_Class 于2019/1/17 由Administrator 创建 .
@@ -42,6 +46,7 @@ public class CP_MenuController {
     private Syncneo4jdata syncneo4jdata;
     @Autowired
     private Cp_FormRepository cp_formRepository;
+
 
     //查询所有顶级CP菜单信息
     @RequestMapping(value = "/takecpmenus", method = RequestMethod.GET)
@@ -291,9 +296,9 @@ public class CP_MenuController {
             if ("1".equals(map.getString("condition"))) {
                 condition = "=" + "'" + map.get("value") + "' ";
             } else if ("2".equals(map.getString("condition"))) {
-                condition = ">" + "'" + map.get("value") + "' ";
+                condition = ">" + "" + map.get("value") + " ";
             } else if ("3".equals(map.getString("condition"))) {
-                condition = "<" + "'" + map.get("value") + "' ";
+                condition = "<" + "" + map.get("value") + " ";
             } else if ("4".equals(map.getString("condition"))) {
                 condition = "<>" + "'" + map.get("value") + "' ";
             } else if ("5".equals(map.getString("condition"))) {
@@ -304,6 +309,84 @@ public class CP_MenuController {
             } else {
                 where = where + " and n." + map.get("name") + condition;
             }
+        }
+
+        return where;
+    }
+
+    //根据menuid查询出要显示的数据并返回
+    @RequestMapping(value = "/getcpdatamenuidandoptions/{id}", method = RequestMethod.POST)
+    @EventLog(desc = "根据menuid查询和查询条件查询Cp类数据并返回！")
+    @ApiOperation(value = "根据menuid查询和查询条件查询Cp类数据并返回！",
+            notes = "根据menuid查询和查询条件查询Cp类数据并返回！")
+    public Back getcpdatamenuidandoptions(@RequestBody PageinationSelect params,@PathVariable("id") String id) {
+        Back<Pagination<CP_Class_Data>> back = new Back<>();
+        List<CP_Class_Data> cpClassDatas=new ArrayList<>();
+        int pageno=params.getPageno();
+        int pagesize=params.getPagesize();
+        int total=0;
+        CP_Menu menuinfo = cp_menuRepository.findById(id);
+        CP_Class cp_class = cp_classRepository.findById(menuinfo.getCpid());
+        //获取表格的默认配置信息
+        CP_Table cp_table = cp_tableRepository.findById(menuinfo.getTableid());
+        if (cp_class != null) {
+            //拼接查询语句
+            String start = "match (n:`";
+            String end = " return n "+" SKIP "+pageno*pagesize+" LIMIT "+pagesize;;
+            String beforew = "`)";
+            String where = "where 1=1 ";
+            if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0){
+                JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                where=where+GetqueryStringLast(maps);
+            }
+            List<Map<String,Object>> maplists=params.getOptions();
+            if (maplists!=null&&maplists.size()>0){
+                where=where+UtilsTools.GetqueryString(maplists);
+            }
+
+            //首先要查询出总的条数，然后再查询分页的条数
+            total=syncneo4jdata.getTotalCount(cp_class.getCpname(),where);
+            String query = start + cp_class.getCpname() + beforew + where + end;
+            List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
+            for(int i=0;i<listmap.size();i++){
+                CP_Class_Data cpClassData=new CP_Class_Data();
+                Map<String,Object> map=listmap.get(i);
+                map.forEach((String key, Object val) ->{
+                    if(val.toString().contains("[")&&val.toString().contains("]"))
+                        map.put(key,JSONArray.parseArray(val.toString()));
+                });
+            }
+            cpClassDatas=UtilsTools.changeCPData(listmap);
+        }
+        Pagination<CP_Class_Data> pagination=new Pagination<>(pageno,pagesize,total);
+        pagination.setResults(cpClassDatas);
+
+        back.setCmd("根据条件查询cp类中数据成功！");
+        back.setState(1);
+        back.setData(pagination);
+
+        return back;
+    }
+
+    private String GetqueryStringLast(JSONArray maps){
+        String where="";
+        for (int i = 0; i < maps.size(); i++) {
+            JSONObject map = maps.getJSONObject(i);
+            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+            if ("1".equals(map.getString("condition"))) {
+                condition = "=" + "'" + map.get("value") + "' ";
+            } else if ("2".equals(map.getString("condition"))) {
+                condition = ">" + "" + map.get("value") + " ";
+            } else if ("3".equals(map.getString("condition"))) {
+                condition = "<" + "" + map.get("value") + " ";
+            } else if ("4".equals(map.getString("condition"))) {
+                condition = "<>" + "'" + map.get("value") + "' ";
+            } else if ("5".equals(map.getString("condition"))) {
+                condition = " =~ '.*" + map.get("value") + ".*' ";
+            }
+
+            where = where + " and n." + map.get("name") + condition;
+
         }
 
         return where;

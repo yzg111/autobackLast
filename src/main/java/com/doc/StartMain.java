@@ -3,6 +3,8 @@ package com.doc;
 
 import com.doc.Manager.Service.ComService;
 import com.doc.Service.MogoService.MongoUserService;
+import com.doc.config.LogConfig.MyLog4JAppender.Log4j2ErrPrintStream;
+import com.doc.config.LogConfig.MyLog4JAppender.Log4j2OutPrintStream;
 import com.doc.neo4j.mode.CpClass;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import org.slf4j.Logger;
@@ -45,7 +47,12 @@ public class StartMain extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws Exception {
         logger.info("开始启动服务！");
+        Log4j2ErrPrintStream.redirectSystemErr();
+        Log4j2OutPrintStream.redirectSystemOut();
+//        System.err.println("错误开始");
+//        System.out.println("重定向输出");
         ApplicationContext appCtx = SpringApplication.run(StartMain.class, args);
+
 
 //        logger.info("mogo service start");
 //        MongoUserService userService = (MongoUserService) appCtx.getBean("MongoUserService");

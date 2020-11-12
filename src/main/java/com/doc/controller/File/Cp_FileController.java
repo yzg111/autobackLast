@@ -84,6 +84,133 @@ public class Cp_FileController {
         System.out.println(fileaddress.toString());
         InputStream inputStream ;
 
+        byte[] data=null ;
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("application/pdf");
+//        response.setContentType(UtilsTools.getContentType(filename));
+        //文件名后缀
+        String fileExtension = filename.substring(filename.lastIndexOf("."));
+        File file1 = new File(globalValue.getFilepath() + fileaddress);
+        if(".doc".equalsIgnoreCase(fileExtension) || ".docx".equalsIgnoreCase(fileExtension)) {
+            response.setContentType("application/pdf");
+            if(file1.exists()){
+                inputStream = new FileInputStream(file1);
+//            inputStream = FastDFSClientUtils.downloadFile(fileaddress);
+                data=AposeUtils.doc2pdf(inputStream);
+            }
+
+        }else if (".xls".equalsIgnoreCase(fileExtension) || ".xlsx".equalsIgnoreCase(fileExtension)){
+            response.setContentType("application/pdf");
+            if(file1.exists()) {
+                inputStream = new FileInputStream(file1);
+//            inputStream = FastDFSClientUtils.downloadFile(fileaddress);
+                data = AposeUtils.excel2pdf(inputStream);
+            }
+        }else if (".ppt".equalsIgnoreCase(fileExtension) || ".pptx".equalsIgnoreCase(fileExtension)){
+            response.setContentType("application/pdf");
+            if(file1.exists()) {
+                inputStream = new FileInputStream(file1);
+//            inputStream = FastDFSClientUtils.downloadFile(fileaddress);
+                data = AposeUtils.ppt2pdf(inputStream);
+            }
+        }else if (".jpg".equalsIgnoreCase(fileExtension)
+                || ".png".equalsIgnoreCase(fileExtension)||
+                ".jpeg".equalsIgnoreCase(fileExtension)
+                ||".jpe".equalsIgnoreCase(fileExtension)
+                ){
+            response.setContentType("image/jpeg");
+            if(file1.exists()) {
+                inputStream = new FileInputStream(file1);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                int len = -1;
+                while ((len = inputStream.read(b)) != -1) {
+                    bos.write(b, 0, len);
+                }
+                data = bos.toByteArray();
+            }
+//            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+        }else if (".pdf".equalsIgnoreCase(fileExtension) ){
+            response.setContentType("application/pdf");
+            if(file1.exists()) {
+                inputStream = new FileInputStream(file1);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                int len = -1;
+                while ((len = inputStream.read(b)) != -1) {
+                    bos.write(b, 0, len);
+                }
+                data = bos.toByteArray();
+            }
+//            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+        }else if (".txt".equalsIgnoreCase(fileExtension)
+                ||".conf".equalsIgnoreCase(fileExtension)
+                ||".def".equalsIgnoreCase(fileExtension)
+                ||".in".equalsIgnoreCase(fileExtension)){
+            if(file1.exists()) {
+                inputStream = new FileInputStream(file1);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                int len = -1;
+                while ((len = inputStream.read(b)) != -1) {
+                    bos.write(b, 0, len);
+                }
+                data = bos.toByteArray();
+//            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+            }
+
+        }else {
+            response.setContentType("application/octet-stream");
+            if(file1.exists()) {
+                inputStream = new FileInputStream(file1);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                int len = -1;
+                while ((len = inputStream.read(b)) != -1) {
+                    bos.write(b, 0, len);
+                }
+                data = bos.toByteArray();
+//            data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+            }
+        }
+        ServletOutputStream outputStream = null;
+        try {
+            // inline在浏览器中直接显示，不提示用户下载
+            // attachment弹出对话框，提示用户进行下载保存本地
+            // 默认为inline方式
+            response.setHeader("Content-disposition", "inline;filename=" +
+                    new String( filename.getBytes("gb2312"), "ISO8859-1" ));
+            // 写出
+
+
+            outputStream = response.getOutputStream();
+            IOUtils.write(data, outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (outputStream!=null){
+                    outputStream.close();
+                    outputStream=null;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @RequestMapping(value = "/viewdfsfile", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "预览dfs文件！")
+    @ApiOperation(value = "预览dfs文件！", notes = "预览dfs文件！")
+    public void viewdfsfile(@RequestParam String fileaddress, @RequestParam String filename,
+                         HttpServletResponse response, HttpServletRequest request) throws Exception {
+        logger.info("预览附件信息！");
+        System.out.println(fileaddress.toString());
+        InputStream inputStream ;
+
         byte[] data ;
         response.reset();
         response.setCharacterEncoding("UTF-8");
@@ -94,7 +221,7 @@ public class Cp_FileController {
         if(".doc".equalsIgnoreCase(fileExtension) || ".docx".equalsIgnoreCase(fileExtension)) {
             response.setContentType("application/pdf");
             inputStream = FastDFSClientUtils.downloadFile(fileaddress);
-           data=AposeUtils.doc2pdf(inputStream);
+            data=AposeUtils.doc2pdf(inputStream);
         }else if (".xls".equalsIgnoreCase(fileExtension) || ".xlsx".equalsIgnoreCase(fileExtension)){
             response.setContentType("application/pdf");
             inputStream = FastDFSClientUtils.downloadFile(fileaddress);
@@ -157,12 +284,24 @@ public class Cp_FileController {
     @ResponseBody
     @EventLog(desc = "下载文件！")
     @ApiOperation(value = "下载文件！", notes = "下载文件！")
-    public void downfile(@RequestParam String fileaddress,@RequestParam String filename,HttpServletResponse response) {
+    public void downfile(@RequestParam String fileaddress,@RequestParam String filename,HttpServletResponse response) throws IOException {
         logger.info("预览附件信息！");
         System.out.println(fileaddress.toString());
-//        InputStream inputStream = FastDFSClientUtils.downloadFile(fileaddress);
+        File file1 = new File(globalValue.getFilepath() + fileaddress);
+        byte[] data=null;
+        if(file1.exists()){
+            FileInputStream fis = new FileInputStream(file1);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int len = -1;
+            while((len = fis.read(b)) != -1) {
+                bos.write(b, 0, len);
+            }
+            data= bos.toByteArray();
+            fis.close();
+            bos.close();
+        }
 
-        byte[] data = FastDFSClientUtils.downloadFilebytes(fileaddress);
         response.reset();
         response.setCharacterEncoding("UTF-8");
 //        response.setContentType("text/xml");
@@ -173,7 +312,7 @@ public class Cp_FileController {
             // attachment弹出对话框，提示用户进行下载保存本地
             // 默认为inline方式
             response.setHeader("Content-disposition", "attachment;filename=" +
-                    new String( filename.getBytes("UTF-8"), "UTF-8"));
+                    new String( filename.getBytes("gb2312"), "ISO8859-1" ));
             // 写出
             outputStream = response.getOutputStream();
             IOUtils.write(data, outputStream);
@@ -190,9 +329,46 @@ public class Cp_FileController {
             }
 
         }
-        ;
-//        return outputStream;
-//        return inputStream;
+    }
+
+    @RequestMapping(value = "/downdfsfile", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "下载dfs文件！")
+    @ApiOperation(value = "下载dfs文件！", notes = "下载dfs文件！")
+    public void downdfsfile(@RequestParam String fileaddress,@RequestParam String filename,HttpServletResponse response) {
+        logger.info("预览附件信息！");
+        System.out.println(fileaddress.toString());
+//        InputStream inputStream = FastDFSClientUtils.downloadFile(fileaddress);
+
+        byte[] data = FastDFSClientUtils.downloadFilebytes(fileaddress);
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/xml");
+        response.setContentType("application/octet-stream");
+        ServletOutputStream outputStream = null;
+        try {
+            // inline在浏览器中直接显示，不提示用户下载
+            // attachment弹出对话框，提示用户进行下载保存本地
+            // 默认为inline方式
+            response.setHeader("Content-disposition", "attachment;filename=" +
+                    new String( filename.getBytes("gb2312"), "ISO8859-1" ));
+            // 写出
+            outputStream = response.getOutputStream();
+            IOUtils.write(data, outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (outputStream!=null){
+                    outputStream.close();
+                    outputStream=null;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     @RequestMapping(value = "/downlocalfile", method = RequestMethod.GET)
@@ -230,7 +406,7 @@ public class Cp_FileController {
             // attachment弹出对话框，提示用户进行下载保存本地
             // 默认为inline方式
             response.setHeader("Content-disposition", "attachment;filename=" +
-                    new String( filename.getBytes("UTF-8"), "UTF-8"));
+                    new String( filename.getBytes("gb2312"), "ISO8859-1" ));
             // 写出
             outputStream = response.getOutputStream();
             IOUtils.write(data, outputStream);

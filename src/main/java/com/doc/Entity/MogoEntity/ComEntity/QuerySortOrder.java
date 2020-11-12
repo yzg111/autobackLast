@@ -1,5 +1,6 @@
 package com.doc.Entity.MogoEntity.ComEntity;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -8,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author
  * @version
  */
+@ApiModel(description = "排序实例")
 public class QuerySortOrder {
 
     /**

@@ -1,6 +1,7 @@
 package com.doc.controller.CP_Class;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
@@ -59,6 +60,46 @@ public class CPClassDataController {
     //@RequestBody CP_Class_Data cp
     public Back inCpData(@RequestBody CP_Class_Data cpdata) {
         //插入数据可能后面需要考虑到数据重复的问题，重复就过滤掉
+        //根据cpid查询出cp类信息，然后根据cp类的字段类型转换相应字段的数据类型进行保存
+        String cpid=cpdata.getCpid();
+        CP_Class cp_class=cp_classRepository.findById(cpid);
+        //cp类字段信息
+        Map<String,Object> cpclassdatamap = cp_class.getDatamap();
+        JSONObject cpdtmapJson=new JSONObject(cpclassdatamap);
+        //字段的属性信息
+        Map<String,Object> attrs = cp_class.getAtrrs();
+        JSONObject attrsJson=new JSONObject(attrs);
+        //这个是需要改造的数据
+        Map<String,Object> cpdatadtMap=cpdata.getDatamap();
+        JSONObject cpdatadtJson=new JSONObject(cpdatadtMap);
+        JSONObject data=new JSONObject();
+        //循环出字段信息，然后查询出字段的类型
+        for (String key :cpdtmapJson.keySet()){
+            JSONObject tmp=attrsJson.getJSONObject(key);
+            if(tmp.containsKey("type")){
+                int type=tmp.getIntValue("type");
+                if (type==5){
+                    //整型数据
+                    if(cpdatadtJson.containsKey(key)){
+                        int dt=cpdatadtJson.getIntValue(key);
+                        cpdatadtJson.put(key,dt);
+                    }
+                }else if(type==6){
+                    //布尔类型
+                    if(cpdatadtJson.containsKey(key)){
+                        cpdatadtJson.put(key,cpdatadtJson.getBooleanValue(key));
+                    }
+                }else if(type==7){
+                    //浮点型
+                    if(cpdatadtJson.containsKey(key)){
+                        cpdatadtJson.put(key,cpdatadtJson.getFloatValue(key));
+                    }
+                }
+            }
+        }
+        Map<String, Object> jsonMap = JSONObject.toJavaObject(cpdatadtJson, Map.class);
+        cpdata.setDatamap(jsonMap);
+
         //主要是主键重复的问题
         CP_Class_Data i = cp_class_dataRepository.save(cpdata);
 
@@ -79,6 +120,46 @@ public class CPClassDataController {
     //@RequestBody CP_Class_Data cp
     public Back plincpdatas(@RequestBody List<CP_Class_Data> cpdata) {
         //批量插入数据可能后面需要考虑到数据重复的问题，重复就过滤掉
+        for (CP_Class_Data cpdt:cpdata){
+            String cpid=cpdt.getCpid();
+            CP_Class cp_class=cp_classRepository.findById(cpid);
+            //cp类字段信息
+            Map<String,Object> cpclassdatamap = cp_class.getDatamap();
+            JSONObject cpdtmapJson=new JSONObject(cpclassdatamap);
+            //字段的属性信息
+            Map<String,Object> attrs = cp_class.getAtrrs();
+            JSONObject attrsJson=new JSONObject(attrs);
+            //这个是需要改造的数据
+            Map<String,Object> cpdatadtMap=cpdt.getDatamap();
+            JSONObject cpdatadtJson=new JSONObject(cpdatadtMap);
+            JSONObject data=new JSONObject();
+            //循环出字段信息，然后查询出字段的类型
+            for (String key :cpdtmapJson.keySet()){
+                JSONObject tmp=attrsJson.getJSONObject(key);
+                if(tmp.containsKey("type")){
+                    int type=tmp.getIntValue("type");
+                    if (type==5){
+                        //整型数据
+                        if(cpdatadtJson.containsKey(key)){
+                            int dt=cpdatadtJson.getIntValue(key);
+                            cpdatadtJson.put(key,dt);
+                        }
+                    }else if(type==6){
+                        //布尔类型
+                        if(cpdatadtJson.containsKey(key)){
+                            cpdatadtJson.put(key,cpdatadtJson.getBooleanValue(key));
+                        }
+                    }else if(type==7){
+                        //浮点型
+                        if(cpdatadtJson.containsKey(key)){
+                            cpdatadtJson.put(key,cpdatadtJson.getFloatValue(key));
+                        }
+                    }
+                }
+            }
+            Map<String, Object> jsonMap = JSONObject.toJavaObject(cpdatadtJson, Map.class);
+            cpdt.setDatamap(jsonMap);
+        }
         //主要是主键重复的问题
          List<CP_Class_Data> cpdatas=cp_class_dataRepository.save(cpdata);
 
@@ -114,11 +195,20 @@ public class CPClassDataController {
     @ApiOperation(value = "根据条件查询一个父类内容数据！", notes = "根据条件查询一个父类内容数据！")
     public Back getCpDataByOptions(@RequestParam(required = true) String cpname,
                                    @RequestParam(required = false) String optionname,
-                                   @RequestParam(required = false)String value) {
+                                   @RequestParam(required = false)String value,
+                                   @RequestParam int pageno,@RequestParam int pagesize) {
+
+
+
         //拼接查询语句
         String start="match (n:`";
         String end=" return n";
         String beforew="`)";
+        //首先要查询出总的条数，然后再查询分页的条数
+        int total=syncneo4jdata.getTotalCount(cpname,"");
+        //这个地方需要添加分页查询数据
+        end=end+" SKIP "+pageno*pagesize+" LIMIT "+pagesize;
+
         String where="";
         if (StringUtils.isNotEmpty(optionname)&&StringUtils.isNotEmpty(value)){
             //like搜索
@@ -140,6 +230,7 @@ public class CPClassDataController {
         back.setData(listcpdatas);
         back.setCmd("查询父类字段内容数据成功！");
         back.setState(1);
+        back.setTotalcount(total);
 
         return back;
     }

@@ -78,7 +78,7 @@ public class QuartzTreeController {
 
         QuartzTree listcps = quartzTreeRepository.findById(id);
 
-        cp.setCmd("查询下级CP父类信息");
+        cp.setCmd("根据id查询出定时任务树信息");
         cp.setState(1);
         cp.setData(listcps);
 

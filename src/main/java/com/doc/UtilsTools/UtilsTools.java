@@ -253,9 +253,9 @@ public class UtilsTools {
             if ("1".equals(map.getString("condition"))) {
                 condition = "=" + "'" + map.get("value") + "' ";
             } else if ("2".equals(map.getString("condition"))) {
-                condition = ">" + " " + map.get("value") + " ";
+                condition = ">" + " " + map.getIntValue("value") + " ";
             } else if ("3".equals(map.getString("condition"))) {
-                condition = "<" + " " + map.get("value") + " ";
+                condition = "<" + " " + map.getIntValue("value") + " ";
             } else if ("4".equals(map.getString("condition"))) {
                 condition = "<>" + "'" + map.get("value") + "' ";
             } else if ("5".equals(map.getString("condition"))) {
@@ -269,6 +269,35 @@ public class UtilsTools {
         }
 
         return where;
+    }
+
+    //组装查询条件
+    public static String GetqueryString(List<Map<String,Object>> maplists){
+        String where="";
+        for (int i = 0; i < maplists.size(); i++) {
+            Map<String,Object> obj = maplists.get(i);
+            if (obj.get("operator")!=null){
+                String op=obj.get("operator").toString();
+                String condition = " ";//1是=，2是>，3是<，4是!=，5是模糊查询
+                if ("1".equals(op)) {
+                    condition = "=" + "'" + obj.get("value") + "' ";
+                } else if ("2".equals(op)) {
+                    condition = ">" + "" + obj.get("value") + " ";
+                } else if ("3".equals(op)) {
+                    condition = "<" + "" + obj.get("value") + " ";
+                } else if ("4".equals(op)) {
+                    condition = "<>" + "'" + obj.get("value") + "' ";
+                } else if ("5".equals(op)) {
+                    condition = " =~ '.*" + obj.get("value") + ".*' ";
+                }
+                where = where + " and n." + obj.get("name") + condition;
+            }else {
+                where = where + " and n." + obj.get("name") + " =~ '.*" + obj.get("value") + ".*'";
+            }
+        }
+
+        return where;
+
     }
 
 }

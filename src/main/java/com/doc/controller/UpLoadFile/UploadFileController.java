@@ -38,7 +38,49 @@ public class UploadFileController {
     @ResponseBody
     @ApiOperation(value = "上传文件的接口", hidden = true)
     public String testupload(HttpServletRequest request,
-                                 @RequestParam(value = "file") MultipartFile file) {
+                                 @RequestParam(value = "file") MultipartFile file) throws IOException {
+        String filepath=globalValue.getFilepath();
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        String monthstr="";
+        if(month<10)
+        {
+            monthstr="0"+month;
+        }else {
+            monthstr=String .valueOf(month);
+        }
+        String realpath=filepath+year+"/"+monthstr+"/";
+        File saveDir = new File(realpath);
+        if (!saveDir.exists()) {
+            saveDir.mkdirs();
+        }
+        //文件名后缀
+        String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        //将文件名根据时间唯一化
+        String name=UtilsTools.getdatefilename()+fileExtension;
+        String fileid=year+"/"+monthstr+"/" + name;
+        InputStream inputStream=file.getInputStream();
+        File file1 = new File(realpath + name);
+        OutputStream out = new FileOutputStream(file1);
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        while ((len = inputStream.read(bytes)) != -1) {
+            out.write(bytes, 0, len);
+        }
+
+        out.close();
+        inputStream.close();
+        return fileid;
+    }
+
+    @RequestMapping(value = {"/uploadfiledfs"},produces = {"application/json; charset=UTF-8"},
+            method = RequestMethod.POST, headers = "content-type=multipart/form-data"
+    )
+    @ResponseBody
+    @ApiOperation(value = "上传文件到fastdfs的接口", hidden = true)
+    public String uploadfiledfs(HttpServletRequest request,
+                             @RequestParam(value = "file") MultipartFile file) {
         JSONObject ob=new JSONObject();
         ob.put("text","余正刚上传成功");
         logger.info("start upload");
