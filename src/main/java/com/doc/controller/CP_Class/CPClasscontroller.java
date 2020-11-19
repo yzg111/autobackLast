@@ -216,21 +216,25 @@ public class CPClasscontroller {
     //@RequestBody CP_Class cp
     public Back inCp(@RequestBody CP_Class cp) {
         logger.info("插入一个父类！");
-        List<Map.Entry<String, Integer>> infoIds =
-                new LinkedList<Map.Entry<String, Integer>>(cp.getDatamap().entrySet());
-        //排序
-        Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
-            @Override
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return o1.getValue().compareTo(o2.getValue());
-            }
-        });
-        HashMap<String, Integer> aMap2 = new LinkedHashMap<>();
-        for (Map.Entry<String, Integer> entry : infoIds) {
-            aMap2.put(entry.getKey(), entry.getValue());
-        }
-        cp.setDatamap(aMap2);
-        System.out.println(cp.toString());
+        this.pxdatamap(cp);
+//        if(cp.getDatamap()!=null){
+//            List<Map.Entry<String, Integer>> infoIds =
+//                    new LinkedList<Map.Entry<String, Integer>>(cp.getDatamap().entrySet());
+//            //排序
+//            Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
+//                @Override
+//                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+//                    return o1.getValue().compareTo(o2.getValue());
+//                }
+//            });
+//            HashMap<String, Integer> aMap2 = new LinkedHashMap<>();
+//            for (Map.Entry<String, Integer> entry : infoIds) {
+//                aMap2.put(entry.getKey(), entry.getValue());
+//            }
+//            cp.setDatamap(aMap2);
+//            System.out.println(cp.toString());
+//        }
+
         CP_Class i = cp_classRepository.save(cp);
 
         Back<Integer> back = new Back<Integer>();
@@ -241,13 +245,50 @@ public class CPClasscontroller {
         return back;
     }
 
+    //删除父类的表格配件数据的接口
+    @RequestMapping(value = "/delcptreedata", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "根据id删除cp类数据的接口！")
+    @ApiOperation(value = "根据id删除cp类数据的接口！", notes = "根据id删除cp类数据的接口！")
+    public Back delcptreedata(@RequestParam String id) {
+        CP_Class listcpdatas = cp_classRepository.findById(id);
+        cp_classRepository.delete(listcpdatas);
+
+        Back<Integer> back=new Back<>();
+        back.setData(1);
+        back.setCmd("删除cp类数据成功！");
+        back.setState(1);
+
+        return back;
+    }
+
     public List<CP_Class> ToTree(List<CP_Class> top) {
         List<CP_Class> result = top;
         for (CP_Class cp : top) {
+//            this.pxdatamap(cp);
             List<CP_Class> listcps = cp_classRepository.findByParentid(cp.getId());
             cp.setChildren(listcps);
             ToTree(listcps);
         }
         return result;
+    }
+    public void pxdatamap(CP_Class cp){
+        if(cp.getDatamap()!=null){
+            List<Map.Entry<String, Integer>> infoIds =
+                    new LinkedList<Map.Entry<String, Integer>>(cp.getDatamap().entrySet());
+            //排序
+            Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    return o1.getValue().compareTo(o2.getValue());
+                }
+            });
+            HashMap<String, Integer> aMap2 = new LinkedHashMap<>();
+            for (Map.Entry<String, Integer> entry : infoIds) {
+                aMap2.put(entry.getKey(), entry.getValue());
+            }
+            cp.setDatamap(aMap2);
+            System.out.println(cp.toString());
+        }
     }
 }

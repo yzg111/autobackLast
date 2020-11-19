@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
+import com.doc.Entity.MogoEntity.CP_Class.CP_Menu;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Table;
+import com.doc.Entity.MogoEntity.ComEntity.PageinationSelect;
+import com.doc.Entity.MogoEntity.ComEntity.Pagination;
 import com.doc.Manager.SelfAnno.*;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
@@ -382,6 +385,55 @@ public class CPClassDataController {
         back.setCmd("根据表格ID集合查询数据成功！");
         back.setState(1);
         back.setData(datamap);
+        return back;
+    }
+
+
+    //需要写一个根据页面原件信息和相应查询条件查询相应数据的接口
+//根据menuid查询出要显示的数据并返回
+    @RequestMapping(value = "/getpageorincpdatatableidandoptions/{id}", method = RequestMethod.POST)
+    @EventLog(desc = "根据menuid查询和查询条件查询Cp类数据并返回！")
+    @ApiOperation(value = "根据menuid查询和查询条件查询Cp类数据并返回！",
+            notes = "根据menuid查询和查询条件查询Cp类数据并返回！")
+    public Back getpageorincpdatatableidandoptions(@RequestBody PageinationSelect params, @PathVariable("id") String id) {
+        Back<Pagination<CP_Class_Data>> back = new Back<>();
+        List<CP_Class_Data> cpClassDatas=new ArrayList<>();
+        int pageno=params.getPageno();
+        int pagesize=params.getPagesize();
+        int total=0;
+        //获取表格的默认配置信息
+        CP_Table cp_table = cp_tableRepository.findById(id);
+        CP_Class cp_class = cp_classRepository.findById(cp_table.getCpid());
+        if (cp_class != null) {
+            //拼接查询语句
+            String start = "match (n:`";
+            String end = " return n "+" SKIP "+pageno*pagesize+" LIMIT "+pagesize;;
+            String beforew = "`)";
+            String where = "where 1=1 ";
+            if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0){
+                JSONArray maps = new JSONArray(cp_table.getQuerydata());
+                where=where+UtilsTools.GetqueryStringLast(maps);
+            }
+            List<Map<String,Object>> maplists=params.getOptions();
+            if (maplists!=null&&maplists.size()>0){
+                where=where+UtilsTools.GetqueryString(maplists);
+            }
+
+            //首先要查询出总的条数，然后再查询分页的条数
+            total=syncneo4jdata.getTotalCount(cp_class.getCpname(),where);
+            String query = start + cp_class.getCpname() + beforew + where + end;
+            List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
+            //转换数组
+            UtilsTools.Neo4jArrayDown(listmap);
+            cpClassDatas=UtilsTools.changeCPData(listmap);
+        }
+        Pagination<CP_Class_Data> pagination=new Pagination<>(pageno+1,pagesize,total);
+        pagination.setResults(cpClassDatas);
+
+        back.setCmd("根据条件查询cp类中数据成功！");
+        back.setState(1);
+        back.setData(pagination);
+
         return back;
     }
 

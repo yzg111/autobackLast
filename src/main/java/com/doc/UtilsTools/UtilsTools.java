@@ -300,4 +300,44 @@ public class UtilsTools {
 
     }
 
+    /**
+     * 功能描述:neo4j里面查询出来的数组处理
+     *
+     * @param null 1
+     * @return :
+     */
+    public static void Neo4jArrayDown(List<Map<String, Object>> listmap){
+        for(int i=0;i<listmap.size();i++){
+            Map<String,Object> map=listmap.get(i);
+            map.forEach((String key, Object val) ->{
+                if(val.toString().contains("[")&&val.toString().contains("]"))
+                    map.put(key,JSONArray.parseArray(val.toString()));
+            });
+        }
+    }
+
+    public static String GetqueryStringLast(JSONArray maps){
+        String where="";
+        for (int i = 0; i < maps.size(); i++) {
+            JSONObject map = maps.getJSONObject(i);
+            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
+            if ("1".equals(map.getString("condition"))) {
+                condition = "=" + "'" + map.get("value") + "' ";
+            } else if ("2".equals(map.getString("condition"))) {
+                condition = ">" + "" + map.get("value") + " ";
+            } else if ("3".equals(map.getString("condition"))) {
+                condition = "<" + "" + map.get("value") + " ";
+            } else if ("4".equals(map.getString("condition"))) {
+                condition = "<>" + "'" + map.get("value") + "' ";
+            } else if ("5".equals(map.getString("condition"))) {
+                condition = " =~ '.*" + map.get("value") + ".*' ";
+            }
+
+            where = where + " and n." + map.get("name") + condition;
+
+        }
+
+        return where;
+    }
+
 }

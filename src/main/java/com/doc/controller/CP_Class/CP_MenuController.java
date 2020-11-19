@@ -337,7 +337,7 @@ public class CP_MenuController {
             String where = "where 1=1 ";
             if (cp_table.getQuerydata()!=null&&cp_table.getQuerydata().size() > 0){
                 JSONArray maps = new JSONArray(cp_table.getQuerydata());
-                where=where+GetqueryStringLast(maps);
+                where=where+UtilsTools.GetqueryStringLast(maps);
             }
             List<Map<String,Object>> maplists=params.getOptions();
             if (maplists!=null&&maplists.size()>0){
@@ -348,17 +348,11 @@ public class CP_MenuController {
             total=syncneo4jdata.getTotalCount(cp_class.getCpname(),where);
             String query = start + cp_class.getCpname() + beforew + where + end;
             List<Map<String, Object>> listmap = syncneo4jdata.excuteListByAll(query);
-            for(int i=0;i<listmap.size();i++){
-                CP_Class_Data cpClassData=new CP_Class_Data();
-                Map<String,Object> map=listmap.get(i);
-                map.forEach((String key, Object val) ->{
-                    if(val.toString().contains("[")&&val.toString().contains("]"))
-                        map.put(key,JSONArray.parseArray(val.toString()));
-                });
-            }
+            //转换数组
+            UtilsTools.Neo4jArrayDown(listmap);
             cpClassDatas=UtilsTools.changeCPData(listmap);
         }
-        Pagination<CP_Class_Data> pagination=new Pagination<>(pageno,pagesize,total);
+        Pagination<CP_Class_Data> pagination=new Pagination<>(pageno+1,pagesize,total);
         pagination.setResults(cpClassDatas);
 
         back.setCmd("根据条件查询cp类中数据成功！");
@@ -368,29 +362,7 @@ public class CP_MenuController {
         return back;
     }
 
-    private String GetqueryStringLast(JSONArray maps){
-        String where="";
-        for (int i = 0; i < maps.size(); i++) {
-            JSONObject map = maps.getJSONObject(i);
-            String condition = "=";//1是=，2是>，3是<，4是!=，5是模糊查询
-            if ("1".equals(map.getString("condition"))) {
-                condition = "=" + "'" + map.get("value") + "' ";
-            } else if ("2".equals(map.getString("condition"))) {
-                condition = ">" + "" + map.get("value") + " ";
-            } else if ("3".equals(map.getString("condition"))) {
-                condition = "<" + "" + map.get("value") + " ";
-            } else if ("4".equals(map.getString("condition"))) {
-                condition = "<>" + "'" + map.get("value") + "' ";
-            } else if ("5".equals(map.getString("condition"))) {
-                condition = " =~ '.*" + map.get("value") + ".*' ";
-            }
 
-            where = where + " and n." + map.get("name") + condition;
-
-        }
-
-        return where;
-    }
 
     //查询下级CP二级菜单信息
     @RequestMapping(value = "/takecpmenusbyparentid", method = RequestMethod.GET)
