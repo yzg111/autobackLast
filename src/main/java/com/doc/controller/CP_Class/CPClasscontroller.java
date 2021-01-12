@@ -39,8 +39,10 @@ public class CPClasscontroller {
     private static final Logger logger = LoggerFactory.getLogger(CPClasscontroller.class);
 
     @Autowired
+    @Qualifier("Cp_ClassRepository")
     private Cp_ClassRepository cp_classRepository;
     @Autowired
+    @Qualifier("Cp_Class_DataRepository")
     private Cp_Class_DataRepository cp_class_dataRepository;
     @Qualifier("CP_ClassTestRespository")
     @Autowired

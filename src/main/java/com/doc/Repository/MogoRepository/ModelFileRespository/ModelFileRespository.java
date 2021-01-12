@@ -9,4 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface ModelFileRespository extends MongoRepository<ModelFile,ObjectId> {
     public ModelFile findById(String id);
+
+    public ModelFile findByModelfilecode(String modelfilecode);
 }

@@ -37,12 +37,12 @@ public class ComJob implements Job {
                 (QuartzRepository) SpringContextUtil.getBean("QuartzRepository1");
             //根据脚本编码获取脚本信息，并执行脚本信息
         Cp_GroovyScriptRepository cp_groovyScriptRepository= (Cp_GroovyScriptRepository)
-                SpringContextUtil.getBean("Cp_GroovyScriptRepository1");
+                SpringContextUtil.getBean("Cp_GroovyScriptRepository");
         Syncneo4jdata syncneo4jdata= (Syncneo4jdata) SpringContextUtil.getBean("Syncneo4jdata");
         Cp_ClassRepository cp_classRepository=
-                (Cp_ClassRepository) SpringContextUtil.getBean("Cp_ClassRepository1");
+                (Cp_ClassRepository) SpringContextUtil.getBean("Cp_ClassRepository");
         Cp_Class_DataRepository cpClassDataRepository=
-                (Cp_Class_DataRepository) SpringContextUtil.getBean("Cp_Class_DataRepository1");
+                (Cp_Class_DataRepository) SpringContextUtil.getBean("Cp_Class_DataRepository");
 
         String id=c.getTrigger().getKey().getName();
 

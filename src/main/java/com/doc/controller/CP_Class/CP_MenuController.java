@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -39,8 +40,10 @@ public class CP_MenuController {
     @Autowired
     private Cp_TableRepository cp_tableRepository;
     @Autowired
+    @Qualifier("Cp_Class_DataRepository")
     private Cp_Class_DataRepository cp_class_dataRepository;
     @Autowired
+    @Qualifier("Cp_ClassRepository")
     private Cp_ClassRepository cp_classRepository;
     @Autowired
     private Syncneo4jdata syncneo4jdata;

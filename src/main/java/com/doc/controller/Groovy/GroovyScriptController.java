@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class GroovyScriptController {
     private static final Logger logger = LoggerFactory.getLogger(GroovyScriptTreeController.class);
 
     @Autowired
+    @Qualifier("Cp_GroovyScriptRepository")
     private Cp_GroovyScriptRepository cp_groovyScriptRepository;
 
     @RequestMapping(value = "/inscript", method = RequestMethod.POST)

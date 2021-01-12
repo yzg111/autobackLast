@@ -21,7 +21,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component("WebSocketController")
 @ServerEndpoint("/websocket")
 @Slf4j
-public class WebSocketController {
+public class WebSocketController {  
 
     private Session session;
     private static final Logger logger = LoggerFactory.getLogger(WebSocketController.class);

@@ -10,8 +10,10 @@ import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_GroovyScriptRepository;
+import com.doc.Repository.MogoRepository.ModelFileRespository.ModelFileRespository;
 import com.doc.UtilsTools.CpTools;
 import com.doc.UtilsTools.GroovyTools;
+import com.doc.config.GlobalValue;
 import com.doc.controller.CP_Class.CP_FormController;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import io.swagger.annotations.Api;
@@ -21,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -45,11 +48,18 @@ public class GroovyController {
     @Autowired
     private Syncneo4jdata syncneo4jdata;
     @Autowired
+    @Qualifier("Cp_ClassRepository")
     private Cp_ClassRepository cp_classRepository;
     @Autowired
+    @Qualifier("Cp_Class_DataRepository")
     private Cp_Class_DataRepository cpClassDataRepository;
     @Autowired
+    @Qualifier("Cp_GroovyScriptRepository")
     private Cp_GroovyScriptRepository cp_groovyScriptRepository;
+    @Autowired
+    private ModelFileRespository modelFileRespository;
+    @Autowired
+    private GlobalValue globalValue;
 
     //查询一个父类下面的表单配件信息
     @RequestMapping(value = "/dotest", method = RequestMethod.GET)
@@ -118,12 +128,23 @@ public class GroovyController {
             String groovyscript=script.getScriptcontent();
             StringBuilder sb=new StringBuilder();
             sb.append("import java.text.SimpleDateFormat;");
+            sb.append("import com.aspose.cells.Workbook;");
+            sb.append("import com.aspose.cells.WorkbookDesigner;");
+            sb.append("import com.aspose.words.Document;");
             sb.append("import com.doc.UtilsTools.CpTools;");
+            sb.append("import com.doc.UtilsTools.ApTools;");
+            sb.append("import com.doc.UtilsTools.ExportTools;");
             sb.append("import com.doc.neo4j.syncdata.*;");
             sb.append("def cpTools=new CpTools();");
+            sb.append("def aposeTools=new ApTools();");
+            sb.append("def exportTools=new ExportTools();");
             sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
             sb.append("cpTools.setCpClassRepository(cp_classRepository);");
             sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+            sb.append("aposeTools.setModelFileRespository(modelFileRespository);");
+            sb.append("aposeTools.setGlobalValue(globalValue);");
+            sb.append("exportTools.setGlobalValue(globalValue);");
+
 
 
             sb.append(groovyscript);
@@ -140,6 +161,9 @@ public class GroovyController {
             pm.put("syncneo4jdata",syncneo4jdata);
             pm.put("cp_classRepository",cp_classRepository);
             pm.put("cpClassDataRepository",cpClassDataRepository);
+            pm.put("modelFileRespository",modelFileRespository);
+            pm.put("globalValue",globalValue);
+
 
             Object res=groovyTools.runGroovyScript(sb.toString(),pm,script.getScriptname());
 
@@ -172,12 +196,22 @@ public class GroovyController {
             String groovyscript=script.getScriptcontent();
             StringBuilder sb=new StringBuilder();
             sb.append("import java.text.SimpleDateFormat;");
+            sb.append("import com.aspose.cells.Workbook;");
+            sb.append("import com.aspose.cells.WorkbookDesigner;");
+            sb.append("import com.aspose.words.Document;");
             sb.append("import com.doc.UtilsTools.CpTools;");
+            sb.append("import com.doc.UtilsTools.ApTools;");
+            sb.append("import com.doc.UtilsTools.ExportTools;");
             sb.append("import com.doc.neo4j.syncdata.*;");
             sb.append("def cpTools=new CpTools();");
+            sb.append("def aposeTools=new ApTools();");
+            sb.append("def exportTools=new ExportTools();");
             sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
             sb.append("cpTools.setCpClassRepository(cp_classRepository);");
             sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+            sb.append("aposeTools.setModelFileRespository(modelFileRespository);");
+            sb.append("aposeTools.setGlobalValue(globalValue);");
+            sb.append("exportTools.setGlobalValue(globalValue);");
 
 
             sb.append(groovyscript);
@@ -194,6 +228,8 @@ public class GroovyController {
             pm.put("syncneo4jdata",syncneo4jdata);
             pm.put("cp_classRepository",cp_classRepository);
             pm.put("cpClassDataRepository",cpClassDataRepository);
+            pm.put("modelFileRespository",modelFileRespository);
+            pm.put("globalValue",globalValue);
 
             Object res=groovyTools.runGroovyScript(sb.toString(),pm,script.getScriptname());
             logger.info(script.getScriptname()+"脚本执行结束！");

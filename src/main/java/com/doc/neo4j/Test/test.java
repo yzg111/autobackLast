@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.neo4j.cypher.internal.ExecutionEngine;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.kernel.impl.logging.LogService;
 import org.neo4j.kernel.internal.GraphDatabaseAPI;
 
 import java.io.File;

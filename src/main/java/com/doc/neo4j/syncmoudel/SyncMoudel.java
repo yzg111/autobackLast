@@ -8,6 +8,7 @@ import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.neo4j.mode.CpClass;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
@@ -23,8 +24,10 @@ public class SyncMoudel implements ComService {
     private Syncneo4jdata syncneo4jdata;
 
     @Autowired
+    @Qualifier("Cp_Class_DataRepository")
     private Cp_Class_DataRepository cpClassDataRepository;
     @Autowired
+    @Qualifier("Cp_ClassRepository")
     private Cp_ClassRepository cpClassRepository;
 
     @Override
@@ -43,6 +46,8 @@ public class SyncMoudel implements ComService {
             CP_Class cp_class=cpClassRepository.findById(cpid);
             CpClass cpClass=new CpClass(cp_class.getCpname(),data.getId(),data.getDatamap(),cpid);
             cps.add(cpClass);
+            //在这里将数据全部同步进spark的临时表里面
+
         }
         syncneo4jdata.saveOrUpdateCps(cps);
 
