@@ -3,6 +3,7 @@ package com.doc.UtilsTools;
 import com.aspose.cells.Workbook;
 import com.aspose.words.Document;
 import com.aspose.words.SaveFormat;
+import com.aspose.cells.*;
 import com.doc.UtilsTools.Service.ExportToolsService;
 import com.doc.config.GlobalValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.Calendar;
 
 /**
@@ -34,8 +36,8 @@ public class ExportTools implements ExportToolsService{
     public void ExportWordFile(Document doc,String filename) throws Exception {
         HttpServletResponse response=((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 
-        response.setHeader("Content-Disposition", "attachment; filename="+filename);
-        response.setHeader("filename", filename);
+        response.setHeader("Content-Disposition", "attachment; filename="+URLEncoder.encode(filename, "UTF-8"));
+        response.setHeader("filename", URLEncoder.encode(filename, "UTF-8"));
         response.setContentType("application/octet-stream;charset=UTF-8");
 
         OutputStream output = response.getOutputStream();
@@ -52,12 +54,12 @@ public class ExportTools implements ExportToolsService{
     public void ExportExcleFile(Workbook workbook, String filename) throws Exception {
         HttpServletResponse response=((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 
-        response.setHeader("Content-Disposition", "attachment; filename="+filename);
-        response.setHeader("filename", filename);
+        response.setHeader("Content-Disposition", "attachment; filename="+ URLEncoder.encode(filename, "UTF-8"));
+        response.setHeader("filename", URLEncoder.encode(filename, "UTF-8"));
         response.setContentType("application/octet-stream;charset=UTF-8");
 
         OutputStream output = response.getOutputStream();
-        workbook.save(output,workbook.getFileFormat());
+        workbook.save(output,com.aspose.cells.SaveFormat.XLSX);
 
         output.flush();
         output.close();

@@ -1,6 +1,7 @@
 package com.doc.UtilsTools;
 
 
+import com.aspose.cells.FileFormatType;
 import com.aspose.cells.Workbook;
 import com.aspose.cells.WorkbookDesigner;
 import com.aspose.words.Document;
@@ -78,6 +79,19 @@ public class ApTools implements ApService{
         wb= new Workbook(inputStream);
         inputStream.close();
 
+        return wb;
+    }
+
+    /**
+     * 功能描述:创建workbook对象
+     *
+     */
+    @Override
+    public Workbook CreateWorkBook() throws Exception {
+        if (!AposeUtils.getLicense()){
+            return null;
+        }
+        wb=new Workbook(FileFormatType.XLSX);
         return wb;
     }
 

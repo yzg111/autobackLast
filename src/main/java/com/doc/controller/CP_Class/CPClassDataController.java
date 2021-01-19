@@ -1,7 +1,9 @@
 package com.doc.controller.CP_Class;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.aspose.cells.*;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
@@ -13,6 +15,7 @@ import com.doc.Manager.SelfAnno.*;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_TableRepository;
+import com.doc.UtilsTools.ApTools;
 import com.doc.UtilsTools.UtilsTools;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import io.swagger.annotations.Api;
@@ -25,7 +28,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -438,6 +447,107 @@ public class CPClassDataController {
         back.setData(pagination);
 
         return back;
+    }
+
+    //需要写一个根据页面原件信息和相应查询条件查询相应数据的接口
+//根据menuid查询出要显示的数据并返回
+    @RequestMapping(value = "/exportdatabycpid/{id}", method = RequestMethod.POST)
+    @EventLog(desc = "根据cp类的id导出相应的数据！")
+    @ApiOperation(value = "根据cp类的id导出相应的数据！",
+            notes = "根据cp类的id导出相应的数据！")
+    public void exportdatabycpid(@PathVariable("id") String id, HttpServletResponse response) {
+        ApTools apTools=new ApTools();
+        try {
+            Workbook wb=apTools.CreateWorkBook();
+            CP_Class cp_class=cp_classRepository.findById(id);
+            List<CP_Class_Data> cpClassData=cp_class_dataRepository.findByCpid(id);
+            Map<String,Integer> datamap= cp_class.getDatamap();
+            List<String> headers=new ArrayList<>();
+            for (String key : datamap.keySet()){
+                headers.add(key);
+            }
+            WorksheetCollection worksheets = wb.getWorksheets();
+            Worksheet worksheet = worksheets.get(0);
+            worksheet.setName(cp_class.getCpname());
+            Cells cells = worksheet.getCells();
+
+            //设置标题样式
+            Style HeaderStyle = wb.createStyle();
+            HeaderStyle.getFont().setBold(true);  //文字加粗
+            HeaderStyle.setName("宋体");  //文字字体
+            HeaderStyle.getFont().setSize(15);  //文字大小
+            HeaderStyle.setHorizontalAlignment(TextAlignmentType.CENTER);
+            HeaderStyle.setTextWrapped(true);//单元格内容自动换行
+
+            //设置内容样式
+            Style cellsStyle = wb.createStyle();
+            cellsStyle.setHorizontalAlignment(TextAlignmentType.CENTER);  //居中
+            HeaderStyle.setName("宋体");  //文字字体
+            HeaderStyle.getFont().setSize(12);  //文字大小
+            cellsStyle.setTextWrapped(true);//单元格内容自动换行
+
+            for (int i=0;i<headers.size();i++){
+                String item=headers.get(i);
+                cells.get(0, i).setValue(item);
+                cells.get(0, i).setStyle(HeaderStyle);
+                cells.setRowHeight(0,25);
+                cells.setColumnWidth(i,25);
+            }
+
+            for (int j=0;j<cpClassData.size();j++){
+                for (int i=0;i<headers.size();i++){
+                    String item=headers.get(i);
+                    if(cp_class.getAtrrs().containsKey(item)
+                            &&((Map<String,Object>)cp_class.getAtrrs().get(item)).containsKey("type")
+                            &&((Map<String,Object>)cp_class.getAtrrs().get(item)).get("type")!=null
+                            &&!"4".equals(((Map<String,Object>)cp_class.getAtrrs().get(item)).get("type"))
+                            &&!"2".equals(((Map<String,Object>)cp_class.getAtrrs().get(item)).get("type"))
+                            &&!"8".equals(((Map<String,Object>)cp_class.getAtrrs().get(item)).get("type"))){
+
+                        if (cpClassData.get(j).getDatamap().containsKey(item)
+                                &&cpClassData.get(j).getDatamap().get(item)!=null){
+                            if ("3".equals(((Map<String,Object>)cp_class.getAtrrs().get(item)).get("type"))){
+                                //将数组转成字符串
+                                String str=JSON.toJSONString(cpClassData.get(j).getDatamap().get(item));
+                                str=str.replace("[","");
+                                str=str.replace("]","");
+                                str=str.replace("\"","");
+                                cells.get(j+1, i).setValue(str);
+                            }else {
+                                cells.get(j+1, i).setValue(cpClassData.get(j).getDatamap().get(item));
+                            }
+
+                        }else {
+                            cells.get(j+1, i).setValue("");
+                        }
+                    }else {
+                        cells.get(j+1, i).setValue("");
+                    }
+                    cells.get(j+1, i).setStyle(cellsStyle);
+                    cells.setRowHeight(i, 20);
+                    cells.setColumnWidth(i, 38);
+                }
+            }
+            //导出相关文件
+//            String filename=new String(cp_class.getCpname().getBytes("UTF-8"), "iso8859-1")+"1234.xlsx";
+
+            String filename=cp_class.getCpname()+".xlsx";
+            response.setHeader("Content-Disposition", "attachment; filename="
+                    + URLEncoder.encode(filename, "UTF-8"));
+            response.setHeader("filename", URLEncoder.encode(filename, "UTF-8"));
+//            response.setContentType("application/octet-stream;charset=UTF-8");
+            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+
+            OutputStream output = response.getOutputStream();
+            wb.save(output,SaveFormat.XLSX);
+
+            output.flush();
+            output.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 

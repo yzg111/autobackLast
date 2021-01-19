@@ -31,6 +31,12 @@ public interface ApService {
     public Workbook getWorkBook(String path)throws Exception;
 
     /**
+     * 功能描述:创建workbook对象
+     *
+     */
+    public Workbook CreateWorkBook()throws Exception;
+
+    /**
      * 功能描述:返回excle设计器对象
      *
      */
