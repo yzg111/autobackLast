@@ -2,6 +2,7 @@ package com.doc.controller.Groovy;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Form;
 import com.doc.Entity.MogoEntity.CP_Class.CP_GroovyScript;
@@ -126,25 +127,26 @@ public class GroovyController {
             //通过脚本id查询出脚本信息
             CP_GroovyScript script = cp_groovyScriptRepository.findById(rows.getId());
             String groovyscript=script.getScriptcontent();
-            StringBuilder sb=new StringBuilder();
-            sb.append("import java.text.SimpleDateFormat;");
-            sb.append("import com.aspose.cells.Workbook;");
-            sb.append("import com.aspose.cells.WorkbookDesigner;");
-            sb.append("import com.aspose.words.Document;");
-            sb.append("import com.doc.UtilsTools.CpTools;");
-            sb.append("import com.doc.UtilsTools.ApTools;");
-            sb.append("import com.doc.UtilsTools.ExportTools;");
-            sb.append("import com.doc.neo4j.syncdata.*;");
-            sb.append("def cpTools=new CpTools();");
-            sb.append("def aposeTools=new ApTools();");
-            sb.append("def exportTools=new ExportTools();");
-            sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
-            sb.append("cpTools.setCpClassRepository(cp_classRepository);");
-            sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
-            sb.append("aposeTools.setModelFileRespository(modelFileRespository);");
-            sb.append("aposeTools.setGlobalValue(globalValue);");
-            sb.append("exportTools.setGlobalValue(globalValue);");
-
+            StringBuilder sb=groovyTools.getBasicSb();
+            //加入全局变量信息
+            Map<String,String> GlobalValues=groovyTools.getGlobalValues();
+//            sb.append("import java.text.SimpleDateFormat;");
+//            sb.append("import com.aspose.cells.Workbook;");
+//            sb.append("import com.aspose.cells.WorkbookDesigner;");
+//            sb.append("import com.aspose.words.Document;");
+//            sb.append("import com.doc.UtilsTools.CpTools;");
+//            sb.append("import com.doc.UtilsTools.ApTools;");
+//            sb.append("import com.doc.UtilsTools.ExportTools;");
+//            sb.append("import com.doc.neo4j.syncdata.*;");
+//            sb.append("def cpTools=new CpTools();");
+//            sb.append("def aposeTools=new ApTools();");
+//            sb.append("def exportTools=new ExportTools();");
+//            sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
+//            sb.append("cpTools.setCpClassRepository(cp_classRepository);");
+//            sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+//            sb.append("aposeTools.setModelFileRespository(modelFileRespository);");
+//            sb.append("aposeTools.setGlobalValue(globalValue);");
+//            sb.append("exportTools.setGlobalValue(globalValue);");
 
 
             sb.append(groovyscript);
@@ -158,6 +160,8 @@ public class GroovyController {
 //        Map<String,Object> rws=new HashedMap();
 //        rws.put("rows",rows.getRows());
             pm.put("args$",rows);
+            //全局变量
+            pm.put("GlobalValues$",GlobalValues);
             pm.put("syncneo4jdata",syncneo4jdata);
             pm.put("cp_classRepository",cp_classRepository);
             pm.put("cpClassDataRepository",cpClassDataRepository);
@@ -194,24 +198,8 @@ public class GroovyController {
             CP_GroovyScript script = cp_groovyScriptRepository.findByScriptcode(scriptcode);
             logger.info("开始执行脚本:"+script.getScriptname()+"!");
             String groovyscript=script.getScriptcontent();
-            StringBuilder sb=new StringBuilder();
-            sb.append("import java.text.SimpleDateFormat;");
-            sb.append("import com.aspose.cells.Workbook;");
-            sb.append("import com.aspose.cells.WorkbookDesigner;");
-            sb.append("import com.aspose.words.Document;");
-            sb.append("import com.doc.UtilsTools.CpTools;");
-            sb.append("import com.doc.UtilsTools.ApTools;");
-            sb.append("import com.doc.UtilsTools.ExportTools;");
-            sb.append("import com.doc.neo4j.syncdata.*;");
-            sb.append("def cpTools=new CpTools();");
-            sb.append("def aposeTools=new ApTools();");
-            sb.append("def exportTools=new ExportTools();");
-            sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
-            sb.append("cpTools.setCpClassRepository(cp_classRepository);");
-            sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
-            sb.append("aposeTools.setModelFileRespository(modelFileRespository);");
-            sb.append("aposeTools.setGlobalValue(globalValue);");
-            sb.append("exportTools.setGlobalValue(globalValue);");
+            StringBuilder sb=groovyTools.getBasicSb();
+            Map<String,String> GlobalValues=groovyTools.getGlobalValues();
 
 
             sb.append(groovyscript);
@@ -225,6 +213,7 @@ public class GroovyController {
 //        Map<String,Object> rws=new HashedMap();
 //        rws.put("rows",rows.getRows());
             pm.put("args$",rows);
+            pm.put("GlobalValues$",GlobalValues);
             pm.put("syncneo4jdata",syncneo4jdata);
             pm.put("cp_classRepository",cp_classRepository);
             pm.put("cpClassDataRepository",cpClassDataRepository);
@@ -251,4 +240,43 @@ public class GroovyController {
         return back;
 
     }
+    //根据脚本编码执行groovy脚本！
+    @RequestMapping(value = "/runscriptdebug", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "调试groovy脚本！")
+    @ApiOperation(value = "调试groovy脚本！", notes = "调试groovy脚本！")
+    public Back runscriptdebug(@RequestBody String scripts) {
+        JSONObject jsonObject=JSONObject.parseObject(scripts);
+        Back<Object> back=new Back<>();
+        logger.info("脚本信息"+jsonObject.getString("script"));
+        try {
+            StringBuilder sb = groovyTools.getBasicSb();
+            Map<String,String> GlobalValues=groovyTools.getGlobalValues();
+
+            sb.append(jsonObject.getString("script"));
+            Map<String, Object> pm = new HashMap<>();
+            pm.put("GlobalValues$",GlobalValues);
+            pm.put("syncneo4jdata", syncneo4jdata);
+            pm.put("cp_classRepository", cp_classRepository);
+            pm.put("cpClassDataRepository", cpClassDataRepository);
+            pm.put("modelFileRespository", modelFileRespository);
+            pm.put("globalValue", globalValue);
+            Object res = groovyTools.runGroovyScript(sb.toString(), pm, "调试脚本");
+            logger.info("脚本执行结果:" + res);
+
+            back.setData(res);
+            back.setCmd("测试脚本执行成功！");
+            back.setState(1);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("脚本执行失败!");
+            logger.error(e.getMessage());
+            back.setCmd("脚本执行失败！"+e.getMessage());
+            back.setState(2);
+            back.setData("脚本执行失败！"+e.getMessage());
+        }
+        return back;
+    }
+
 }

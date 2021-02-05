@@ -144,7 +144,7 @@ public class IndiviController {
 
         Back<List<IndiviEntity>> back=new Back<>();
         back.setData(indiviEntitys.getContent());
-        back.setTotalcount(indiviEntitys.getContent().size());
+        back.setTotalcount((int) indiviEntitys.getTotalElements());
         back.setCmd("查询所有定制项目数据成功！");
         back.setState(1);
 

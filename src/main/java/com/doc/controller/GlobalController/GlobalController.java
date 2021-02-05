@@ -3,14 +3,20 @@ package com.doc.controller.GlobalController;
 import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Form;
 import com.doc.Entity.MogoEntity.GlobalStyleEntity.GlobalStyle;
+import com.doc.Entity.MogoEntity.GlobalValuesEntity.GlobalValuesEntity;
+import com.doc.Entity.MogoEntity.IndiviEntity.IndiviEntity;
+import com.doc.Entity.MogoEntity.ModelFileEntity.ModelFile;
 import com.doc.Manager.SelfAnno.EventLog;
 import com.doc.Repository.MogoRepository.GlobalStyle.GlobalStyleRepository;
+import com.doc.Repository.MogoRepository.GlobalValuesRepository.GlobalValuesRepository;
 import com.doc.config.GlobalValue;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +36,9 @@ public class GlobalController {
     private GlobalValue globalValue;
     @Autowired
     private GlobalStyleRepository globalStyleRepository;
+    @Autowired
+    @Qualifier("GlobalValuesRepository")
+    private GlobalValuesRepository globalValuesRepository;
 
     //查询一个父类下面的表单配件信息
     @RequestMapping(value = "/getsocketaddress", method = RequestMethod.GET)
@@ -84,6 +93,62 @@ public class GlobalController {
         back.setState(1);
         logger.info("插入扩展样式信息数据结束！");
 
+        return back;
+    }
+
+    @RequestMapping(value = "/inglobalvalue", method = RequestMethod.POST)
+    @ResponseBody
+    @EventLog(desc = "插入全局变量信息！")
+    @ApiOperation(value = "插入全局变量信息！", notes = "插入全局变量信息！")
+    public Back inglobalvalue(@RequestBody GlobalValuesEntity globalValuesEntity) {
+        Back<Integer> back=new Back<>();
+        GlobalValuesEntity globalValuesEntity1=globalValuesRepository.save(globalValuesEntity);
+        back.setData(1);
+        back.setCmd("插入全局变量信息数据成功！");
+        back.setState(1);
+        return back;
+    }
+
+    @RequestMapping(value = "/delglobalvalue", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "删除全局变量信息！")
+    @ApiOperation(value = "删除全局变量信息！", notes = "删除全局变量信息！")
+    public Back delglobalvalue(@RequestParam String id) {
+        Back<Integer> back=new Back<>();
+
+        GlobalValuesEntity globalValuesEntity = globalValuesRepository.findById(id);
+        globalValuesRepository.delete(globalValuesEntity);
+        back.setData(1);
+        back.setCmd("删除全局变量信息数据成功！");
+        back.setState(1);
+
+        return back;
+    }
+
+    @RequestMapping(value = "/findbyglobalname", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "根据全局变量名称查询或全部查询全局变量信息！")
+    @ApiOperation(value = "根据全局变量名称查询或全部查询全局变量信息！", notes = "根据全局变量名称查询或全部查询全局变量信息！")
+    public Back findbyglobalname(@RequestParam(required = false) String globalname,
+                                 @RequestParam int pageno,@RequestParam int pagesize) {
+        Back<List<GlobalValuesEntity>> back=new Back<>();
+
+        GlobalValuesEntity globalValuesEntity=new GlobalValuesEntity();
+        ExampleMatcher matcher =ExampleMatcher.matching();
+        if(globalname!=null){
+            globalValuesEntity.setGlobalname(globalname);
+            matcher=matcher.withMatcher("globalname" , ExampleMatcher.GenericPropertyMatchers.contains());//全部模糊查询，即%{address}%
+        }
+        matcher=matcher.withIgnorePaths("createtime");//忽略创建时间字段
+        Sort sort=new Sort(Sort.Direction.DESC,"createtime");
+        Pageable pageable=new PageRequest(pageno,pagesize,sort);
+        Example<GlobalValuesEntity> example = Example.of(globalValuesEntity ,matcher);
+        Page<GlobalValuesEntity> values= globalValuesRepository.findAll(example,pageable);
+
+        back.setData(values.getContent());
+        back.setTotalcount((int)values.getTotalElements());
+        back.setCmd("查询全局变量信息数据成功！");
+        back.setState(1);
         return back;
     }
 

@@ -1,17 +1,21 @@
 package com.doc.UtilsTools;
 
 import com.doc.Entity.MogoEntity.CP_Class.CP_GroovyScript;
+import com.doc.Entity.MogoEntity.GlobalValuesEntity.GlobalValuesEntity;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
+import com.doc.Repository.MogoRepository.GlobalValuesRepository.GlobalValuesRepository;
 import com.doc.config.LogConfig.MyLog4JAppender.Log4j2OutPrintStream;
 import com.doc.config.LogConfig.MyLog4JAppender.Log4jOutPrintWriter;
 import com.doc.controller.CP_Class.CP_FormController;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.script.*;
@@ -19,6 +23,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +35,8 @@ public class GroovyTools {
     final ScriptEngineManager factory = new ScriptEngineManager(cl);
     final ScriptEngine engine = factory.getEngineByName("groovy");
     final Compilable compilable = (Compilable) engine;
+    @Autowired
+    private GlobalValuesRepository globalValuesRepository;
     /**
      * 日志记录。
      */
@@ -41,9 +48,16 @@ public class GroovyTools {
                                   Cp_Class_DataRepository cpClassDataRepository){
         StringBuilder sb=new StringBuilder();
         sb.append("import java.text.SimpleDateFormat;");
+        sb.append("import com.aspose.cells.Workbook;");
+        sb.append("import com.aspose.cells.WorkbookDesigner;");
+        sb.append("import com.aspose.words.Document;");
         sb.append("import com.doc.UtilsTools.CpTools;");
+        sb.append("import com.doc.UtilsTools.ApTools;");
+        sb.append("import com.doc.UtilsTools.ExportTools;");
         sb.append("import com.doc.neo4j.syncdata.*;");
         sb.append("def cpTools=new CpTools();");
+        sb.append("def aposeTools=new ApTools();");
+        sb.append("def exportTools=new ExportTools();");
         sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
         sb.append("cpTools.setCpClassRepository(cp_classRepository);");
         sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
@@ -57,6 +71,43 @@ public class GroovyTools {
         Object res=runGroovyScript(sb.toString(),pm,cp_groovyScript.getScriptname());
 //        Object res=runGroovyShellScript(sb.toString(),pm);
         return res;
+    }
+
+    //获取执行脚本基本的引入信息
+    public StringBuilder getBasicSb(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("import java.text.SimpleDateFormat;");
+        sb.append("import com.aspose.cells.Workbook;");
+        sb.append("import com.aspose.cells.WorkbookDesigner;");
+        sb.append("import com.aspose.words.Document;");
+        sb.append("import com.doc.UtilsTools.CpTools;");
+        sb.append("import com.doc.UtilsTools.ApTools;");
+        sb.append("import com.doc.UtilsTools.ExportTools;");
+        sb.append("import com.doc.neo4j.syncdata.*;");
+        sb.append("def cpTools=new CpTools();");
+        sb.append("def aposeTools=new ApTools();");
+        sb.append("def exportTools=new ExportTools();");
+        sb.append("cpTools.setSyncneo4jdata(syncneo4jdata);");
+        sb.append("cpTools.setCpClassRepository(cp_classRepository);");
+        sb.append("cpTools.setCpClassDataRepository(cpClassDataRepository);");
+        sb.append("aposeTools.setModelFileRespository(modelFileRespository);");
+        sb.append("aposeTools.setGlobalValue(globalValue);");
+        sb.append("exportTools.setGlobalValue(globalValue);");
+        return sb;
+    }
+
+    /**
+     * 功能描述:获取全局变量信息
+     *
+     */
+    public Map<String,String> getGlobalValues(){
+        Map<String,String> globalvalues=new HashedMap();
+        List<GlobalValuesEntity> globalValuesEntityList=globalValuesRepository.findAll();
+        for(GlobalValuesEntity glb:globalValuesEntityList){
+            globalvalues.put(glb.getGlobalname(),glb.getGlobalval());
+        }
+
+        return globalvalues;
     }
 
     /**
