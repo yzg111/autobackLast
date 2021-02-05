@@ -100,6 +100,9 @@ public class CP_MenuController {
         List<String> pr = new ArrayList<>();
         for (CP_Menu mn : listcpmenus) {
             pr.add(mn.getParentid());
+            if(StringUtils.isEmpty(mn.getParentid())){
+                pr.add(mn.getId());
+            }
         }
 
         List<CP_Menu> prs = cp_menuRepository.findByIdIn(pr);
