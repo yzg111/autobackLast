@@ -33,18 +33,18 @@ public class WebSocketController {
     public void onOpen(Session session) {
         this.session = session;
         websocketSet.add(this);
-//        logger.info("websocket有新的链接{}",websocketSet.size());
+        logger.info("websocket connect success ",websocketSet.size());
     }
 
     @OnClose
     public void onClose() {
         websocketSet.remove(this);
-//        logger.info("websocket断开{}",websocketSet.size());
+        logger.info("websocket close ",websocketSet.size());
     }
 
     @OnMessage
     public void onMessage(String message) {
-        logger.info("收到客户端发来的消息{}", message);
+        logger.info("get message ", message);
     }
 
     public void sendMessage(String message) {

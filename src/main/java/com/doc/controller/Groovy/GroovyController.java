@@ -248,7 +248,7 @@ public class GroovyController {
     public Back runscriptdebug(@RequestBody String scripts) {
         JSONObject jsonObject=JSONObject.parseObject(scripts);
         Back<Object> back=new Back<>();
-        logger.info("脚本信息"+jsonObject.getString("script"));
+//        logger.info("脚本信息"+jsonObject.getString("script"));
         try {
             StringBuilder sb = groovyTools.getBasicSb();
             Map<String,String> GlobalValues=groovyTools.getGlobalValues();

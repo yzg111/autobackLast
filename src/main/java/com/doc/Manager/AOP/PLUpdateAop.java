@@ -19,6 +19,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -42,6 +43,7 @@ public class PLUpdateAop {
     @Autowired
     private Syncneo4jdata syncneo4jdata;
     @Autowired
+    @Qualifier("Cp_ClassRepository")
     private Cp_ClassRepository cpClassRepository;
     /**
      * 定义一个pointCut，pointcut的名称addAddMethod(),此方法没有返回值和参数，

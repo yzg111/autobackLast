@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,7 @@ import java.util.Map;
 @ImportResource({"classpath:spring/*.xml"})
 @EnableAutoConfiguration
 @EnableTransactionManagement
+@ServletComponentScan
 //@ComponentScan
 public class StartMain extends SpringBootServletInitializer {
     private static final Logger logger = LoggerFactory.getLogger(StartMain.class);
@@ -51,6 +53,7 @@ public class StartMain extends SpringBootServletInitializer {
         Log4j2OutPrintStream.redirectSystemOut();
 //        System.err.println("错误开始");
 //        System.out.println("重定向输出");
+//        System.setProperty("logging.config","classpath:logback-spring.xml");
         ApplicationContext appCtx = SpringApplication.run(StartMain.class, args);
 
 

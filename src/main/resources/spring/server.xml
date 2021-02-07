@@ -33,6 +33,9 @@
                 <prop key="org.quartz.threadPool.threadCount">10</prop>
             </props>
         </property>
+        <property name="autoStartup">
+            <value>false</value>
+        </property>
     </bean>
 
 </beans>
