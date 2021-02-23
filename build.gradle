@@ -111,6 +111,7 @@ dependencies {
 //        providedCompile('org.springframework.boot:spring-boot-starter-tomcat')
 //开发时需要，打包的时候不需要
         runtime 'org.springframework.boot:spring-boot-starter-tomcat'
+    runtime 'org.springframework.boot:spring-boot-devtools'
 
     compile fileTree(dir:'lib',includes:['*jar'])
 
