@@ -10,8 +10,9 @@
          http://www.springframework.org/schema/aop
          http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-autowire="byName">
+    <!--配置扫描文件位置-->
     <context:component-scan base-package="com.doc" />
-
+    <!--允许Aop-->
     <Aop:aspectj-autoproxy/>
     <bean id="MongoUserService" class="com.doc.Service.MogoService.MongoUserService" scope="singleton">
     </bean>

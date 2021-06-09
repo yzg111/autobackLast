@@ -17,7 +17,8 @@
     <!--write-number="1"-->
     <!--write-timeout="0"-->
     <!--write-fsync="true"-->
-    <mongo:mongo-client id="mongo" replica-set="${mongo.replicaSet}">
+    <!--replica-set="${mongo.replicaSet}"-->
+    <mongo:mongo-client id="mongo" port="${mongo.port}" host="${mongo.host}">
         <mongo:client-options
                 connections-per-host="${mongo.connectionsPerHost}"
                 threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
@@ -30,6 +31,7 @@
 
     <mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbname}" mongo-ref="mongo" />
 
+    <!--配置事务管理器-->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
         <constructor-arg ref="mappingMongoConverter" />
