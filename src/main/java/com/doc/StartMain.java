@@ -21,8 +21,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.MultipartConfigElement;
 import java.util.ArrayList;
@@ -36,9 +38,12 @@ import java.util.Map;
 @SpringBootApplication(exclude = WebSocketAutoConfiguration.class)
 @ImportResource({"classpath:spring/*.xml"})
 @EnableAutoConfiguration
+//允许事务
 @EnableTransactionManagement
 @ServletComponentScan
 //@ComponentScan
+//没有这个注解事务不生效
+@Configuration
 public class StartMain extends SpringBootServletInitializer {
     private static final Logger logger = LoggerFactory.getLogger(StartMain.class);
 
@@ -46,7 +51,8 @@ public class StartMain extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(StartMain.class);
     }
-
+//    放在函数上面的事务注解
+//    @Transactional
     public static void main(String[] args) throws Exception {
         logger.info("开始启动服务！");
         Log4j2ErrPrintStream.redirectSystemErr();
@@ -81,8 +87,8 @@ public class StartMain extends SpringBootServletInitializer {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory(); //文件最大10M,DataUnit提供5中类型B,KB,MB,GB,TB
-        factory.setMaxFileSize("102400KB"); /// 设置单个上传数据总大小100M
-        factory.setMaxRequestSize("102400KB"); /// 设置总上传数据总大小100M
+        factory.setMaxFileSize("1024000KB"); /// 设置单个上传数据总大小1000M
+        factory.setMaxRequestSize("1024000KB"); /// 设置总上传数据总大小1000M
         return factory.createMultipartConfig();
     }
 

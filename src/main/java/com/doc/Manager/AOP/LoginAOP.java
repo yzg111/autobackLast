@@ -1,7 +1,10 @@
 package com.doc.Manager.AOP;
 
+import com.doc.Entity.BackEntity.Back;
 import com.doc.Entity.MogoEntity.Log.log;
+import com.doc.Entity.MogoEntity.User.MogoUser;
 import com.doc.Manager.SelfAnno.EventLog;
+import com.doc.Manager.SelfAnno.LoginLog;
 import com.doc.Repository.MogoRepository.Log.LogRepository;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,31 +18,24 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 日志监控的AOP
  * Doc.manager.Hander.Aop 于2017/8/24 由Administrator 创建 .
  */
 @Aspect
-@Component("LogAOP")
+@Component("LoginAOP")
 @Order(-2)
-public class LogAOP {
-    private static final Logger logger = LoggerFactory.getLogger(LogAOP.class);
+public class LoginAOP {
+    private static final Logger logger = LoggerFactory.getLogger(LoginAOP.class);
 
     @Autowired
     private LogRepository logRepository;
 
     private log lg;
-
-//    @Autowired
-//    private mysqlLogRepository sqlLogRepository;
-
-//    private mysqlLog sqlLog;
-//
-//    @Autowired
-//    private mysqlUserRepository sqlUserRepository;
-
-//    private mysqlUser user;
 
     /**
      * 定义一个pointCut，pointcut的名称addAddMethod(),此方法没有返回值和参数，
@@ -56,33 +52,32 @@ public class LogAOP {
      */
     @Before("ControlMethod()")
     private void DoTings(JoinPoint joinPoint) {
-//        System.out.println("执行方法之前做的事情");
 
     }
 
     @Around(value = "execution(* com.doc.controller..*.*(..))&& @annotation(Event)")
-    private Object AroundTings(ProceedingJoinPoint pjd, EventLog Event) {
+    private Object AroundTings(ProceedingJoinPoint pjd, LoginLog Event) {
+        // 接收到请求，记录请求内容
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        HttpServletResponse response=attributes.getResponse();
         Object result = null;
+        Back<Integer> backuser = new Back<>();
+        //设置过期时间
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            // 接收到请求，记录请求内容
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = attributes.getRequest();
+            Date date = formatter.parse( " 2022-4-1 19:20:00 " );
+//            System.out.println("过期时间"+date.getTime()+":"+System.currentTimeMillis());
+            if(System.currentTimeMillis()>date.getTime()){
+                backuser.setCmd("lisence unused!");
+                backuser.setState(2000);
+                backuser.setData(2000);
+                response.getWriter().write(backuser.toString());
+//                response.getWriter().println(backuser);
+            }else {
+                result = pjd.proceed();
+            }
 
-            // 记录下请求内容
-//            System.out.println("URL : " + request.getRequestURL().toString());
-//            System.out.println("HTTP_METHOD : " + request.getMethod());
-//            System.out.println("IP : " + request.getRemoteAddr());
-//            System.out.println("CLASS_METHOD : " + pjd.getSignature().getDeclaringTypeName() + "." + pjd.getSignature().getName());
-//            System.out.println("ARGS : " + Arrays.toString(pjd.getArgs()));
-//            System.out.println("目标对象：" + pjd.getSignature().getName());
-            lg = new log(request.getRequestURL().toString(), Event.desc(),"Log", request.getMethod());
-            logRepository.insert(lg);
-
-//            sqlLog = new mysqlLog(request.getRequestURL().toString(), Event.desc(),"Log", request.getMethod());
-//            sqlLogRepository.save(sqlLog);
-
-
-            result = pjd.proceed();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

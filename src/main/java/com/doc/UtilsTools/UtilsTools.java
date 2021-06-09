@@ -2,15 +2,16 @@ package com.doc.UtilsTools;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
+import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.pqc.math.linearalgebra.IntUtils;
 import org.neo4j.cypher.internal.javacompat.MapRow;
 import org.neo4j.graphdb.Node;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.security.Key;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -289,6 +290,25 @@ public class UtilsTools {
                     condition = "<>" + "'" + obj.get("value") + "' ";
                 } else if ("5".equals(op)) {
                     condition = " =~ '.*" + obj.get("value") + ".*' ";
+                }else if ("6".equals(op)) {
+                    //in查询
+                    String[] values;
+                    if( obj.get("value").toString().indexOf("\\|")!=-1){
+                        values= obj.get("value").toString().split("\\|");
+                    }else {
+                        values=obj.get("value").toString().split(",");
+                    }
+                    condition = " in " + Arrays.toString(values) + "";
+                }
+                else if ("7".equals(op)) {
+                    //not in查询
+                    String[] values;
+                    if( obj.get("value").toString().indexOf("\\|")!=-1){
+                        values= obj.get("value").toString().split("\\|");
+                    }else {
+                        values=obj.get("value").toString().split(",");
+                    }
+                    condition = " not in " + Arrays.toString(values) + "";
                 }
                 where = where + " and n." + obj.get("name") + condition;
             }else {
@@ -299,11 +319,85 @@ public class UtilsTools {
         return where;
 
     }
+    //组装查询条件
+    public static String GetqueryString(List<Map<String,Object>> maplists, CP_Class cp_class){
+        String where="";
+        for (int i = 0; i < maplists.size(); i++) {
+            Map<String,Object> obj = maplists.get(i);
+            JSONObject attrs=new JSONObject(cp_class.getAtrrs());
+            JSONObject allattrs=  attrs.getJSONObject(obj.get("name").toString());
+            if (obj.get("operator")!=null){
+                String op=obj.get("operator").toString();
+                String condition = " ";//1是=，2是>，3是<，4是!=，5是模糊查询,6是in，7是not in
+                if ("5".equals(allattrs.get("type"))&&"1".equals(op)) {
+                    condition = "=" + " " + obj.get("value") + " ";
+                }else if(!"5".equals(allattrs.get("type"))&&"1".equals(op)){
+                    condition = "=" + "'" + obj.get("value") + "' ";
+                } else if ("2".equals(op)) {
+                    condition = ">" + "" + obj.get("value") + " ";
+                } else if ("3".equals(op)) {
+                    condition = "<" + "" + obj.get("value") + " ";
+                } else if ("4".equals(op)) {
+                    condition = "<>" + "'" + obj.get("value") + "' ";
+                } else if ("5".equals(op)) {
+                    condition = " =~ '.*" + obj.get("value") + ".*' ";
+                }else if ("6".equals(op)) {
+                    //in查询
+                    String[] values;
+                    if( obj.get("value").toString().indexOf("\\|")!=-1){
+                        values= obj.get("value").toString().split("\\|");
+                    }else {
+                        values=obj.get("value").toString().split(",");
+                    }
+                    condition = " in " + Arrays.toString(values) + "";
+                }
+                else if ("7".equals(op)) {
+                    //not in查询
+                    String[] values;
+                    if( obj.get("value").toString().indexOf("\\|")!=-1){
+                        values= obj.get("value").toString().split("\\|");
+                    }else {
+                        values=obj.get("value").toString().split(",");
+                    }
+                    condition = " not in " + Arrays.toString(values) + "";
+                }
+                where = where + " and n." + obj.get("name") + condition;
+            }else {
+                if("5".equals(allattrs.get("type"))){
+                    where = where + " and n." + obj.get("name") + " = " + obj.get("value") + " ";
+                }else {
+                    where = where + " and n." + obj.get("name") + " =~ '.*" + obj.get("value") + ".*'";
+                }
+            }
+        }
+
+        return where;
+
+    }
+
+    //获取排序的条件
+    public static String GetOrderbyCandition(List<Map<String,Object>> sorts){
+        StringBuilder sb=new StringBuilder();
+        if(sorts.size()>0){
+            sb.append(" ORDER BY ");
+            ListIterator<Map<String, Object>> mapListIterator = sorts.listIterator();
+            while (mapListIterator.hasNext()){
+                Map<String,Object> map=mapListIterator.next();
+                if(map.get("value")!=null&&(new Integer(map.get("value").toString()))>0){
+                    sb.append(" n."+map.get("name").toString()+" ASC ,");
+                }else if(map.get("value")!=null&&(new Integer(map.get("value").toString()))<0){
+                    sb.append(" n."+map.get("name").toString()+" DESC ,");
+                }
+            }
+
+        }
+        return sb.toString().substring(0,sb.toString().length()-1);
+    }
 
     /**
      * 功能描述:neo4j里面查询出来的数组处理
      *
-     * @param null 1
+     * @param
      * @return :
      */
     public static void Neo4jArrayDown(List<Map<String, Object>> listmap){
@@ -338,6 +432,25 @@ public class UtilsTools {
         }
 
         return where;
+    }
+
+    //file文件转换成Byte数组
+    public static byte[] fileToArrayByte(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] b = new byte[1024];
+        int len = -1;
+        while ((len = inputStream.read(b)) != -1) {
+            bos.write(b, 0, len);
+        }
+        if (inputStream!=null){
+
+            inputStream.close();
+        }
+        if(bos!=null){
+            bos.close();
+        }
+        byte[] data = bos.toByteArray();
+        return data;
     }
 
 

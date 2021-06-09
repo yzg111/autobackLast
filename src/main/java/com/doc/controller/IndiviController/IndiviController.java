@@ -106,6 +106,11 @@ public class IndiviController {
     @ApiOperation(value = "删除定制项目数据的接口！", notes = "删除定制项目数据的接口！")
     public Back deleindiviinfo(@RequestParam String id) {
         IndiviEntity listcpdatas = indiviRepository.findById(id);
+        String filepath=globalValue.getFilepath()+listcpdatas.getFilepath();
+        File file=new File(filepath);
+        if (file.exists()){
+            file.delete();
+        }
         indiviRepository.delete(listcpdatas);
 
         Back<Integer> back=new Back<>();

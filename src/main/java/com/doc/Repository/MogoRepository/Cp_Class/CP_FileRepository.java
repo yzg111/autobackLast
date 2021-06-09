@@ -21,4 +21,6 @@ public interface CP_FileRepository  extends MongoRepository<CP_File,ObjectId>  {
     public Page<CP_File> findByDataid(String dataid, Pageable pageable);
     //根据数据的id查询出附件信息
     public List<CP_File> findByDataid(String dataid);
+
+    public List<CP_File> findByFileaddressNotIn(List<String> fileaddress);
 }

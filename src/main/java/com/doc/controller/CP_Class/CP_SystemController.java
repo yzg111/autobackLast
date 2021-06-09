@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -104,6 +106,7 @@ public class CP_SystemController {
     @RequestMapping(value = "/deletesystem",method = RequestMethod.GET)
     @EventLog(desc = "删除子系统信息数据！")
     @ApiOperation(value = "删除子系统信息数据！", notes = "删除子系统信息数据！")
+    @Transactional(propagation = Propagation.NEVER)//开启事务
     public Back DeleteUserRole(@RequestParam String id)
     {
         System.out.println(id);

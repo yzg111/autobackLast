@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,6 +65,7 @@ public class LoginInfoController {
         }
 
         Back<MogoUser> backuser = new Back<>();
+
         if(user!=null){
             backuser.setData(user);
             backuser.setCmd("用户登录信息");
@@ -71,8 +75,8 @@ public class LoginInfoController {
             backuser.setCmd("获取用户登录信息失败");
             backuser.setState(2001);
         }
-
         return backuser;
+
     }
 
 }

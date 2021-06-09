@@ -44,9 +44,12 @@ public class SyncMoudel implements ComService {
         for (CP_Class_Data data:datas){
             String cpid=data.getCpid();
             CP_Class cp_class=cpClassRepository.findById(cpid);
-            CpClass cpClass=new CpClass(cp_class.getCpname(),data.getId(),data.getDatamap(),cpid);
-            cps.add(cpClass);
-            //在这里将数据全部同步进spark的临时表里面
+            if (cp_class!=null){
+                CpClass cpClass=new CpClass(cp_class.getCpname(),data.getId(),data.getDatamap(),cpid);
+                cps.add(cpClass);
+                //在这里将数据全部同步进spark的临时表里面
+            }
+
 
         }
         syncneo4jdata.saveOrUpdateCps(cps);

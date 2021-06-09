@@ -1,13 +1,10 @@
 package com.doc.Entity.MogoEntity.QuartzAllEntities;
 
 import com.doc.Entity.MogoEntity.ComEntity.ComEnt;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.validation.groups.Default;
 import java.io.Serializable;
 
 /**

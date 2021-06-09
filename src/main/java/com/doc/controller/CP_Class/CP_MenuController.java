@@ -421,6 +421,23 @@ public class CP_MenuController {
         return back;
     }
 
+    //删除父类的表单配件数据的接口
+    @RequestMapping(value = "/delmenu", method = RequestMethod.GET)
+    @ResponseBody
+    @EventLog(desc = "删除菜单数据的接口！")
+    @ApiOperation(value = "删除菜单数据的接口！", notes = "删除菜单数据的接口！")
+    public Back delmenu(@RequestParam String id) {
+        CP_Menu listcpdatas = cp_menuRepository.findById(id);
+        cp_menuRepository.delete(listcpdatas);
+
+        Back<Integer> back=new Back<>();
+        back.setData(1);
+        back.setCmd("删除菜单数据的接口！");
+        back.setState(1);
+
+        return back;
+    }
+
 }
 
 class roleandsysmenuids {

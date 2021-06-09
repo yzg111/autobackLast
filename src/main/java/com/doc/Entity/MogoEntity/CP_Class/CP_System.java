@@ -19,6 +19,7 @@ public class CP_System implements Serializable {
     private String sysname;//系统名称
     private List<String> menuids;//菜单的ids
     private String imagebase64;//图片以base64的形式存在数据库里面
+    private String sysurl;//子系统url，如果url存在则是新开页面跳转
 
     public String getId() {
         return id;
@@ -51,4 +52,11 @@ public class CP_System implements Serializable {
         this.imagebase64 = imagebase64;
     }
 
+    public String getSysurl() {
+        return sysurl;
+    }
+
+    public void setSysurl(String sysurl) {
+        this.sysurl = sysurl;
+    }
 }

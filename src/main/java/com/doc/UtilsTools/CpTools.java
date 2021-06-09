@@ -5,6 +5,7 @@ import com.doc.Entity.MogoEntity.CP_Class.CP_Class;
 import com.doc.Entity.MogoEntity.CP_Class.CP_Class_Data;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_ClassRepository;
 import com.doc.Repository.MogoRepository.Cp_Class.Cp_Class_DataRepository;
+import com.doc.UtilsTools.Service.CpToolsSerivce;
 import com.doc.WebSocket.WebSocketController;
 import com.doc.neo4j.mode.CpClass;
 import com.doc.neo4j.syncdata.Syncneo4jdata;
@@ -32,7 +33,7 @@ import java.util.*;
  */
 //脚本操作Cp类数据的脚本
 @Component("CpTools")
-public class CpTools {
+public class CpTools extends CpToolsSerivce<CP_Class_Data>{
 
     private Syncneo4jdata syncneo4jdata;
     private Cp_ClassRepository cpClassRepository;
