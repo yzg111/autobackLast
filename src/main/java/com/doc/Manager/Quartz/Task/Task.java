@@ -14,7 +14,7 @@ public class Task {
     //开始执行脚本
     public void StartTask(){
         //获取脚本信息并开始执行脚本
-//        logger.info("测试执行");
+        logger.info("测试执行");
 
     }
 }
